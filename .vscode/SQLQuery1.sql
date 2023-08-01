@@ -182,7 +182,24 @@ managerId int foreign key references employe(id)
 
 select * from employe
 
-select e.name employe,m.name manager
+select e.name employe, m.name manager
+from employe e
+left join employe m
+on e.managerId=m.id
+
+--different ways of substituting null value with more expressive  terms
+select e.name employe,ISNULL( m.name,'no manager') manager
+from employe e
+left join employe m
+on e.managerId=m.id
+
+select e.name employe,COALESCE( m.name,'no manager') manager
+from employe e
+left join employe m
+on e.managerId=m.id
+
+select e.name employe,
+case when m.name is null then 'no manager' else m.name end manager
 from employe e
 left join employe m
 on e.managerId=m.id
