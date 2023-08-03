@@ -458,14 +458,15 @@ Select * from fn_MSTVF_GetTblperson()
 	--GetDate() and CURRENT_TIMESTAMP
 
 	
---Temporary tables
+-- local Temporary tables
+-- accessed for one users,single session, ended when the user connection is ended
 Create Table #PersonDetails(Id int, Name nvarchar(20))
 
 Select name from tempdb..sysobjects 
 where name like '#PersonDetails%'
 
 drop table #PersonDetails
---creating temporary tables in side stored procedure
+--creating local temporary tables in side stored procedure
 
 Create Procedure spCreateLocalTempTabl
 as
@@ -479,4 +480,12 @@ End
 
 
 exec spCreateLocalTempTable
-Select * from #PersonDetails --reurns error after execution of sp temp table is drop immediately
+Select * from #PersonDetails --reurns error after execution of sp temp table b/c it is drop immediately
+
+-- global Temporary tables
+-- accessed for all users,sessions, ended when the last connection is ended
+Create Table ##PersonDetails(Id int, Name nvarchar(20))
+
+-- global Temporary tables
+-- accessed for all users,sessions, ended when the last connection is ended
+Create Table ##PersonDetails(Id int, Name nvarchar(20))
