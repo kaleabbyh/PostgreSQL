@@ -355,40 +355,6 @@ END
 
 SELECT  DATEADD(YEAR, 1, '2022-01-30 19:45:31.793');
 
---functions
-CREATE FUNCTION fnComputeAge(@DOB DATETIME)
-RETURNS NVARCHAR(50)
-AS
-BEGIN
-
-DECLARE @tempdate DATETIME, @years INT, @months INT, @days INT
-SELECT @tempdate = @DOB
-
-SELECT @years = DATEDIFF(YEAR, @tempdate, GETDATE()) - 
-CASE 
-WHEN
-(MONTH(@DOB) > MONTH(GETDATE()))
-OR
-(MONTH(@DOB) = MONTH(GETDATE()) AND DAY(@DOB) > DAY(GETDATE())) 
-THEN 1 ELSE 0 
-END
-
-SELECT @tempdate = DATEADD(YEAR, @years, @tempdate)
-
-SELECT @months = DATEDIFF(MONTH, @tempdate, GETDATE()) - CASE WHEN DAY(@DOB) > DAY(GETDATE()) THEN 1 ELSE 0 END
-SELECT @tempdate = DATEADD(MONTH, @months, @tempdate)
-
-SELECT @days = DATEDIFF(DAY, @tempdate, GETDATE())
-
-DECLARE @Age NVARCHAR(50)
-SET @Age = Cast(@years AS  NVARCHAR(4)) + ' Years ' + Cast(@months AS  NVARCHAR(2))+ ' Months ' + 
-Cast(@days AS  NVARCHAR(2))+ ' Days Old'
-RETURN @Age
-
-End
-
-select id,name, email, DOB,dbo.fnComputeAge(DOB) calculatedDOB from tblperson
-
 
 
 --casting and converting 
@@ -419,4 +385,81 @@ End
 
 Select ROUND(850.556, 1, 1) -- Returns 850.500
 Select ROUND(850.556, 1, 1) -- Returns 850.500
-Select ROUND(850.556, -2) -- 900.000
+Select ROUND(850.556,   -2) -- Returns 900.000
+
+--scalar functions
+CREATE FUNCTION fnComputeAge(@DOB DATETIME)
+RETURNS NVARCHAR(50)
+AS
+BEGIN
+DECLARE @tempdate DATETIME, @years INT, @months INT, @days INT
+SELECT @tempdate = @DOB
+
+SELECT @years = DATEDIFF(YEAR, @tempdate, GETDATE()) - 
+CASE 
+WHEN
+(MONTH(@DOB) > MONTH(GETDATE()))
+OR
+(MONTH(@DOB) = MONTH(GETDATE()) AND DAY(@DOB) > DAY(GETDATE())) 
+THEN 1 ELSE 0 
+END
+
+SELECT @tempdate = DATEADD(YEAR, @years, @tempdate)
+
+SELECT @months = DATEDIFF(MONTH, @tempdate, GETDATE()) - CASE WHEN DAY(@DOB) > DAY(GETDATE()) THEN 1 ELSE 0 END
+SELECT @tempdate = DATEADD(MONTH, @months, @tempdate)
+
+SELECT @days = DATEDIFF(DAY, @tempdate, GETDATE())
+
+DECLARE @Age NVARCHAR(50)
+SET @Age = Cast(@years AS  NVARCHAR(4)) + ' Years ' + Cast(@months AS  NVARCHAR(2))+ ' Months ' + Cast(@days AS  NVARCHAR(2))+ ' Days Old'
+RETURN @Age
+End
+
+select id,name, email, DOB,dbo.fnComputeAge(DOB) calculatedDOB from tblperson
+select dbo.fnComputeAge( '2022-01-30 19:45:31.793')
+
+
+--inline functions or table valued functions
+
+select * from tblperson 
+
+CREATE FUNCTION fn_EmployeesByAge(@Age int)
+RETURNS TABLE
+AS
+RETURN (Select Id, Name,email,  age,DOB
+      from tblperson
+      where age = @age)
+
+
+--calling inline function 
+select * from fn_EmployeesByAge(20)
+select * from fn_EmployeesByAge(20) where email='a@a.com'
+
+--Multi-statement Table Valued function(MSTVF):
+Create Function fn_MSTVF_GetTblperson()
+Returns @Table Table (Id int, Name nvarchar(20), DOB Date)
+as
+Begin
+ Insert into @Table
+ Select Id, Name,DOB from tblperson
+ Return
+End
+
+
+--Calling the Multi-statement Table Valued Function:
+Select * from fn_MSTVF_GetTblperson()
+
+
+--Deterministic and Nondeterministic Functions
+--Deterministic 
+	--Sum(), AVG(), Square(), Power() and Count() almost all aggregate functions
+--Nondeterministic 
+	--GetDate() and CURRENT_TIMESTAMP
+
+	
+--Temporary tables
+Create Table #PersonDetails(Id int, Name nvarchar(20))
+
+Select name from tempdb..sysobjects 
+where name like '#PersonDetails%'
