@@ -486,6 +486,3 @@ Select * from #PersonDetails --reurns error after execution of sp temp table b/c
 -- accessed for all users,sessions, ended when the last connection is ended
 Create Table ##PersonDetails(Id int, Name nvarchar(20))
 
--- global Temporary tables
--- accessed for all users,sessions, ended when the last connection is ended
-Create Table ##PersonDetails(Id int, Name nvarchar(20))
