@@ -1,0 +1,2661 @@
+SQL Queries: AdventureWorks Part-II [100 exercises with solution]
+[An editor is available at the bottom of the page to write and execute the scripts. Go to the editor]
+
+101. From the following table write a query in SQL to calculate the salary percentile for each employee within a given department. Return department, last name, rate, cumulative distribution and percent rank of rate. Order the result set by ascending on department and descending on rate.
+
+Sample table: HumanResources.EmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+department          |lastname     |rate   |cumedist|pctrank           |
+--------------------+-------------+-------+--------+------------------+
+Document Control    |Arifin       |17.7885|     1.0|               1.0|
+Document Control    |Kharatishvili|16.8269|     0.8|               0.5|
+Document Control    |Norred       |16.8269|     0.8|               0.5|
+Document Control    |Chai         |  10.25|     0.4|               0.0|
+Document Control    |Berge        |  10.25|     0.4|               0.0|
+Information Services|Trenary      |50.4808|     1.0|               1.0|
+Information Services|Conroy       |39.6635|     0.9|0.8888888888888888|
+Information Services|Ajenstat     |38.4615|     0.8|0.6666666666666666|
+Information Services|Wilson       |38.4615|     0.8|0.6666666666666666|
+Information Services|Sharma       |32.4519|     0.6|0.4444444444444444|
+Information Services|Connelly     |32.4519|     0.6|0.4444444444444444|
+Information Services|Bueno        |27.4038|     0.4|               0.0|
+Information Services|Meyyappan    |27.4038|     0.4|               0.0|
+Information Services|Bacon        |27.4038|     0.4|               0.0|
+Information Services|Berg         |27.4038|     0.4|               0.0|
+Click me to see the solution
+
+102. From the following table write a query in SQL to return the name of the product that is the least expensive in a given product category. Return name, list price and the first value i.e. LeastExpensive of the product.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name               |listprice|leastexpensive     |
+-------------------+---------+-------------------+
+Patch Kit/8 Patches|     2.29|Patch Kit/8 Patches|
+Road Tire Tube     |     3.99|Patch Kit/8 Patches|
+Touring Tire Tube  |     4.99|Patch Kit/8 Patches|
+Mountain Tire Tube |     4.99|Patch Kit/8 Patches|
+LL Road Tire       |    21.49|Patch Kit/8 Patches|
+LL Mountain Tire   |    24.99|Patch Kit/8 Patches|
+ML Road Tire       |    24.99|Patch Kit/8 Patches|
+Touring Tire       |    28.99|Patch Kit/8 Patches|
+ML Mountain Tire   |    29.99|Patch Kit/8 Patches|
+HL Road Tire       |     32.6|Patch Kit/8 Patches|
+HL Mountain Tire   |       35|Patch Kit/8 Patches|
+Click me to see the solution
+
+103. From the following table write a query in SQL to return the employee with the fewest number of vacation hours compared to other employees with the same job title. Partitions the employees by job title and apply the first value to each partition independently.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+jobtitle                                |lastname         |vacationhours|fewestvacationhours|
+----------------------------------------+-----------------+-------------+-------------------+
+Accountant                              |Moreland         |           58|Moreland           |
+Accountant                              |Seamans          |           59|Moreland           |
+Accounts Manager                        |Liu              |           57|Liu                |
+Accounts Payable Specialist             |Tomic            |           63|Tomic              |
+Accounts Payable Specialist             |Sheperdigian     |           64|Tomic              |
+Accounts Receivable Specialist          |Poe              |           60|Poe                |
+Accounts Receivable Specialist          |Spoon            |           61|Poe                |
+Accounts Receivable Specialist          |Walton           |           62|Poe                |
+Application Specialist                  |Bueno            |           71|Bueno              |
+Application Specialist                  |Bacon            |           72|Bueno              |
+Application Specialist                  |Meyyappan        |           73|Bueno              |
+Application Specialist                  |Berg             |           74|Bueno              |
+...
+Click me to see the solution
+
+104. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over previous years. Returun BusinessEntityID, sales year, current quota, and previous quota.
+
+Sample table: Sales.SalesPersonQuotaHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|salesyear|currentquota|previousquota|
+----------------+---------+------------+-------------+
+             275|   2012.0|      550000|            0|
+             275|   2012.0|     1429000|       550000|
+             275|   2012.0|     1324000|      1429000|
+             275|   2012.0|      729000|      1324000|
+             275|   2013.0|     1194000|       729000|
+             275|   2013.0|     1575000|      1194000|
+             275|   2013.0|     1218000|      1575000|
+             275|   2013.0|      849000|      1218000|
+Click me to see the solution
+
+105. From the following table write a query in SQL to compare year-to-date sales between employees. Return TerritoryName, BusinessEntityID, SalesYTD, and sales of previous year i.e.PrevRepSales. Sort the result set in ascending order on territory name.
+
+Sample table: Sales.vSalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+territoryname|businessentityid|salesytd    |prevrepsales|
+-------------+----------------+------------+------------+
+Canada       |             282|2604540.7172|           0|
+Canada       |             278|1453719.4653|2604540.7172|
+Northwest    |             284|1576562.1966|           0|
+Northwest    |             283|1573012.9383|1576562.1966|
+Northwest    |             280|1352577.1325|1573012.9383|
+Click me to see the solution
+
+106. From the following tables write a query in SQL to return the hire date of the last employee in each department for the given salary (Rate). Return department, lastname, rate, hiredate, and the last value of hiredate.
+
+Sample table: HumanResources.vEmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+department          |lastname     |rate   |hiredate  |lastvalue |
+--------------------+-------------+-------+----------+----------+
+Document Control    |Chai         |  10.25|2009-01-22|2009-02-09|
+Document Control    |Berge        |  10.25|2009-02-09|2009-02-09|
+Document Control    |Kharatishvili|16.8269|2008-12-16|2009-03-06|
+Document Control    |Norred       |16.8269|2009-03-06|2009-03-06|
+Document Control    |Arifin       |17.7885|2009-01-04|2009-01-04|
+Information Services|Bueno        |27.4038|2008-12-23|2009-01-11|
+Information Services|Berg         |27.4038|2009-02-16|2009-01-11|
+Information Services|Meyyappan    |27.4038|2009-02-03|2009-01-11|
+Information Services|Bacon        |27.4038|2009-01-11|2009-01-11|
+Information Services|Sharma       |32.4519|2008-12-04|2009-02-23|
+...
+Click me to see the solution
+
+107. From the following table write a query in SQL to compute the difference between the sales quota value for the current quarter and the first and last quarter of the year respectively for a given number of employees. Return BusinessEntityID, quarter, year, differences between current quarter and first and last quarter. Sort the result set on BusinessEntityID, SalesYear, and Quarter in ascending order.
+
+Sample table: Sales.SalesPersonQuotaHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|quarter|salesyear|quotathisquarter|differencefromfirstquarter|differencefromlastquarter|
+----------------+-------+---------+----------------+--------------------------+-------------------------+
+             274|    2.0|   2011.0|           28000|                         0|                   -63000|
+             274|    3.0|   2011.0|            7000|                    -21000|                   -84000|
+             274|    4.0|   2011.0|           91000|                     63000|                        0|
+             274|    1.0|   2012.0|          140000|                         0|                    33000|
+             274|    2.0|   2012.0|           70000|                    -70000|                   -37000|
+             274|    3.0|   2012.0|          154000|                     14000|                    47000|
+             274|    4.0|   2012.0|          107000|                    -33000|                        0|
+             274|    1.0|   2013.0|           58000|                         0|                   -26000|
+             274|    2.0|   2013.0|          263000|                    205000|                   179000|
+             274|    3.0|   2013.0|          116000|                     58000|                    32000|
+             274|    4.0|   2013.0|           84000|                     26000|                        0|
+             274|    1.0|   2014.0|          187000|                         0|                        0|
+             275|    2.0|   2011.0|          367000|                         0|                  -135000|
+			 
+...
+Click me to see the solution
+
+108. From the following table write a query in SQL to return the statistical variance of the sales quota values for a salesperson for each quarter in a calendar year. Return quotadate, quarter, SalesQuota, and statistical variance. Order the result set in ascending order on quarter.
+
+Sample table: Sales.SalesPersonQuotaHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+year                   |quarter|salesquota|variance             |
+-----------------------+-------+----------+---------------------+
+2012-02-29 00:00:00.000|    1.0|    952000|                    0|
+2012-05-30 00:00:00.000|    2.0|   1600000|104976000000.00000000|
+2012-08-30 00:00:00.000|    3.0|   1352000| 71267555555.55555556|
+2012-11-30 00:00:00.000|    4.0|    839000| 93529187500.00000000|
+
+...
+Click me to see the solution
+
+109. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over subsequent years. Return BusinessEntityID, year, SalesQuota, and the salesquota coming in next row.
+
+Sample table: Sales.SalesPersonQuotaHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|salesyear|currentquota|nextquota|
+----------------+---------+------------+---------+
+             277|   2011.0|      565000|   872000|
+             277|   2011.0|      872000|   846000|
+             277|   2011.0|      846000|   952000|
+             277|   2012.0|      952000|  1600000|
+             277|   2012.0|     1600000|  1352000|
+             277|   2012.0|     1352000|   839000|
+             277|   2012.0|      839000|        0|
+Click me to see the solution
+
+110. From the following query write a query in SQL to compare year-to-date sales between employees for specific terrotery. Return TerritoryName, BusinessEntityID, SalesYTD, and the salesquota coming in next row.
+
+Sample table: Sales.vSalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+territoryname|businessentityid|salesytd    |nextrepsales|
+-------------+----------------+------------+------------+
+Canada       |             282|2604540.7172|1453719.4653|
+Canada       |             278|1453719.4653|           0|
+Northwest    |             284|1576562.1966|1573012.9383|
+Northwest    |             283|1573012.9383|1352577.1325|
+Northwest    |             280|1352577.1325|           0|
+Click me to see the solution
+
+111. From the following table write a query in SQL to obtain the difference in sales quota values for a specified employee over subsequent calendar quarters. Return year, quarter, sales quota, next sales quota, and the difference in sales quota. Sort the result set on year and then by quarter, both in ascending order.
+
+Sample table: Sales.SalesPersonQuotaHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+year  |quarter|salesquota|nextquota|diff   |
+------+-------+----------+---------+-------+
+2012.0|    1.0|    952000|  1600000|-648000|
+2012.0|    2.0|   1600000|  1352000| 248000|
+2012.0|    3.0|   1352000|   839000| 513000|
+2012.0|    4.0|    839000|  1369000|-530000|
+2013.0|    1.0|   1369000|  1171000| 198000|
+2013.0|    2.0|   1171000|   971000| 200000|
+2013.0|    3.0|    971000|   714000| 257000|
+Click me to see the solution
+
+112. From the following table write a query in SQL to compute the salary percentile for each employee within a given department. Return Department, LastName, Rate, CumeDist, and percentile rank. Sort the result set in ascending order on department and descending order on rate.
+
+N.B.: The cumulative distribution calculates the relative position of a specified value in a group of values.
+
+Sample table: HumanResources.vEmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+department          |lastname     |rate   |cumedist|pctrank           |
+--------------------+-------------+-------+--------+------------------+
+Document Control    |Arifin       |17.7885|     1.0|               1.0|
+Document Control    |Kharatishvili|16.8269|     0.8|               0.5|
+Document Control    |Norred       |16.8269|     0.8|               0.5|
+Document Control    |Chai         |  10.25|     0.4|               0.0|
+Document Control    |Berge        |  10.25|     0.4|               0.0|
+Information Services|Trenary      |50.4808|     1.0|               1.0|
+Information Services|Conroy       |39.6635|     0.9|0.8888888888888888|
+Information Services|Ajenstat     |38.4615|     0.8|0.6666666666666666|
+Information Services|Wilson       |38.4615|     0.8|0.6666666666666666|
+Information Services|Sharma       |32.4519|     0.6|0.4444444444444444|
+Information Services|Connelly     |32.4519|     0.6|0.4444444444444444|
+Information Services|Bueno        |27.4038|     0.4|               0.0|
+Information Services|Meyyappan    |27.4038|     0.4|               0.0|
+Information Services|Bacon        |27.4038|     0.4|               0.0|
+Information Services|Berg         |27.4038|     0.4|               0.0|
+Click me to see the solution
+
+113. From the following table write a query in SQL to add two days to each value in the OrderDate column, to derive a new column named PromisedShipDate. Return salesorderid, orderdate, and promisedshipdate column.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|orderdate              |promisedshipdate       |
+------------+-----------------------+-----------------------+
+       43659|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43660|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43661|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43662|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43663|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43664|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43665|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43666|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43667|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43668|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+       43669|2011-05-31 00:00:00.000|2011-06-02 00:00:00.000|
+...	
+Click me to see the solution
+
+114. From the following table write a query in SQL to obtain a newdate by adding two days with current date for each salespersons. Filter the result set for those salespersons whose sales value is more than zero.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname         |New Date                     |
+---------+-----------------+-----------------------------+
+Michael  |Blythe           |2022-11-02 14:28:09.304 +0530|
+Linda    |Mitchell         |2022-11-02 14:28:09.304 +0530|
+Jillian  |Carson           |2022-11-02 14:28:09.304 +0530|
+Garrett  |Vargas           |2022-11-02 14:28:09.304 +0530|
+Tsvi     |Reiter           |2022-11-02 14:28:09.304 +0530|
+Pamela   |Ansman-Wolfe     |2022-11-02 14:28:09.304 +0530|
+Shu      |Ito              |2022-11-02 14:28:09.304 +0530|
+José     |Saraiva          |2022-11-02 14:28:09.304 +0530|
+David    |Campbell         |2022-11-02 14:28:09.304 +0530|
+Tete     |Mensa-Annan      |2022-11-02 14:28:09.304 +0530|
+Lynn     |Tsoflias         |2022-11-02 14:28:09.304 +0530|
+Rachel   |Valdez           |2022-11-02 14:28:09.304 +0530|
+Jae      |Pak              |2022-11-02 14:28:09.304 +0530|
+Ranjit   |Varkey Chudukatil|2022-11-02 14:28:09.304 +0530|
+Click me to see the solution
+
+115. From the following table write a query in SQL to find the differences between the maximum and minimum orderdate.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+?column? |
+---------+
+1126 days|
+Click me to see the solution
+
+116. From the following table write a query in SQL to rank the products in inventory, by the specified inventory locations, according to their quantities. Divide the result set by LocationID and sort the result set on Quantity in descending order.
+
+Sample table: Production.ProductInventory
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name          |locationid|quantity|rank|
+---------+--------------+----------+--------+----+
+      495|Paint - Blue  |         3|      49|   1|
+      494|Paint - Silver|         3|      49|   1|
+      493|Paint - Red   |         3|      41|   2|
+      496|Paint - Yellow|         3|      30|   3|
+      492|Paint - Black |         3|      17|   4|
+      495|Paint - Blue  |         4|      35|   1|
+      496|Paint - Yellow|         4|      25|   2|
+      493|Paint - Red   |         4|      24|   3|
+      492|Paint - Black |         4|      14|   4|
+      494|Paint - Silver|         4|      12|   5| 
+Click me to see the solution
+
+117. From the following table write a query in SQL to return the top ten employees ranked by their salary.
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|rate   |rankbysalary|
+----------------+-------+------------+
+               1|  125.5|           1|
+              25|84.1346|           2|
+             273|72.1154|           3|
+               2|63.4615|           4|
+             234|60.0962|           5|
+             263|50.4808|           6|
+               7|50.4808|           6|
+             234|48.5577|           7|
+             287| 48.101|           8|
+             274| 48.101|           8|
+Click me to see the solution
+
+118. From the following table write a query in SQL to divide rows into four groups of employees based on their year-to-date sales. Return first name, last name, group as quartile, year-to-date sales, and postal code.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname         |quartile|salesytd    |postalcode|
+---------+-----------------+--------+------------+----------+
+Linda    |Mitchell         |       1|4251368.5497|98027     |
+Jae      |Pak              |       1|4116871.2277|98055     |
+Michael  |Blythe           |       1|3763178.1787|98027     |
+Jillian  |Carson           |       1|3189418.3662|98027     |
+Ranjit   |Varkey Chudukatil|       2|3121616.3202|98055     |
+José     |Saraiva          |       2|2604540.7172|98055     |
+Shu      |Ito              |       2|2458535.6169|98055     |
+Tsvi     |Reiter           |       2|2315185.611 |98027     |
+Rachel   |Valdez           |       3|1827066.7118|98055     |
+Tete     |Mensa-Annan      |       3|1576562.1966|98055     |
+David    |Campbell         |       3|1573012.9383|98055     |
+Garrett  |Vargas           |       4|1453719.4653|98027     |
+Lynn     |Tsoflias         |       4|1421810.9242|98055     |
+Pamela   |Ansman-Wolfe     |       4|1352577.1325|98027     |
+Click me to see the solution
+
+119. From the following tables write a query in SQL to rank the products in inventory the specified inventory locations according to their quantities. The result set is partitioned by LocationID and logically ordered by Quantity. Return productid, name, locationid, quantity, and rank.
+
+Sample table: production.productinventory
+
+
+Click to view Full table
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name          |locationid|quantity|rank|
+---------+--------------+----------+--------+----+
+      495|Paint - Blue  |         3|      49|   1|
+      494|Paint - Silver|         3|      49|   1|
+      493|Paint - Red   |         3|      41|   3|
+      496|Paint - Yellow|         3|      30|   4|
+      492|Paint - Black |         3|      17|   5|
+      495|Paint - Blue  |         4|      35|   1|
+      496|Paint - Yellow|         4|      25|   2|
+      493|Paint - Red   |         4|      24|   3|
+      492|Paint - Black |         4|      14|   4|
+      494|Paint - Silver|         4|      12|   5| 
+Click me to see the solution
+
+120. From the following table write a query in SQL to find the salary of top ten employees. Return BusinessEntityID, Rate, and rank of employees by salary.
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|rate   |rankbysalary|
+----------------+-------+------------+
+               1|  125.5|           1|
+               2|63.4615|           4|
+               3|43.2692|          11|
+               4|29.8462|          28|
+               5|32.6923|          22|
+               6|32.6923|          22|
+               7|50.4808|           6|
+               8|40.8654|          14|
+               9|40.8654|          14|
+              10|42.4808|          13| 
+Click me to see the solution
+
+121. From the following table write a query in SQL to calculate a row number for the salespeople based on their year-to-date sales ranking. Return row number, first name, last name, and year-to-date sales.
+
+Sample table: Sales.vSalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+row|firstname|lastname         |Sales YTD |
+---+---------+-----------------+----------+
+  1|Linda    |Mitchell         |4251368.55|
+  2|Jae      |Pak              |4116871.23|
+  3|Michael  |Blythe           |3763178.18|
+  4|Jillian  |Carson           |3189418.37|
+  5|Ranjit   |Varkey Chudukatil|3121616.32|
+  6|José     |Saraiva          |2604540.72|
+  7|Shu      |Ito              |2458535.62|
+  8|Tsvi     |Reiter           |2315185.61|
+  9|Rachel   |Valdez           |1827066.71|
+ 10|Tete     |Mensa-Annan      |1576562.20|
+ 11|David    |Campbell         |1573012.94|
+ 12|Garrett  |Vargas           |1453719.47|
+ 13|Lynn     |Tsoflias         |1421810.92|
+ 14|Pamela   |Ansman-Wolfe     |1352577.13| 
+Click me to see the solution
+
+122. From the following table write a query in SQL to calculate row numbers for all rows between 50 to 60 inclusive. Sort the result set on orderdate.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|orderdate              |rownumber|
+------------+-----------------------+---------+
+       43708|2011-06-02 00:00:00.000|       50|
+       43709|2011-06-02 00:00:00.000|       51|
+       43710|2011-06-02 00:00:00.000|       52|
+       43711|2011-06-03 00:00:00.000|       53|
+       43712|2011-06-03 00:00:00.000|       54|
+       43713|2011-06-04 00:00:00.000|       55|
+       43714|2011-06-04 00:00:00.000|       56|
+       43715|2011-06-04 00:00:00.000|       57|
+       43716|2011-06-04 00:00:00.000|       58|
+       43717|2011-06-04 00:00:00.000|       59|
+       43718|2011-06-05 00:00:00.000|       60|
+Click me to see the solution
+
+123. From the following table write a query in SQL to return first name, last name, territoryname, salesytd, and row number. Partition the query result set by the TerritoryName. Orders the rows in each partition by SalesYTD. Sort the result set on territoryname in ascending order.
+
+Sample table: Sales.vSalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname         |territoryname |salesytd  |row|
+---------+-----------------+--------------+----------+---+
+Lynn     |Tsoflias         |Australia     |1421810.92|  1|
+José     |Saraiva          |Canada        |2604540.72|  1|
+Garrett  |Vargas           |Canada        |1453719.47|  2|
+Jillian  |Carson           |Central       |3189418.37|  1|
+Ranjit   |Varkey Chudukatil|France        |3121616.32|  1|
+Rachel   |Valdez           |Germany       |1827066.71|  1|
+Michael  |Blythe           |Northeast     |3763178.18|  1|
+Tete     |Mensa-Annan      |Northwest     |1576562.20|  1|
+David    |Campbell         |Northwest     |1573012.94|  2|
+Pamela   |Ansman-Wolfe     |Northwest     |1352577.13|  3|
+Tsvi     |Reiter           |Southeast     |2315185.61|  1|
+Linda    |Mitchell         |Southwest     |4251368.55|  1|
+Shu      |Ito              |Southwest     |2458535.62|  2|
+Jae      |Pak              |United Kingdom|4116871.23|  1|
+Click me to see the solution
+
+124. From the following table write a query in SQL to order the result set by the column TerritoryName when the column CountryRegionName is equal to 'United States' and by CountryRegionName for all other rows. Return BusinessEntityID, LastName, TerritoryName, CountryRegionName.
+
+Sample table: Sales.vSalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|lastname         |territoryname |countryregionname|
+----------------+-----------------+--------------+-----------------+
+             286|Tsoflias         |Australia     |Australia        |
+             282|Saraiva          |Canada        |Canada           |
+             278|Vargas           |Canada        |Canada           |
+             277|Carson           |Central       |United States    |
+             290|Varkey Chudukatil|France        |France           |
+             288|Valdez           |Germany       |Germany          |
+             275|Blythe           |Northeast     |United States    |
+             280|Ansman-Wolfe     |Northwest     |United States    |
+             284|Mensa-Annan      |Northwest     |United States    |
+             283|Campbell         |Northwest     |United States    |
+             279|Reiter           |Southeast     |United States    |
+             276|Mitchell         |Southwest     |United States    |
+             281|Ito              |Southwest     |United States    |
+             289|Pak              |United Kingdom|United Kingdom   |
+Click me to see the solution
+
+125. From the following tables write a query in SQL to return the highest hourly wage for each job title. Restricts the titles to those that are held by men with a maximum pay rate greater than 40 dollars or women with a maximum pay rate greater than 42 dollars.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+jobtitle                        |maximumrate|
+--------------------------------+-----------+
+Chief Executive Officer         |      125.5|
+Vice President of Production    |    84.1346|
+Vice President of Sales         |    72.1154|
+Vice President of Engineering   |    63.4615|
+Chief Financial Officer         |    60.0962|
+Research and Development Manager|    50.4808|
+Information Services Manager    |    50.4808|
+North American Sales Manager    |     48.101|
+Pacific Sales Manager           |     48.101|
+European Sales Manager          |     48.101|
+Engineering Manager             |    43.2692|
+Finance Manager                 |    43.2692|
+Click me to see the solution
+
+126. From the following table write a query in SQL to sort the BusinessEntityID in descending order for those employees that have the SalariedFlag set to 'true' and in ascending order that have the SalariedFlag set to 'false'. Return BusinessEntityID, and SalariedFlag.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|salariedflag|
+----------------+------------+
+               4|false       |
+              11|false       |
+              12|false       |
+              13|false       |
+              17|false       |
+              18|false       |
+              19|false       |
+              20|false       |
+              21|false       |
+              22|false       |
+              23|false       |
+              24|false       |
+...			  
+Click me to see the solution
+
+127. From the following table write a query in SQL to display the list price as a text comment based on the price range for a product. Return ProductNumber, Name, and listprice. Sort the result set on ProductNumber in ascending order.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productnumber|name                            |listprice|Price Range              |
+-------------+--------------------------------+---------+-------------------------+
+AR-5381      |Adjustable Race                 |        0|Mfg item - not for resale|
+BA-8327      |Bearing Ball                    |        0|Mfg item - not for resale|
+BB-7421      |LL Bottom Bracket               |    53.99|Under $250               |
+BB-8107      |ML Bottom Bracket               |   101.24|Under $250               |
+BB-9108      |HL Bottom Bracket               |   121.49|Under $250               |
+BC-M005      |Mountain Bottle Cage            |     9.99|Under $50                |
+BC-R205      |Road Bottle Cage                |     8.99|Under $50                |
+BE-2349      |BB Ball Bearing                 |        0|Mfg item - not for resale|
+BE-2908      |Headset Ball Bearings           |        0|Mfg item - not for resale|
+BK-M18B-40   |Mountain-500 Black, 40          |   539.99|Under $1000              |
+BK-M18B-42   |Mountain-500 Black, 42          |   539.99|Under $1000              |
+BK-M18B-44   |Mountain-500 Black, 44          |   539.99|Under $1000              |
+BK-M18B-48   |Mountain-500 Black, 48          |   539.99|Under $1000              |
+BK-M18B-52   |Mountain-500 Black, 52          |   539.99|Under $1000              |
+...
+Click me to see the solution
+
+128. From the following table write a query in SQL to change the display of product line categories to make them more understandable. Return ProductNumber, category, and name of the product. Sort the result set in ascending order on ProductNumber.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productnumber|Category        |name                            |
+-------------+----------------+--------------------------------+
+AR-5381      |Not for sale    |Adjustable Race                 |
+BA-8327      |Not for sale    |Bearing Ball                    |
+BB-7421      |Not for sale    |LL Bottom Bracket               |
+BB-8107      |Not for sale    |ML Bottom Bracket               |
+BB-9108      |Not for sale    |HL Bottom Bracket               |
+BC-M005      |Mountain        |Mountain Bottle Cage            |
+BC-R205      |Road            |Road Bottle Cage                |
+BE-2349      |Not for sale    |BB Ball Bearing                 |
+BE-2908      |Not for sale    |Headset Ball Bearings           |
+BK-M18B-40   |Mountain        |Mountain-500 Black, 40          |
+BK-M18B-42   |Mountain        |Mountain-500 Black, 42          |
+BK-M18B-44   |Mountain        |Mountain-500 Black, 44          |
+
+...
+Click me to see the solution
+
+129. From the following table write a query in SQL to evaluate whether the values in the MakeFlag and FinishedGoodsFlag columns are the same.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|makeflag|finishedgoodsflag|makeflag|
+---------+--------+-----------------+--------+
+        1|false   |false            |        |
+        2|false   |false            |        |
+        3|true    |false            |true    |
+        4|false   |false            |        |
+Click me to see the solution
+
+130. From the following table write a query in SQL to select the data from the first column that has a nonnull value. Retrun Name, Class, Color, ProductNumber, and FirstNotNull.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |class|color       |productnumber|firstnotnull|
+--------------------------------+-----+------------+-------------+------------+
+Adjustable Race                 |     |            |AR-5381      |AR-5381     |
+Bearing Ball                    |     |            |BA-8327      |BA-8327     |
+BB Ball Bearing                 |     |            |BE-2349      |BE-2349     |
+Headset Ball Bearings           |     |            |BE-2908      |BE-2908     |
+Blade                           |     |            |BL-2036      |BL-2036     |
+LL Crankarm                     |L    |Black       |CA-5965      |L           |
+ML Crankarm                     |M    |Black       |CA-6738      |M           |
+HL Crankarm                     |     |Black       |CA-7457      |Black       |
+Chainring Bolts                 |     |Silver      |CB-2903      |Silver      |
+Chainring Nut                   |     |Silver      |CN-6137      |Silver      |
+Chainring                       |     |Black       |CR-7833      |Black       |
+Crown Race                      |     |            |CR-9981      |CR-9981     |
+Chain Stays                     |     |            |CS-2812      |CS-2812     |
+Decal 1                         |     |            |DC-8732      |DC-8732     |
+...
+Click me to see the solution
+
+131. From the following table write a query in SQL to check the values of MakeFlag and FinishedGoodsFlag columns and return whether they are same or not. Return ProductID, MakeFlag, FinishedGoodsFlag, and the column that are null or not null.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|makeflag|finishedgoodsflag|Null if Equal|
+---------+--------+-----------------+-------------+
+        1|false   |false            |             |
+        2|false   |false            |             |
+        3|true    |false            |true         |
+        4|false   |false            |             |
+Click me to see the solution
+
+132. From the following tables write a query in SQL to return any distinct values that are returned by both the query.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample table: production.WorkOrder
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|
+---------+
+      753|
+      765|
+      970|
+      781|
+      951|
+      839|
+      732|
+      887|
+      350|
+      959|
+      758|
+      819|
+      826|
+	  ...
+Click me to see the solution
+
+133. From the following tables write a query in SQL to return any distinct values from first query that aren't also found on the 2nd query.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample table: production.WorkOrder
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|
+---------+
+      846|
+      938|
+      477|
+      394|
+      867|
+      858|
+      874|
+      424|
+      406|
+      849|
+      509|
+      929|
+      417|
+      932|
+...
+Click me to see the solution
+
+134. From the following tables write a query in SQL to fetch any distinct values from the left query that aren't also present in the query to the right.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample table: production.WorkOrder
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|
+---------+	
+
+N.B. : No result returns here
+Click me to see the solution
+
+135. From the following tables write a query in SQL to fetch distinct businessentityid that are returned by both the specified query. Sort the result set by ascending order on businessentityid.
+
+Sample table: Person.BusinessEntity
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|
+----------------+
+            1699|
+            1700|
+            1701|
+            1702|
+            1703|
+            1704|
+            1705|
+            1706|
+            1707|
+            1708|
+            1709|
+            1710|
+            1711|
+...	
+Click me to see the solution
+
+136. From the following table write a query which is the combination of two queries. Return any distinct businessentityid from the 1st query that aren't also found in the 2nd query. Sort the result set in ascending order on businessentityid.
+
+Sample table: Person.BusinessEntity
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|
+----------------+
+               1|
+               2|
+               3|
+               4|
+               5|
+               6|
+               7|
+               8|
+               9|
+              10|
+              11|
+...			
+Click me to see the solution
+
+137. From the following tables write a query in SQL to combine the ProductModelID and Name columns. A result set includes columns for productid 3 and 4. Sort the results by name ascending.
+
+Sample table: Production.ProductModel
+
+
+Click to view Full table
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name                            |
+---------+--------------------------------+
+        1|Adjustable Race                 |
+      122|All-Purpose Bike Stand          |
+      879|All-Purpose Bike Stand          |
+      712|AWC Logo Cap                    |
+        2|Bearing Ball                    |
+      119|Bike Wash                       |
+      877|Bike Wash - Dissolver           |
+      316|Blade                           |
+      115|Cable Lock                      |
+      843|Cable Lock                      |
+       98|Chain                           |
+      952|Chain                           |
+      324|Chain Stays                     |
+      322|Chainring                       |
+...	
+Click me to see the solution
+
+138. From the following table write a query in SQL to find a total number of hours away from work can be calculated by adding vacation time and sick leave. Sort results ascending by Total Hours Away.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname  |lastname         |vacationhours|sickleavehours|Total Hours Away|
+-----------+-----------------+-------------+--------------+----------------+
+Hung-Fu    |Ting             |            0|            20|              20|
+Mandar     |Samant           |            0|            20|              20|
+Laura      |Norman           |            0|            20|              20|
+Min        |Su               |            1|            20|              21|
+Terri      |Duffy            |            1|            20|              21|
+Jim        |Scardelis        |            1|            20|              21|
+Krishna    |Sunkammurali     |            2|            21|              23|
+Nuan       |Yu               |            2|            21|              23|
+Roberto    |Tamburello       |            2|            21|              23|
+Olinda     |Turner           |            3|            21|              24|
+Houman     |Pournasseh       |            3|            21|              24|
+Michael    |Sullivan         |            3|            21|              24|
+...
+Click me to see the solution
+
+139. From the following table write a query in SQL to calculate the tax difference between the highest and lowest tax-rate state or province.
+
+Sample table: Sales.SalesTaxRate
+
+
+Click to view Full table
+
+Sample Output:
+
+Tax Rate Difference|
+-------------------+
+               14.6|
+Click me to see the solution
+
+140. From the following tables write a query in SQL to calculate sales targets per month for salespeople.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+salespersonid|firstname|lastname         |salesquota|Sales Target Per Month|
+-------------+---------+-----------------+----------+----------------------+
+          274|Stephen  |Jiang            |          |                      |
+          275|Michael  |Blythe           |    300000|    25000.000000000000|
+          276|Linda    |Mitchell         |    250000|    20833.333333333333|
+          277|Jillian  |Carson           |    250000|    20833.333333333333|
+          278|Garrett  |Vargas           |    250000|    20833.333333333333|
+          279|Tsvi     |Reiter           |    300000|    25000.000000000000|
+          280|Pamela   |Ansman-Wolfe     |    250000|    20833.333333333333|
+          281|Shu      |Ito              |    250000|    20833.333333333333|
+          282|José     |Saraiva          |    250000|    20833.333333333333|
+          283|David    |Campbell         |    250000|    20833.333333333333|
+          284|Tete     |Mensa-Annan      |    300000|    25000.000000000000|
+          285|Syed     |Abbas            |          |                      |
+          286|Lynn     |Tsoflias         |    250000|    20833.333333333333|
+          287|Amy      |Alberts          |          |                      |
+          288|Rachel   |Valdez           |    250000|    20833.333333333333|
+          289|Jae      |Pak              |    250000|    20833.333333333333|
+          290|Ranjit   |Varkey Chudukatil|    250000|    20833.333333333333|
+Click me to see the solution
+
+141. From the following table write a query in SQL to return the ID number, unit price, and the modulus (remainder) of dividing product prices. Convert the modulo to an integer value.
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|unitprice|orderqty|modulo|
+---------+---------+--------+------+
+      776| 2024.994|       1|     0|
+      777| 2024.994|       3|     0|
+      778| 2024.994|       1|     0|
+      771| 2039.994|       1|     0|
+      772| 2039.994|       1|     0|
+      773| 2039.994|       2|     0|
+      774| 2039.994|       1|     0|
+      714|  28.8404|       3|     2|
+      716|  28.8404|       1|     0|
+      709|      5.7|       6|     0|
+      712|   5.1865|       2|     1|
+      711|  20.1865|       4|     0|
+      762| 419.4589|       1|     0|
+      758|  874.794|       1|     0|
+      745|   809.76|       1|     0|
+      743| 714.7043|       1|     0|
+      747| 714.7043|       2|     1|
+      712|   5.1865|       4|     1|
+      715|  28.8404|       4|     1|
+...
+Click me to see the solution
+
+142. From the following table write a query in SQL to select employees who have the title of Marketing Assistant and more than 41 vacation hours.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|loginid               |jobtitle           |vacationhours|
+----------------+----------------------+-------------------+-------------+
+              17|adventure-works\kevin0|Marketing Assistant|           42|
+              19|adventure-works\mary2 |Marketing Assistant|           43|
+Click me to see the solution
+
+143. From the following tables write a query in SQL to find all rows outside a specified range of rate between 27 and 30. Sort the result in ascending order on rate.
+
+Sample table: HumanResources.vEmployee
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname  |lastname         |rate   |
+-----------+-----------------+-------+
+Marc       |Ingle            |    6.5|
+George     |Li               |    6.5|
+David      |Johnson          |    6.5|
+John       |Frum             |    6.5|
+Russell    |King             |    6.5|
+David      |Lawrence         |    6.5|
+Reed       |Koch             |    6.5|
+Benjamin   |Martin           |   6.75|
+John       |Frum             |      7|
+George     |Li               |   7.25|
+Marc       |Ingle            |   7.25|
+...
+Click me to see the solution
+
+144. From the follwing table write a query in SQL to retrieve rows whose datetime values are between '20111212' and '20120105'.
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|ratechangedate         |
+----------------+-----------------------+
+               4|2011-12-15 00:00:00.000|
+             224|2012-01-01 00:00:00.000|
+Click me to see the solution
+
+145. From the following table write a query in SQL to return TRUE even if NULL is specified in the subquery. Return DepartmentID, Name and sort the result set in ascending order.
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+departmentid|name                      |
+------------+--------------------------+
+          12|Document Control          |
+           1|Engineering               |
+          16|Executive                 |
+          14|Facilities and Maintenance|
+          10|Finance                   |
+           9|Human Resources           |
+          11|Information Services      |
+           4|Marketing                 |
+           7|Production                |
+           8|Production Control        |
+           5|Purchasing                |
+          13|Quality Assurance         |
+           6|Research and Development  |
+           3|Sales                     |
+          15|Shipping and Receiving    |
+           2|Tool Design               |
+
+Click me to see the solution
+
+146. From the following tables write a query in SQL to get employees with Johnson last names. Return first name and last name.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname|
+---------+--------+
+Barry    |Johnson |
+David    |Johnson |
+Willis   |Johnson |	
+Click me to see the solution
+
+147. From the following tables write a query in SQL to find stores whose name is the same name as a vendor.
+
+Sample table: Sales.Store
+
+
+Click to view Full table
+
+Sample table: Purchasing.Vendor
+
+
+Click to view Full table
+
+Sample Output:
+
+name|
+----+
+Click me to see the solution
+
+148. From the following tables write a query in SQL to find employees of departments that start with P. Return first name, last name, job title.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname  |lastname       |jobtitle                    |
+-----------+---------------+----------------------------+
+David      |Bradley        |Marketing Manager           |
+James      |Hamilton       |Vice President of Production|
+Peter      |Krebs          |Production Control Manager  |
+Jo         |Brown          |Production Supervisor - WC60|
+Guy        |Gilbert        |Production Technician - WC60|
+Mark       |McArthur       |Production Technician - WC60|
+Britta     |Simon          |Production Technician - WC60|
+Margie     |Shoop          |Production Technician - WC60|
+Rebecca    |Laszlo         |Production Technician - WC60|
+Annik      |Stahl          |Production Technician - WC60|
+Suchitra   |Mohan          |Production Technician - WC60|
+Brandon    |Heidepriem     |Production Technician - WC60|
+....
+Click me to see the solution
+
+149. From the following tables write a query in SQL to find all employees that do not belong to departments whose names begin with P.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname         |jobtitle                                |
+---------+-----------------+----------------------------------------+
+Syed     |Abbas            |Pacific Sales Manager                   |
+Hazem    |Abolrous         |Quality Assurance Manager               |
+Pilar    |Ackerman         |Shipping and Receiving Supervisor       |
+François |Ajenstat         |Database Administrator                  |
+Amy      |Alberts          |European Sales Manager                  |
+Sean     |Alexander        |Quality Assurance Technician            |
+Gary     |Altman           |Facilities Manager                      |
+Pamela   |Ansman-Wolfe     |Sales Representative                    |
+Zainal   |Arifin           |Document Control Manager                |
+Dan      |Bacon            |Application Specialist                  |
+David    |Barber           |Assistant to the Chief Financial Officer|
+Paula    |Barreto de Mattos|Human Resources Manager                 |
+...
+Click me to see the solution
+
+150. From the following table write a query in SQL to select employees who work as design engineers, tool designers, or marketing assistants.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname |jobtitle           |
+---------+---------+-------------------+
+Gail     |Erickson |Design Engineer    |
+Jossef   |Goldberg |Design Engineer    |
+Thierry  |D'Hers   |Tool Designer      |
+Janice   |Galvin   |Tool Designer      |
+Sharon   |Salavaria|Design Engineer    |
+Kevin    |Brown    |Marketing Assistant|
+Mary     |Dempsey  |Marketing Assistant|
+Wanida   |Benshoof |Marketing Assistant| 
+Click me to see the solution
+
+151. From the following tables write a query in SQL to identify all SalesPerson IDs for employees with sales quotas over $250,000. Return first name, last name of the sales persons.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname   |
+---------+-----------+
+Michael  |Blythe     |
+Tsvi     |Reiter     |
+Tete     |Mensa-Annan|
+Click me to see the solution
+
+152. From the following tables write a query in SQL to find the salespersons who do not have a quota greater than $250,000. Return first name and last name.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname         |
+---------+-----------------+
+Stephen  |Jiang            |
+Linda    |Mitchell         |
+Jillian  |Carson           |
+Garrett  |Vargas           |
+Pamela   |Ansman-Wolfe     |
+Shu      |Ito              |
+José     |Saraiva          |
+David    |Campbell         |
+Syed     |Abbas            |
+Lynn     |Tsoflias         |
+Amy      |Alberts          |
+Rachel   |Valdez           |
+Jae      |Pak              |
+Ranjit   |Varkey Chudukatil| 
+Click me to see the solution
+
+153. From the following tables write a query in SQL to identify salesorderheadersalesreason and SalesReason tables with the same salesreasonid.
+
+Sample table: Sales.salesorderheadersalesreason
+
+
+Click to view Full table
+
+Sample table: sales.SalesReason
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|salesreasonid|modifieddate           |
+------------+-------------+-----------------------+
+       43697|            5|2011-05-31 00:00:00.000|
+       43697|            9|2011-05-31 00:00:00.000|
+       43702|            5|2011-06-01 00:00:00.000|
+       43702|            9|2011-06-01 00:00:00.000|
+       43703|            5|2011-06-01 00:00:00.000|
+       43703|            9|2011-06-01 00:00:00.000|
+       43706|            5|2011-06-02 00:00:00.000|
+       43706|            9|2011-06-02 00:00:00.000|
+       43707|            5|2011-06-02 00:00:00.000|
+       43707|            9|2011-06-02 00:00:00.000|
+       43709|            5|2011-06-02 00:00:00.000|
+       43709|            9|2011-06-02 00:00:00.000|
+       43710|            5|2011-06-02 00:00:00.000|
+       43710|            9|2011-06-02 00:00:00.000|
+	   
+...	 
+Click me to see the solution
+
+154. From the following table write a query in SQL to find all telephone numbers that have area code 415. Returns the first name, last name, and phonenumber. Sort the result set in ascending order by lastname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Person.PersonPhone
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname |phonenumber |
+---------+---------+------------+
+Ruben    |Alonso   |415-555-0124|
+Shelby   |Cook     |415-555-0121|
+Karen    |Hu       |415-555-0114|
+David    |Long     |415-555-0123|
+John     |Long     |415-555-0147|
+Gilbert  |Ma       |415-555-0138|
+Meredith |Moreno   |415-555-0131|
+Alexandra|Nelson   |415-555-0174|
+Taylor   |Patterson|415-555-0170|
+Gabrielle|Russell  |415-555-0197|
+Dalton   |Simmons  |415-555-0115|
+Click me to see the solution
+
+155. From the following tables write a query in SQL to identify all people with the first name 'Gail' with area codes other than 415. Return first name, last name, telephone number. Sort the result set in ascending order on lastname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Person.PersonPhone
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname |phonenumber        |
+---------+---------+-------------------+
+Gail     |Alexander|1 (11) 500 555-0120|
+Gail     |Butler   |1 (11) 500 555-0191|
+Gail     |Erickson |849-555-0139       |
+Gail     |Erickson |834-555-0132       |
+Gail     |Griffin  |450-555-0171       |
+Gail     |Moore    |155-555-0169       |
+Gail     |Russell  |334-555-0170       |
+Gail     |Westover |305-555-0100       |
+Click me to see the solution
+
+156. From the following tables write a query in SQL to find all Silver colored bicycles with a standard price under $400. Return ProductID, Name, Color, StandardCost.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name                   |color |standardcost|
+---------+-----------------------+------+------------+
+      984|Mountain-500 Silver, 40|Silver|    308.2179|
+      985|Mountain-500 Silver, 42|Silver|    308.2179|
+      986|Mountain-500 Silver, 44|Silver|    308.2179|
+      987|Mountain-500 Silver, 48|Silver|    308.2179|
+      988|Mountain-500 Silver, 52|Silver|    308.2179|
+Click me to see the solution
+
+157. From the following table write a query in SQL to retrieve the names of Quality Assurance personnel working the evening or night shifts. Return first name, last name, shift.
+
+Sample table: HumanResources.EmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname      |shift  |
+---------+--------------+-------+
+Sootha   |Charncherngkha|Night  |
+Andreas  |Berglund      |Evening| 
+Click me to see the solution
+
+158. From the following table write a query in SQL to list all people with three-letter first names ending in 'an'. Sort the result set in ascending order on first name. Return first name and last name.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname  |
+---------+----------+
+Dan      |Bacon     |
+Dan      |Wilson    |
+Dan      |Wilson    |
+Dan      |Bacon     |
+Dan      |Baker     |
+Dan      |Moyer     |
+Dan      |Wilson    |
+Ian      |Stewart   |
+Ian      |Yuhasz    |
+Ian      |Brooks    |
+Ian      |Kelly     |
+...
+Click me to see the solution
+
+159. From the following table write a query in SQL to convert the order date in the 'America/Denver' time zone. Return salesorderid, order date, and orderdate_timezoneade.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|orderdate              |orderdate_timezoneade        |
+------------+-----------------------+-----------------------------+
+       43659|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43660|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43661|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43662|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43663|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43664|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43665|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43666|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43667|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+       43668|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|
+...	   
+Click me to see the solution
+
+160. From the following table write a query in SQL to convert order date in the 'America/Denver' time zone and also convert from 'America/Denver' time zone to 'America/Chicago' time zone.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|orderdate              |orderdate_timezoneamden      |orderdate_timezoneamchi|
+------------+-----------------------+-----------------------------+-----------------------+
+       43659|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43660|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43661|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43662|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43663|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43664|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43665|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43666|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43667|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+       43668|2011-05-31 00:00:00.000|2011-05-31 11:30:00.000 +0530|2011-05-31 01:00:00.000|
+...		   
+Click me to see the solution
+
+161. From the following table wirte a query in SQL to search for rows with the 'green_' character in the LargePhotoFileName column. Return all columns.
+
+Sample table: Production.ProductPhoto
+
+
+Click to view Full table
+
+Sample Output:
+
+productphotoid|thumbnailphoto                                                                                                                                                                                                                                                 |thumbnailphotofilename             |largephoto                                                                                                                                                                                                                                                     |largephotofilename                 |modifieddate           |
+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+-----------------------+
+            76|47494638396150003100F700007689B3B1D5A475777BECEBF234353A85A376FAFCFE45474BF1F2FEE2E2FC6B919D4D5A6CF8FAFEF4F6FE65676BDAE7ECEDEDFE787C805B994CBEBDC3BACFB65A6674AAABB0F6F8FC56565A478C349A9DA1E3E4EBDCDDE1CDD1D9244356D1D1D3586F8EDBDDEA78CA6ABBBCBE68AB58F9FAFA3|racer02_green_f_small.gif          |474946383961F0009500F70000CACBF8D6E4EFA3D19EECEDFEF3F4F4D3D3FEE2E3FEDCDDFED7D7E7979AA6B4C7CEA5A7AAC7C8DA85868983B67633C90754555A2C930797999A719CCD96A5B0F9FAFA777A8287ABCEFAFBFDEEF0F876767977858A3B3C41656669575A604DAE2FC7C6ECEAEBED47CA233A4149BBBCC3F7F9FCA|racer02_green_f_large.gif          |2012-10-19 09:56:38.273|
+            77|47494638396150003100F70000B8D3C4E2E3F397A5A945596B6B86B767AB56F5F8FC89BC7134353A45464AFAFCFEEBEBF3E1E2E3F1F2FEE3E3FB75767A797C816CC751F5F6FE65676BF8FAFD499434BEBDC26D9399EDEDFEA6AAB2ECF9E856565AE3E5E884D3713E47509A9DA15A9A4AADB2B6DEE3EADCDDE3CFD1D8D2D2D3D|racer02_green_small.gif            |474946383961F0009500F70000444549309407CACAF8D6E4EE34C90849CE24D8D8E8ECEDFEF2F3F3D3D3FEE2E3FEDCDDFE9699A7A4A6AAB9C4CD858689C6C8DA54555A719DCD96A5B098999A767A8350A731F9FAFAFAFBFD76767A88ABCDEEF1F4D4EDCF69A9563B3C41646569575A60EAEBED75868D6ADB49C6C6EC3C4148B|racer02_green_large.gif            |2012-10-19 09:56:38.273|
+            91|47494638396150003100F7000000000000000800080800081008081008100808101008101810101810181810182118182118212118212921212921292921293129293131294229313129313931313939314A3139392152082B472E393942394242424A42425231426B395A6B4239394A39424A42424A424A4A4A4A4A524A4A4|julianax_r_02_f_green_small.gif    |474946383961F0009500F70000000205000810040C10101808081414101018101818101021101821181021181818181821182110211010291010261B1B182118102121182121212121292121182129212129182921182929212929292929212931292931213110213129214A18313121312129293131312D35294B0E293E202|julianax_r_02_f_green_large.gif    |2012-10-19 09:56:38.273|
+            95|47494638396150003100F70000000000000008000808000810080810001000081010081018101018101818101821181821182121182129212129212929212931292931312939292942293131293139313139313939215A002D4E1C394A393139423939423942424A63424A6B4231294A39394A39424A42424A424A4A4A4A4A4|julianax_r_02_green_small.gif      |474946383961F0009500F70000000202000808000010000810020D0D081010000818081808081418101010101018101810101818180818181808211018181818211818101821181821082108212110182118212118102121212918213110294218264C10315218295A0C2E5D121821211821291829212118212121212121292|julianax_r_02_green_large.gif      |2012-10-19 09:56:38.273|
+           105|47494638396150003100F700000200050D0512151012181818220E14211C252621262929293100002D292D3129313131313929313931313131393931392139103142210852001C5A08316B103939394231394239394242393939424239424242424A39424A42424A424A4A4A4A52424252424A524A4A5A4A4A6F10106D2E2E6|roadster_green_f_small.gif         |474946383961F0009500F7000000000000080008000000000800080808000C08080808081010020810081008100808101014100818081421080C2D040A1010101014141810101810181818181818212113162E1512182118182121252114271D2225272B2F252D1F490A20670144101144272B3131353F372B3931393939393|roadster_green_f_large.gif         |2012-10-19 09:56:38.273|
+           106|47494638396150003100F70000020005080810100018120D1029040818151B211821231E262B1618292929312929292931312931313131313139392D31213910314221085200205A08316B103931393939394231394239393939424239424242424A39424A42424A424A4A4A4A632020573F41731C1C7B3C3C524A4A524A525|roadster_green_small.gif           |474946383961F0009500F7000000000000080008000000000800080808000C08080808081010020810081008100808101010100818081422080A3104081012121810101810181818182112161A1C1C211C1C2B191824241D2925292B272D3129311D51041C6300186B00296502451C2033312E35373045352D3F373D3C423C4|roadster_green_large.gif           |2012-10-19 09:56:38.273|
+           123|47494638396150003100F7000010081018101821102921103118181821181821182121182921212129212929213131213929292929293131293129293939294A31313139313131313939313929314239393139393942393939394242394242394A4242464A42424A4E35577029314A634A31524A424A4A4A4A4E464E524A4E4|superlight_metalicgreen_f_small.gif|474946383961F0009500F70000150E111B1221221E262921292525312B273331292931293139392131312931313131393136293633333639393142393118314A312D4631424A3929423931394231393931423B3B3F4239424242394242424A3D4242394A42424A4A394A4A424A39473E29425C52424A5242524A4A4E524A4A3|superlight_metalicgreen_f_large.gif|2012-10-19 09:56:38.273|
+           124|47494638396150003100F700001008101810181818182118182118212121212921292929292514312D2535292939312931332B3939313131313939313929314239393139393942393939394242394242394A4242424A6B2142424A4A424A4A4A4A4F474C524A52524A5A4A5A4A5D7B2652525263845252525A5A525A5A5A5A6|superlight_metalicgreen_small.gif  |474946383961F0009500F70000150E131C1821221D25292129291E3326292E3129293129312D2D3531312939293139293931313139313131313939462918314A21425A3929422E3C4A3931393939393F363C393F4C4239424A3942423F414444414A394A4A424A52424A524252414C3C394B504E4A4A4A524A525A39524A525|superlight_metalicgreen_large.gif  |2012-10-19 09:56:38.273|   
+Click me to see the solution
+
+162. From the following tables write a query in SQL to obtain mailing addresses for companies in cities that begin with PA, outside the United States (US). Return AddressLine1, AddressLine2, City, PostalCode, CountryRegionCode.
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample table: Person.StateProvince
+
+
+Click to view Full table
+
+Sample Output:
+
+addressline1                     |addressline2         |city            |postalcode|countryregioncode|
+---------------------------------+---------------------+----------------+----------+-----------------+
+21105, rue de Varenne            |                     |Paris           |75013     |FR               |
+22, rue du Départ                |                     |Pantin          |93500     |FR               |
+36, avenue de la Gare            |                     |Paris           |75019     |FR               |
+39, route de Marseille           |                     |Paris           |75016     |FR               |
+98, rue Montcalm                 |                     |Paris           |75019     |FR               |
+39, avenue des Laurentides       |                     |Paris La Defense|92081     |FR               |
+3101, avenue de Malakoff         |                     |Paris           |75003     |FR               |
+9005, rue des Bouchers           |                     |Paris           |75005     |FR               |
+7551, avenue Foch                |                     |Paris           |75010     |FR               |
+22, rue Lafayette                |                     |Pantin          |93500     |FR               |
+699bis, rue des Peupliers        |                     |Paris           |75008     |FR               |
+...
+Click me to see the solution
+
+163. From the following table write a query in SQL to specify that a JOIN clause can join multiple values. Return ProductID, product Name, and Color.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name        |color|
+---------+------------+-----+
+      316|Blade       |     |
+      323|Crown Race  |     |
+      712|AWC Logo Cap|Multi|
+Click me to see the solution
+
+164. From the following table write a query in SQL to find the SalesPersonID, salesyear, totalsales, salesquotayear, salesquota, and amt_above_or_below_quota columns. Sort the result set in ascending order on SalesPersonID, and SalesYear columns.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample table: Sales.SalesPersonQuotaHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+salespersonid|salesyear|totalsales|salesquotayear|salesquota|amt_above_or_below_quota|
+-------------+---------+----------+--------------+----------+------------------------+
+          274|   2011.0|32567.9155|        2011.0|32567.9155|-93432.084              |
+          274|   2012.0|516197.368|        2012.0|516197.368|45197.3680              |
+          274|   2013.0|485880.642|        2013.0|485880.642|-35119.358              |
+          274|   2014.0|201288.519|        2014.0|201288.519|14288.5196              |
+          275|   2011.0|986298.090|        2011.0|986298.090|-438701.90              |
+          275|   2012.0|3806298.30|        2012.0|3806298.30|-225701.69              |
+          275|   2013.0|4490942.20|        2013.0|4490942.20|-345057.79              |
+          275|   2014.0|1191828.47|        2014.0|1191828.47|322828.474              |
+          276|   2011.0|1294819.74|        2011.0|1294819.74|-788180.25              |
+          276|   2012.0|4328860.05|        2012.0|4328860.05|465860.053              |
+          276|   2013.0|4637217.83|        2013.0|4637217.83|-78782.167              |
+          276|   2014.0|1434121.43|        2014.0|1434121.43|310121.430              |
+          277|   2011.0|1477158.28|        2011.0|1477158.28|-805841.71              |
+          277|   2012.0|4865650.84|        2012.0|4865650.84|122650.842              |
+...
+Click me to see the solution
+
+165. From the following tables write a query in SQL to return the cross product of BusinessEntityID and Department columns.
+
+The following example returns the cross product of the two tables Employee and Department in the AdventureWorks2019 database. A list of all possible combinations of BusinessEntityID rows and all Department name rows are returned.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|department                |
+----------------+--------------------------+
+               1|Document Control          |
+               1|Engineering               |
+               1|Executive                 |
+               1|Facilities and Maintenance|
+               1|Finance                   |
+               1|Human Resources           |
+               1|Information Services      |
+               1|Marketing                 |
+               1|Production                |
+               1|Production Control        |
+               1|Purchasing                |
+               1|Quality Assurance         |
+               1|Research and Development  |
+               1|Sales                     |
+               1|Shipping and Receiving    |
+...	
+Click me to see the solution
+
+166. From the following tables write a query in SQL to return the SalesOrderNumber, ProductKey, and EnglishProductName columns.
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|productid|name                            |
+------------+---------+--------------------------------+
+       43659|      776|Mountain-100 Black, 42          |
+       43659|      777|Mountain-100 Black, 44          |
+       43659|      778|Mountain-100 Black, 48          |
+       43659|      771|Mountain-100 Silver, 38         |
+       43659|      772|Mountain-100 Silver, 42         |
+       43659|      773|Mountain-100 Silver, 44         |
+       43659|      774|Mountain-100 Silver, 48         |
+       43659|      714|Long-Sleeve Logo Jersey, M      |
+       43659|      716|Long-Sleeve Logo Jersey, XL     |
+       43659|      709|Mountain Bike Socks, M          |
+       43659|      712|AWC Logo Cap                    |
+       43659|      711|Sport-100 Helmet, Blue          |
+       43660|      762|Road-650 Red, 44                |
+       43660|      758|Road-450 Red, 52                |
+       43661|      745|HL Mountain Frame - Black, 48   |
+...	 
+Click me to see the solution
+
+167. From the following tables write a query in SQL to return all orders with IDs greater than 60000.
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|productid|name                            |
+------------+---------+--------------------------------+
+       60001|      929|ML Mountain Tire                |
+       60001|      921|Mountain Tire Tube              |
+       60001|      711|Sport-100 Helmet, Blue          |
+       60002|      929|ML Mountain Tire                |
+       60003|      712|AWC Logo Cap                    |
+       60003|      869|Women's Mountain Shorts, L      |
+       60004|      870|Water Bottle - 30 oz.           |
+       60005|      870|Water Bottle - 30 oz.           |
+       60005|      712|AWC Logo Cap                    |
+       60006|      921|Mountain Tire Tube              |
+       60006|      873|Patch Kit/8 Patches             |
+       60007|      878|Fender Set - Mountain           |
+       60007|      713|Long-Sleeve Logo Jersey, S      |
+       60008|      878|Fender Set - Mountain           |
+...	   
+Click me to see the solution
+
+168. From the following tables write a query in SQL to retrieve the SalesOrderid. A NULL is returned if no orders exist for a particular Territoryid. Return territoryid, countryregioncode, and salesorderid. Results are sorted by SalesOrderid, so that NULLs appear at the top.
+
+Sample table: sales.salesterritory
+
+
+Click to view Full table
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+territoryid|countryregioncode|salesorderid|
+-----------+-----------------+------------+
+          5|US               |       43659|
+          5|US               |       43660|
+          6|CA               |       43661|
+          6|CA               |       43662|
+          4|US               |       43663|
+          1|US               |       43664|
+          1|US               |       43665|
+          4|US               |       43666|
+          3|US               |       43667|
+          6|CA               |       43668|
+          1|US               |       43669|
+          3|US               |       43670|
+...	
+Click me to see the solution
+
+169. From the following table write a query in SQL to return all rows from both joined tables but returns NULL for values that do not match from the other table. Return territoryid, countryregioncode, and salesorderid. Results are sorted by SalesOrderid.
+
+Sample table: sales.salesterritory
+
+
+Click to view Full table
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+territoryid|countryregioncode|salesorderid|
+-----------+-----------------+------------+
+          5|US               |       43659|
+          5|US               |       43660|
+          6|CA               |       43661|
+          6|CA               |       43662|
+          4|US               |       43663|
+          1|US               |       43664|
+          1|US               |       43665|
+          4|US               |       43666|
+          3|US               |       43667|
+          6|CA               |       43668|
+          1|US               |       43669|
+          3|US               |       43670|
+          1|US               |       43671|
+		  
+...
+Click me to see the solution
+
+170. From the following tables write a query in SQL to return a cross-product. Order the result set by SalesOrderid.
+
+Sample table: sales.salesterritory
+
+
+Click to view Full table
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+territoryid|salesorderid|
+-----------+------------+
+          1|       43659|
+          2|       43659|
+          3|       43659|
+          4|       43659|
+          5|       43659|
+          6|       43659|
+          7|       43659|
+          8|       43659|
+          9|       43659|
+         10|       43659|
+          1|       43660|
+          2|       43660|
+...		
+Click me to see the solution
+
+171. From the following table write a query in SQL to return all customers with BirthDate values after January 1, 1970 and the last name 'Smith'. Return businessentityid, jobtitle, and birthdate. Sort the result set in ascending order on birthday.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|jobtitle                    |birthdate |
+----------------+----------------------------+----------+
+             198|Production Technician - WC40|1988-11-26|
+             193|Production Technician - WC40|1988-12-05|
+             194|Production Technician - WC40|1989-06-25|
+             202|Production Technician - WC40|1989-11-10|
+             131|Production Technician - WC40|1990-10-07|
+             133|Production Technician - WC40|1991-01-04|
+Click me to see the solution
+
+172. From the following table write a query in SQL to return the rows with different firstname values from Adam. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|persontype|firstname               |middlename      |lastname              |
+----------------+----------+------------------------+----------------+----------------------+
+            2321|GC        |A.                      |Scott           |Wright                |
+            1305|SC        |A.                      |Francesca       |Leonetti              |
+             222|EM        |A. Scott                |                |Wright                |
+            5495|IN        |Aaron                   |J               |Hughes                |
+            5504|IN        |Aaron                   |                |Bryant                |
+            5494|IN        |Aaron                   |W               |Patterson             |
+           16664|IN        |Aaron                   |                |Hill                  |
+            5508|IN        |Aaron                   |                |Alexander             |
+            5509|IN        |Aaron                   |                |Russell               |
+             727|SC        |Aaron                   |                |Con                   |
+            5512|IN        |Aaron                   |                |Griffin               |
+            5514|IN        |Aaron                   |C               |Diaz                  |
+            5515|IN        |Aaron                   |A               |Hayes                 |
+            5516|IN        |Aaron                   |A               |Zhang                 |
+...	
+Click me to see the solution
+
+173. From the following table write a query in SQL to find the rows where firstname doesn't differ from Adam's firstname. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|persontype|firstname|middlename|lastname  |
+----------------+----------+---------+----------+----------+
+             413|SC        |Adam     |          |Barr      |
+            1679|VC        |Adam     |J.        |Reynolds  |
+            5231|IN        |Adam     |          |Ross      |
+            5234|IN        |Adam     |          |Henderson |
+            5236|IN        |Adam     |M         |Jenkins   |
+            5238|IN        |Adam     |          |Perry     |
+            5239|IN        |Adam     |          |Powell    |
+            5240|IN        |Adam     |          |Long      |
+            5242|IN        |Adam     |M         |Patterson |
+            5243|IN        |Adam     |          |Hughes    |
+            5244|IN        |Adam     |L         |Flores    |
+            5245|IN        |Adam     |G         |Washington|
+            5246|IN        |Adam     |          |Butler    |
+            5248|IN        |Adam     |          |Simmons   |
+...	
+Click me to see the solution
+
+174. From the following table write a query in SQL to find the rows where middlename differs from NULL. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|persontype|firstname      |middlename      |lastname         |
+----------------+----------+---------------+----------------+-----------------+
+            2321|GC        |A.             |Scott           |Wright           |
+            1305|SC        |A.             |Francesca       |Leonetti         |
+           15883|IN        |Aaron          |L               |Perez            |
+           16923|IN        |Aaron          |M               |Young            |
+           16167|IN        |Aaron          |C               |Campbell         |
+            5522|IN        |Aaron          |C               |Yang             |
+            5523|IN        |Aaron          |M               |Kumar            |
+           16591|IN        |Aaron          |C               |Scott            |
+            5529|IN        |Aaron          |J               |Sharma           |
+            5495|IN        |Aaron          |J               |Hughes           |
+            5497|IN        |Aaron          |L               |Washington       |
+            5483|IN        |Aaron          |N               |Ross             |
+           16420|IN        |Aaron          |J               |Carter           |
+...	
+Click me to see the solution
+
+175. From the following table write a query in SQL to identify the rows with a middlename that is not NULL. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|persontype|firstname               |middlename|lastname              |
+----------------+----------+------------------------+----------+----------------------+
+             222|EM        |A. Scott                |          |Wright                |
+           15964|IN        |Aaron                   |          |Roberts               |
+           15693|IN        |Aaron                   |          |Edwards               |
+            2272|GC        |Aaron                   |          |Con                   |
+           17060|IN        |Aaron                   |          |Hernandez             |
+             727|SC        |Aaron                   |          |Con                   |
+           16664|IN        |Aaron                   |          |Hill                  |
+            2306|GC        |Aaron                   |          |Nicholls              |
+            5487|IN        |Aaron                   |          |Henderson             |
+            5488|IN        |Aaron                   |          |Coleman               |
+            5489|IN        |Aaron                   |          |Jenkins               |
+            5491|IN        |Aaron                   |          |Perry                 |
+            5492|IN        |Aaron                   |          |Powell                |
+...	
+Click me to see the solution
+
+176. From the following table write a query in SQL to fetch all products with a weight of less than 10 pounds or unknown color. Return the name, weight, and color for the product. Sort the result set in ascending order on name.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |weight|color |
+--------------------------------+------+------+
+Adjustable Race                 |      |      |
+All-Purpose Bike Stand          |      |      |
+BB Ball Bearing                 |      |      |
+Bearing Ball                    |      |      |
+Bike Wash - Dissolver           |      |      |
+Blade                           |      |      |
+Cable Lock                      |      |      |
+Chain Stays                     |      |      |
+Cone-Shaped Race                |      |      |
+Crown Race                      |      |      |
+Cup-Shaped Race                 |      |      |
+Decal 1                         |      |      |
+Decal 2                         |      |      |
+...
+Click me to see the solution
+
+177. From the following table write a query in SQL to list the salesperson whose salesytd begins with 1. Convert SalesYTD and current date in text format.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|salesytd    |moneydisplaystyle1|currentdate                  |datedisplaystyle3               |
+----------------+------------+------------------+-----------------------------+--------------------------------+
+             278|1453719.4653|1453719.4653      |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
+             280|1352577.1325|1352577.1325      |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
+             283|1573012.9383|1573012.9383      |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
+             284|1576562.1966|1576562.1966      |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
+             285| 172524.4512|172524.4512       |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
+             286|1421810.9242|1421810.9242      |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
+             288|1827066.7118|1827066.7118      |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
+Click me to see the solution
+
+178. From the following table write a query in SQL to return the count of employees by Name and Title, Name, and company total. Filter the results by department ID 12 or 14. For each row, identify its aggregation level in the Title column.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+name                      |Job Title                          |Employee Count|
+--------------------------+-----------------------------------+--------------+
+                          |Company Total:                     |            12|
+Document Control          |Control Specialist                 |             2|
+Facilities and Maintenance|Janitor                            |             4|
+Facilities and Maintenance|Facilities Manager                 |             1|
+Document Control          |Document Control Assistant         |             2|
+Document Control          |Document Control Manager           |             1|
+Facilities and Maintenance|Maintenance Supervisor             |             1|
+Facilities and Maintenance|Facilities Administrative Assistant|             1|
+Facilities and Maintenance|Total :Facilities and Maintenance  |             7|
+Document Control          |Total :Document Control            |             5|
+Click me to see the solution
+
+179. From the following tables write a query in SQL to return only rows with a count of employees by department. Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+name                      |jobtitle|Grouping Level|Employee Count|
+--------------------------+--------+--------------+--------------+
+Facilities and Maintenance|        |             1|             7|
+Document Control          |        |             1|             5|
+Click me to see the solution
+
+180. From the following tables write a query in SQL to return only the rows that have a count of employees by title. Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeeDepartmentHistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+name                      |jobtitle                           |Grouping Level|Employee Count|
+--------------------------+-----------------------------------+--------------+--------------+
+Document Control          |Control Specialist                 |             0|             2|
+Facilities and Maintenance|Janitor                            |             0|             4|
+Facilities and Maintenance|Facilities Manager                 |             0|             1|
+Document Control          |Document Control Assistant         |             0|             2|
+Document Control          |Document Control Manager           |             0|             1|
+Facilities and Maintenance|Maintenance Supervisor             |             0|             1|
+Facilities and Maintenance|Facilities Administrative Assistant|             0|             1|
+Click me to see the solution
+
+181. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over previous calendar quarters. Sort the results by salesperson with businessentity id 277 and quotadate year 2012 or 2013.
+
+Sample table: sales.salespersonquotahistory
+
+
+Click to view Full table
+
+Sample Output:
+
+year                   |quarter|salesquota|prevquota|diff   |
+-----------------------+-------+----------+---------+-------+
+2012-02-29 00:00:00.000|    1.0|    952000|         |       |
+2012-05-30 00:00:00.000|    2.0|   1600000|   952000| 648000|
+2012-08-30 00:00:00.000|    3.0|   1352000|  1600000|-248000|
+2012-11-30 00:00:00.000|    4.0|    839000|  1352000|-513000|
+2013-02-28 00:00:00.000|    1.0|   1369000|   839000| 530000|
+2013-05-30 00:00:00.000|    2.0|   1171000|  1369000|-198000|
+2013-08-30 00:00:00.000|    3.0|    971000|  1171000|-200000|
+2013-11-30 00:00:00.000|    4.0|    714000|   971000|-257000|
+Click me to see the solution
+
+182. From the following table write a query in SQL to return a truncated date with 4 months added to the orderdate.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+year                   |quarter|salesquota|prevquota|diff   |
+-----------------------+-------+----------+---------+-------+
+2012-02-29 00:00:00.000|    1.0|    952000|         |       |
+2012-05-30 00:00:00.000|    2.0|   1600000|   952000| 648000|
+2012-08-30 00:00:00.000|    3.0|   1352000|  1600000|-248000|
+2012-11-30 00:00:00.000|    4.0|    839000|  1352000|-513000|
+2013-02-28 00:00:00.000|    1.0|   1369000|   839000| 530000|
+2013-05-30 00:00:00.000|    2.0|   1171000|  1369000|-198000|
+2013-08-30 00:00:00.000|    3.0|    971000|  1171000|-200000|
+2013-11-30 00:00:00.000|    4.0|    714000|   971000|-257000|
+Click me to see the solution
+
+183. From the following table write a query in SQL to return the orders that have sales on or after December 2011. Return salesorderid, MonthOrderOccurred, salespersonid, customerid, subtotal, Running Total, and actual order date.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|monthorderoccurred     |salespersonid|customerid|subtotal   |runningtotal|actualorderdate        |
+------------+-----------------------+-------------+----------+-----------+------------+-----------------------+
+       45579|2012-01-01 00:00:00.000|          279|     29484|   4079.988|    4079.988|2012-01-29 00:00:00.000|
+       46389|2012-04-01 00:00:00.000|          279|     29484|  1104.9968|   5184.9848|2012-04-30 00:00:00.000|
+       47454|2012-07-01 00:00:00.000|          279|     29484| 27429.5294|  32614.5142|2012-07-31 00:00:00.000|
+       48395|2012-10-01 00:00:00.000|          279|     29484| 32562.6538|  65177.1680|2012-10-30 00:00:00.000|
+       49495|2013-01-01 00:00:00.000|          279|     29484| 24232.7654|  89409.9334|2013-01-28 00:00:00.000|
+       50756|2013-04-01 00:00:00.000|          279|     29484| 37643.0609| 127052.9943|2013-04-30 00:00:00.000|
+       53459|2013-07-01 00:00:00.000|          276|     29485|  29133.471|   29133.471|2013-07-31 00:00:00.000|
+       58907|2013-10-01 00:00:00.000|          276|     29485| 28413.4274|  57546.8984|2013-10-30 00:00:00.000|
+       65157|2014-01-01 00:00:00.000|          276|     29485|  22021.782|  79568.6804|2014-01-29 00:00:00.000|
+       71782|2014-05-01 00:00:00.000|          276|     29485|  33319.986| 112888.6664|2014-05-01 00:00:00.000|
+       45550|2012-01-01 00:00:00.000|          277|     29486| 54979.9007|  54979.9007|2012-01-29 00:00:00.000|
+...	
+Click me to see the solution
+
+184. From the following table write a query in SQL to repeat the 0 character four times before productnumber. Return name, productnumber and newly created productnumber.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |productnumber|fullproductnumber|
+--------------------------------+-------------+-----------------+
+Adjustable Race                 |AR-5381      |0000AR-5381      |
+All-Purpose Bike Stand          |ST-1401      |0000ST-1401      |
+AWC Logo Cap                    |CA-1098      |0000CA-1098      |
+BB Ball Bearing                 |BE-2349      |0000BE-2349      |
+Bearing Ball                    |BA-8327      |0000BA-8327      |
+Bike Wash - Dissolver           |CL-9009      |0000CL-9009      |
+Blade                           |BL-2036      |0000BL-2036      |
+Cable Lock                      |LO-C100      |0000LO-C100      |
+Chain                           |CH-0234      |0000CH-0234      |
+Chain Stays                     |CS-2812      |0000CS-2812      |
+Chainring                       |CR-7833      |0000CR-7833      |
+...
+Click me to see the solution
+
+185. From the following table write a query in SQL to find all special offers. When the maximum quantity for a special offer is NULL, return MaxQty as zero.
+
+Sample table: Sales.SpecialOffer
+
+
+Click to view Full table
+
+Sample Output:
+
+description                       |discountpct|minqty|Max Quantity|
+----------------------------------+-----------+------+------------+
+No Discount                       |          0|     0|        0.00|
+Volume Discount 11 to 14          |       0.02|    11|          14|
+Volume Discount 15 to 24          |       0.05|    15|          24|
+Volume Discount 25 to 40          |        0.1|    25|          40|
+Volume Discount 41 to 60          |       0.15|    41|          60|
+Volume Discount over 60           |        0.2|    61|        0.00|
+Mountain-100 Clearance Sale       |       0.35|     0|        0.00|
+Sport Helmet Discount-2002        |        0.1|     0|        0.00|
+Road-650 Overstock                |        0.3|     0|        0.00|
+Mountain Tire Sale                |        0.5|     0|        0.00|
+Sport Helmet Discount-2003        |       0.15|     0|        0.00|
+LL Road Frame Sale                |       0.35|     0|        0.00|
+Touring-3000 Promotion            |       0.15|     0|        0.00|
+Touring-1000 Promotion            |        0.2|     0|        0.00|
+Half-Price Pedal Sale             |        0.5|     0|        0.00|
+Mountain-500 Silver Clearance Sale|        0.4|     0|        0.00|
+Click me to see the solution
+
+186. From the following table write a query in SQL to find all products that have NULL in the weight column. Return name and weight.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                           |weight|
+-------------------------------+------+
+Adjustable Race                |      |
+Bearing Ball                   |      |
+BB Ball Bearing                |      |
+Headset Ball Bearings          |      |
+Blade                          |      |
+LL Crankarm                    |      |
+ML Crankarm                    |      |
+HL Crankarm                    |      |
+Chainring Bolts                |      |
+Chainring Nut                  |      |
+Chainring                      |      |
+Crown Race                     |      |
+Chain Stays                    |      |
+Decal 1                        |      |
+Decal 2                        |      |
+...
+Click me to see the solution
+
+187. From the following table write a query in SQL to find the data from the first column that has a non-null value. Return name, color, productnumber, and firstnotnull column.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |color       |productnumber|firstnotnull|
+--------------------------------+------------+-------------+------------+
+Adjustable Race                 |            |AR-5381      |AR-5381     |
+Bearing Ball                    |            |BA-8327      |BA-8327     |
+BB Ball Bearing                 |            |BE-2349      |BE-2349     |
+Headset Ball Bearings           |            |BE-2908      |BE-2908     |
+Blade                           |            |BL-2036      |BL-2036     |
+LL Crankarm                     |Black       |CA-5965      |Black       |
+ML Crankarm                     |Black       |CA-6738      |Black       |
+HL Crankarm                     |Black       |CA-7457      |Black       |
+Chainring Bolts                 |Silver      |CB-2903      |Silver      |
+Chainring Nut                   |Silver      |CN-6137      |Silver      |
+Chainring                       |Black       |CR-7833      |Black       |
+...
+Click me to see the solution
+
+188. From the following tables write a query in SQL to return rows only when both the productid and startdate values in the two tables matches.
+
+Sample table: Production.workorder
+
+
+Click to view Full table
+
+Sample table: Production.workorderrouting
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |color       |productnumber|firstnotnull|
+--------------------------------+------------+-------------+------------+
+Adjustable Race                 |            |AR-5381      |AR-5381     |
+Bearing Ball                    |            |BA-8327      |BA-8327     |
+BB Ball Bearing                 |            |BE-2349      |BE-2349     |
+Headset Ball Bearings           |            |BE-2908      |BE-2908     |
+Blade                           |            |BL-2036      |BL-2036     |
+LL Crankarm                     |Black       |CA-5965      |Black       |
+ML Crankarm                     |Black       |CA-6738      |Black       |
+HL Crankarm                     |Black       |CA-7457      |Black       |
+Chainring Bolts                 |Silver      |CB-2903      |Silver      |
+Chainring Nut                   |Silver      |CN-6137      |Silver      |
+Chainring                       |Black       |CR-7833      |Black       |
+...
+Click me to see the solution
+
+189. From the following tables write a query in SQL to return rows except both the productid and startdate values in the two tables matches.
+
+Sample table: Production.workorder
+
+
+Click to view Full table
+
+Sample table: Production.workorderrouting
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|startdate              |
+---------+-----------------------+
+        3|2011-06-03 00:00:00.000|
+      316|2011-06-03 00:00:00.000|
+      324|2011-06-03 00:00:00.000|
+      327|2011-06-03 00:00:00.000|
+      328|2011-06-03 00:00:00.000|
+      329|2011-06-03 00:00:00.000|
+      331|2011-06-03 00:00:00.000|
+      350|2011-06-03 00:00:00.000|
+      398|2011-06-03 00:00:00.000|
+      399|2011-06-03 00:00:00.000|
+      400|2011-06-03 00:00:00.000|
+      401|2011-06-03 00:00:00.000|
+      529|2011-06-03 00:00:00.000|
+...	  
+Click me to see the solution
+
+190. From the following table write a query in SQL to find all creditcardapprovalcodes starting with 1 and the third digit is 6. Sort the result set in ascending order on orderdate.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|orderdate              |creditcardapprovalcode|
+------------+-----------------------+----------------------+
+       43675|2011-05-31 00:00:00.000|126121Vi61402         |
+       43679|2011-05-31 00:00:00.000|126365Vi28482         |
+       43680|2011-05-31 00:00:00.000|126370Vi34642         |
+       43681|2011-05-31 00:00:00.000|16608Vi27707          |
+       43875|2011-07-01 00:00:00.000|116188Vi1051          |
+       43880|2011-07-01 00:00:00.000|126355Vi95120         |
+       43887|2011-07-01 00:00:00.000|106673Vi48861         |
+       43889|2011-07-01 00:00:00.000|126756Vi87636         |
+       43893|2011-07-01 00:00:00.000|116815Vi96000         |
+       43916|2011-07-01 00:00:00.000|18665Vi32553          |
+...	 
+Click me to see the solution
+
+191. From the following table write a query in SQL to concatenate character and date data types for the order ID 50001.
+
+Sample table: sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+concat                          |
+--------------------------------+
+The order is due on 2013-03-22 0|
+Click me to see the solution
+
+192. From the following table write a query in SQL to form one long string to display the last name and the first initial of the vice presidents. Sort the result set in ascending order on lastname.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+name        |jobtitle                     |
+------------+-----------------------------+
+Duffy, T.   |Vice President of Engineering|
+Hamilton, J.|Vice President of Production |
+Welcker, B. |Vice President of Sales      |
+
+Click me to see the solution
+
+193. From the following table write a query in SQL to return only the rows for Product that have a product line of R and that have days to manufacture that is less than 4. Sort the result set in ascending order on name.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                        |productnumber|price  |
+----------------------------+-------------+-------+
+Headlights - Dual-Beam      |LT-H902      |  34.99|
+Headlights - Weatherproof   |LT-H903      |  44.99|
+HL Road Frame - Black, 44   |FR-R92B-44   | 1431.5|
+HL Road Frame - Black, 48   |FR-R92B-48   | 1431.5|
+HL Road Frame - Black, 52   |FR-R92B-52   | 1431.5|
+HL Road Frame - Black, 58   |FR-R92B-58   | 1431.5|
+HL Road Frame - Black, 62   |FR-R92B-62   | 1431.5|
+HL Road Frame - Red, 44     |FR-R92R-44   | 1431.5|
+HL Road Frame - Red, 48     |FR-R92R-48   | 1431.5|
+HL Road Frame - Red, 52     |FR-R92R-52   | 1431.5|
+HL Road Frame - Red, 56     |FR-R92R-56   | 1431.5|
+HL Road Frame - Red, 58     |FR-R92R-58   | 1431.5|
+HL Road Frame - Red, 62     |FR-R92R-62   | 1431.5|
+HL Road Front Wheel         |FW-R820      | 330.06|
+HL Road Handlebars          |HB-R956      | 120.27|
+...
+Click me to see the solution
+
+194. From the following tables write a query in SQL to return total sales and the discounts for each product. Sort the result set in descending order on productname.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+productname                    |nondiscountsales|discounts  |
+-------------------------------+----------------+-----------+
+Women's Tights, S              |         224.970|      0.000|
+Women's Tights, S              |         134.982|      0.000|
+Women's Tights, S              |         134.982|      0.000|
+Women's Tights, S              |         359.952|      0.000|
+Women's Tights, S              |         179.976|      0.000|
+Women's Tights, S              |         224.970|      0.000|
+Women's Tights, S              |         269.964|      0.000|
+Women's Tights, S              |         179.976|      0.000|
+Women's Tights, S              |         269.964|      0.000|
+Women's Tights, S              |          44.994|      0.000|
+Women's Tights, S              |        608.9188|  12.178376|
+Women's Tights, S              |         179.976|      0.000|
+Women's Tights, S              |         359.952|      0.000|
+...
+Click me to see the solution
+
+195. From the following tables write a query in SQL to calculate the revenue for each product in each sales order. Sort the result set in ascending order on productname.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+?column?       |?column?    |?column?|productname                     |
+---------------+------------+--------+--------------------------------+
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+Total income is|       159.0| for    |All-Purpose Bike Stand          |
+...
+Click me to see the solution
+
+196. From the following tables write a query in SQL to retrieve one instance of each product name whose product model is a long sleeve logo jersey, and the ProductModelID numbers match between the tables.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample table: Production.ProductModel
+
+
+Click to view Full table
+
+Sample Output:
+
+name                       |
+---------------------------+
+Long-Sleeve Logo Jersey, L |
+Long-Sleeve Logo Jersey, M |
+Long-Sleeve Logo Jersey, S |
+Long-Sleeve Logo Jersey, XL|
+Click me to see the solution
+
+197. From the following tables write a query in SQL to retrieve the first and last name of each employee whose bonus in the SalesPerson table is 5000.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+lastname    |firstname|
+------------+---------+
+Ansman-Wolfe|Pamela   |
+Saraiva     |José     |
+Click me to see the solution
+
+198. From the following table write a query in SQL to find product models where the maximum list price is more than twice the average.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productmodelid|
+--------------+
+            58|
+             8|
+            87|
+           116|
+            68|
+            51|
+            70|
+            80|
+            52|
+            84|
+            92|
+           101|
+            69|
+...
+Click me to see the solution
+
+199. From the following table write a query in SQL to find the names of employees who have sold a particular product.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+lastname         |firstname|
+-----------------+---------+
+Alberts          |Amy      |
+Ansman-Wolfe     |Pamela   |
+Blythe           |Michael  |
+Campbell         |David    |
+Carson           |Jillian  |
+Ito              |Shu      |
+Jiang            |Stephen  |
+Mensa-Annan      |Tete     |
+Mitchell         |Linda    |
+Pak              |Jae      |
+Reiter           |Tsvi     |
+Saraiva          |José     |
+Tsoflias         |Lynn     |
+Valdez           |Rachel   |
+....
+Click me to see the solution
+
+200. Create a table public.gloves from Production.ProductModel for the ProductModelID 3 and 4.
+From the following table write a query in SQL to include the contents of the ProductModelID and Name columns of both the tables.
+
+Sample table: Production.ProductModel
+
+
+Click to view Full table
+
+Sample Output:
+
+productmodelid|name                       |
+--------------+---------------------------+
+           122|All-Purpose Bike Stand     |
+           119|Bike Wash                  |
+           115|Cable Lock                 |
+            98|Chain                      |
+             1|Classic Vest               |
+             2|Cycling Cap                |
+           121|Fender Set - Mountain      |
+           102|Front Brakes               |
+           103|Front Derailleur           |
+             3|Full-Finger Gloves         |
+             4|Half-Finger Gloves         |
+...
+Click me to see the solution
+
+ 

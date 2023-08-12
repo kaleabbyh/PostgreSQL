@@ -1,0 +1,2535 @@
+SQL Queries: AdventureWorks Part-I [100 exercises with solution]
+[An editor is available at the bottom of the page to write and execute the scripts. Go to the editor]
+
+1. From the following table write a query in SQL to retrieve all rows and columns from the employee table in the Adventureworks database. Sort the result set in ascending order on jobtitle.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|nationalidnumber|loginid                     |jobtitle                                |birthdate |maritalstatus|gender|hiredate  |salariedflag|vacationhours|sickleavehours|currentflag|rowguid                             |modifieddate           |organizationnod
+----------------+----------------+----------------------------+----------------------------------------+----------+-------------+------+----------+------------+-------------+--------------+-----------+------------------------------------+-----------------------+---------------
+             245|363910111       |adventure-works\barbara1    |Accountant                              |1976-01-04|M            |F     |2009-02-18|true        |           58|            49|true       |3ffba84e-8e97-4649-a5e1-859649d83aae|2014-06-30 00:00:00.000|/4/2/4/        
+             248|480951955       |adventure-works\mike0       |Accountant                              |1979-07-01|S            |M     |2009-03-08|true        |           59|            49|true       |ac35337d-7c75-4dee-bb11-6564f257fe18|2014-06-30 00:00:00.000|/4/2/7/        
+             241|30845           |adventure-works\david6      |Accounts Manager                        |1983-07-08|M            |M     |2009-01-30|true        |           57|            48|true       |2dc9d534-f5d1-4a14-8282-0a2a0eb6fd4d|2014-06-30 00:00:00.000|/4/2/          
+             246|663843431       |adventure-works\dragan0     |Accounts Payable Specialist             |1977-02-14|M            |M     |2009-02-11|false       |           63|            51|true       |51c54d34-064b-44f7-a6b1-7702bd491980|2014-06-30 00:00:00.000|/4/2/5/        
+             247|519756660       |adventure-works\janet0      |Accounts Payable Specialist             |1979-03-09|M            |F     |2009-03-01|false       |           64|            52|true       |0c641d77-8675-493f-9947-8c65136559cd|2014-06-30 00:00:00.000|/4/2/6/        
+             243|60517918        |adventure-works\candy0      |Accounts Receivable Specialist          |1976-02-23|S            |F     |2009-01-06|false       |           61|            50|true       |9e9f713b-707c-4f7e-9504-de188052a045|2014-06-30 00:00:00.000|/4/2/2/        
+             244|931190412       |adventure-works\bryan1      |Accounts Receivable Specialist          |1984-09-20|S            |M     |2009-01-24|false       |           62|            51|true       |cb3e71ec-a381-4716-87df-d3841ab9795a|2014-06-30 00:00:00.000|/4/2/3/        
+             242|363923697       |adventure-works\deborah0    |Accounts Receivable Specialist          |1976-03-06|M            |F     |2008-12-18|false       |           60|            50|true       |09f75454-028c-46ca-bc08-0147bd0220d7|2014-06-30 00:00:00.000|/4/2/1/        
+             272|525932996       |adventure-works\janaina0    |Application Specialist                  |1985-01-30|M            |F     |2008-12-23|true        |           71|            55|true       |241535c7-7a31-4a6a-9e0d-a83c30c2edda|2014-06-30 00:00:00.000|/5/7/          
+             268|314747499       |adventure-works\ramesh0     |Application Specialist                  |1988-03-13|S            |M     |2009-02-03|true        |           73|            56|true       |be190269-4003-4d7f-809e-7b3fdc235da8|2014-06-30 00:00:00.000|/5/3/          
+...
+Click me to see the solution
+
+2. From the following table write a query in SQL to retrieve all rows and columns from the employee table using table aliasing in the Adventureworks database. Sort the output in ascending order on lastname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|persontype|namestyle|title|firstname               |middlename      |lastname              |suffix|emailpromotion|additionalcontactinfo|demographics|rowguid                             |modifieddate           |
+----------------+----------+---------+-----+------------------------+----------------+----------------------+------+--------------+---------------------+------------+------------------------------------+-----------------------+
+             285|SP        |false    |Mr.  |Syed                    |E               |Abbas                 |      |             0|                     |[XML]       |ff284881-01c2-4c77-95a7-4db96f59bb70|2013-03-07 00:00:00.000|
+             293|SC        |false    |Ms.  |Catherine               |R.              |Abel                  |      |             1|[XML]                |[XML]       |d54e0552-c226-4c22-af3b-762ca854cdd3|2015-04-15 16:33:33.077|
+            2170|GC        |false    |     |Kim                     |                |Abercrombie           |      |             2|                     |[XML]       |24f01b54-7a67-4b48-9ecc-72545d36c0ac|2009-11-29 00:00:00.000|
+             295|SC        |false    |Ms.  |Kim                     |                |Abercrombie           |      |             0|[XML]                |[XML]       |f7cbdb48-0b44-470e-9f37-7060446fbfb9|2015-04-15 16:33:33.077|
+              38|EM        |false    |     |Kim                     |B               |Abercrombie           |      |             2|                     |[XML]       |9a2163b3-2f4d-4f9a-91bd-07d326140f9c|2010-01-09 00:00:00.000|
+            2357|GC        |false    |     |Sam                     |                |Abolrous              |      |             1|                     |[XML]       |78b8f41e-ed14-4e96-9531-ce9630e79e10|2009-02-21 00:00:00.000|
+             211|EM        |false    |     |Hazem                   |E               |Abolrous              |      |             0|                     |[XML]       |c2637051-25a5-4461-b06a-523119259430|2009-02-21 00:00:00.000|
+             297|SC        |false    |Sr.  |Humberto                |                |Acevedo               |      |             2|[XML]                |[XML]       |5a41d336-84cf-44d7-b12b-83b64b511f7e|2015-04-15 16:33:33.090|
+             291|SC        |false    |Mr.  |Gustavo                 |                |Achong                |      |             2|[XML]                |[XML]       |d4c132d3-fcb5-4231-9dd5-888a54bec693|2015-04-15 16:33:33.060|
+             299|SC        |false    |Sra. |Pilar                   |                |Ackerman              |      |             0|[XML]                |[XML]       |df1fb8ab-2323-4330-9ab8-54e13ce6d8f9|2015-04-15 16:33:33.090|
+             121|EM        |false    |     |Pilar                   |G               |Ackerman              |      |             0|                     |[XML]       |81f50324-d0b5-4ea5-8b20-f99d46572c76|2008-12-26 00:00:00.000|
+            4970|IN        |false    |     |Devin                   |                |Adams                 |      |             2|                     |[XML]       |ee57a0e0-d49e-4ca6-9c94-64e8eb0c05d6|2014-05-06 00:00:00.000|
+            4429|IN        |false    |     |Xavier                  |C               |Adams                 |      |             1|                     |[XML]       |1578432b-b398-4359-b432-bf868c00a3c6|2013-10-19 00:00:00.000|
+            4891|IN        |false    |     |Charles                 |R               |Adams                 |      |             2|                     |[XML]       |faa29129-5894-4f86-979d-015ee4733364|2013-07-07 00:00:00.000|
+            4350|IN        |false    |     |Seth                    |L               |Adams                 |      |             0|                     |[XML]       |2b17fa8a-9643-4dcf-a61b-38fb9c3b0d3e|2014-03-06 00:00:00.000|
+            3889|IN        |false    |     |Fernando                |S               |Adams                 |      |             0|                     |[XML]       |33fa7ddb-6372-48d7-92e4-75ef504a3746|2013-10-31 00:00:00.000|
+              67|EM        |false    |     |Jay                     |G               |Adams                 |      |             0|                     |[XML]       |2fe289a7-ce57-49e5-be61-3e6580d22ea6|2009-02-26 00:00:00.000|
+            1770|IN        |false    |Mr.  |Ben                     |                |Adams                 |      |             0|                     |[XML]       |ad322f5c-d052-4dde-84bc-d4b3b2682348|2011-10-24 00:00:00.000|
+...
+Click me to see the solution
+
+3. From the following table write a query in SQL to return all rows and a subset of the columns (FirstName, LastName, businessentityid) from the person table in the AdventureWorks database. The third column heading is renamed to Employee_id. Arranged the output in ascending order by lastname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname               |lastname              |employee_id|
+------------------------+----------------------+-----------+
+Syed                    |Abbas                 |        285|
+Catherine               |Abel                  |        293|
+Kim                     |Abercrombie           |         38|
+Kim                     |Abercrombie           |        295|
+Kim                     |Abercrombie           |       2170|
+Sam                     |Abolrous              |       2357|
+Hazem                   |Abolrous              |        211|
+Humberto                |Acevedo               |        297|
+Gustavo                 |Achong                |        291|
+Pilar                   |Ackerman              |        299|
+Pilar                   |Ackerman              |        121|
+Luke                    |Adams                 |      16884|
+Adam                    |Adams                 |      16901|
+Natalie                 |Adams                 |      10262|
+Isabella                |Adams                 |      10261|
+Morgan                  |Adams                 |      10259|
+Kaitlyn                 |Adams                 |      10258|
+...
+Click me to see the solution
+
+4. From the following table write a query in SQL to return only the rows for product that have a sellstartdate that is not NULL and a productline of 'T'. Return productid, productnumber, and name. Arranged the output in ascending order on name.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|productnumber|producname                   |
+---------+-------------+-----------------------------+
+      890|FR-T98U-46   |HL Touring Frame - Blue, 46  |
+      891|FR-T98U-50   |HL Touring Frame - Blue, 50  |
+      892|FR-T98U-54   |HL Touring Frame - Blue, 54  |
+      893|FR-T98U-60   |HL Touring Frame - Blue, 60  |
+      887|FR-T98Y-46   |HL Touring Frame - Yellow, 46|
+      888|FR-T98Y-50   |HL Touring Frame - Yellow, 50|
+      889|FR-T98Y-54   |HL Touring Frame - Yellow, 54|
+      885|FR-T98Y-60   |HL Touring Frame - Yellow, 60|
+      947|HB-T928      |HL Touring Handlebars        |
+      916|SE-T924      |HL Touring Seat/Saddle       |
+      903|FR-T67U-44   |LL Touring Frame - Blue, 44  |
+      895|FR-T67U-50   |LL Touring Frame - Blue, 50  |
+      896|FR-T67U-54   |LL Touring Frame - Blue, 54  |
+      897|FR-T67U-58   |LL Touring Frame - Blue, 58  |
+	  ...
+Click me to see the solution
+
+5. From the following table write a query in SQL to return all rows from the salesorderheader table in Adventureworks database and calculate the percentage of tax on the subtotal have decided. Return salesorderid, customerid, orderdate, subtotal, percentage of tax column. Arranged the result set in ascending order on subtotal.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|customerid|orderdate              |subtotal   |tax_percent        |
+------------+----------+-----------------------+-----------+-------------------+
+       51131|     29641|2013-05-30 00:00:00.000|163930.3943|10.9488656308319512|
+       55282|     29641|2013-08-30 00:00:00.000|160378.3913|10.2805612815745958|
+       46616|     29614|2012-05-30 00:00:00.000|150837.4387| 9.9382830477616695|
+       46981|     30103|2012-06-30 00:00:00.000|147390.9328| 9.8971768635146327|
+       47395|     29701|2012-07-31 00:00:00.000|146154.5653| 9.8391246078989227|
+       47369|     29998|2012-07-31 00:00:00.000|140078.3959| 9.7785509407021986|
+       47355|     29957|2012-07-31 00:00:00.000| 129261.254| 9.7141627606366870|
+       51822|     29913|2013-06-30 00:00:00.000|128873.2206| 9.8028539530422816|
+       44518|     29624|2011-10-01 00:00:00.000|126198.3362| 9.7285313496866847|
+       57150|     29923|2013-09-30 00:00:00.000| 122285.724| 9.6171868762047809|
+       51858|     29940|2013-06-30 00:00:00.000|122284.4578|11.0640782511610400|
+       43875|     29624|2011-07-01 00:00:00.000|121761.9396| 9.7497652706576957|
+       46607|     29994|2012-05-30 00:00:00.000| 120182.185| 9.7784823932099421|
+       46660|     29646|2012-05-30 00:00:00.000|117274.3453|10.0397911153378232|
+	   ...
+Click me to see the solution
+
+6. From the following table write a query in SQL to create a list of unique jobtitles in the employee table in Adventureworks database. Return jobtitle column and arranged the resultset in ascending order.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+jobtitle                                |
+----------------------------------------+
+Accountant                              |
+Accounts Manager                        |
+Accounts Payable Specialist             |
+Accounts Receivable Specialist          |
+Application Specialist                  |
+Assistant to the Chief Financial Officer|
+Benefits Specialist                     |
+Buyer                                   |
+Chief Executive Officer                 |
+Chief Financial Officer                 |
+Control Specialist                      |
+Database Administrator                  |
+Design Engineer                         |
+Document Control Assistant              |
+...
+Click me to see the solution
+
+7. From the following table write a query in SQL to calculate the total freight paid by each customer. Return customerid and total freight. Sort the output in ascending order on customerid.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+customerid|total_freight|
+----------+-------------+
+     11000|     206.2249|
+     11001|     159.5971|
+     11002|     202.8511|
+     11003|     203.4823|
+     11004|     204.9003|
+     11005|     203.0334|
+     11006|     202.9759|
+     11007|     205.2751|
+     11008|     202.6578|
+     11009|     202.2833|
+     11010|     202.2011|
+     11011|     203.3261|
+     11012|       2.0315|
+     11013|       2.8490|
+     11014|       3.4613|
+     11015|      62.5243|
+	 ...
+Click me to see the solution
+
+8. From the following table write a query in SQL to find the average and the sum of the subtotal for every customer. Return customerid, average and sum of the subtotal. Grouped the result on customerid and salespersonid. Sort the result on customerid column in descending order.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+customerid|salespersonid|avg_subtotal          |sum_subtotal|
+----------+-------------+----------------------+------------+
+     30118|          275|    34638.152183333333| 207828.9131|
+     30118|          277|    35369.828450000000|  70739.6569|
+     30117|          275|    77171.792833333333| 463030.7570|
+     30117|          277|    58954.136550000000| 353724.8193|
+     30116|          276|    46778.550275000000| 187114.2011|
+     30115|          289| 1114.6949250000000000|   8917.5594|
+     30114|          290| 1456.6238875000000000|  11652.9911|
+     30113|          282|    34148.236350000000| 273185.8908|
+     30112|          280|    93591.621700000000|  93591.6217|
+     30112|          284|    54909.378542857143| 384365.6498|
+     30111|          277|    69131.600775000000| 276526.4031|
+     30110|          276|  406.3188750000000000|   1625.2755|
+     30109|          275|    59857.260500000000|  119714.521|
+     30109|          277|    36114.523283333333| 216687.1397|
+     30108|          289|    36150.645400000000| 144602.5816|
+	 ...
+Click me to see the solution
+
+9. From the following table write a query in SQL to retrieve total quantity of each productid which are in shelf of 'A' or 'C' or 'H'. Filter the results for sum quantity is more than 500. Return productid and sum of the quantity. Sort the results according to the productid in ascending order.
+
+Sample table: production.productinventory
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|total_quantity|
+---------+--------------+
+        1|           761|
+        2|           791|
+        3|           909|
+        4|           900|
+      316|           532|
+      317|           593|
+      319|           797|
+      320|          1136|
+      321|          1750|
+      322|          1684|
+      323|          1684|
+      324|          1629|
+      325|          1210|
+      326|          1097|
+      328|          1044|
+      329|          1025|
+      330|          1005|
+      331|           831|
+	  ...
+Click me to see the solution
+
+10. From the following table write a query in SQL to find the total quentity for a group of locationid multiplied by 10.
+
+Sample table: production.productinventory
+
+
+Click to view Full table
+
+Sample Output:
+
+total_quantity|
+--------------+
+           186|
+         20295|
+           110|
+         83173|
+         17319|
+          5549|
+         72899|
+           958|
+         13584|
+           332|
+         95477|
+          5165|
+         20419|
+           508|
+Click me to see the solution
+
+11. From the following tables write a query in SQL to find the persons whose last name starts with letter 'L'. Return BusinessEntityID, FirstName, LastName, and PhoneNumber.
+ Sort the result on lastname and firstname.
+
+Sample table: Person.PersonPhone
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|firstname  |lastname       |person_phone       |
+----------------+-----------+---------------+-------------------+
+            5527|Aaron      |Lal            |605-555-0159       |
+            5268|Adam       |Lal            |513-555-0110       |
+           12539|Alejandro  |Lal            |1 (11) 500 555-0117|
+           19786|Alicia     |Lal            |1 (11) 500 555-0161|
+           12004|Alisha     |Lal            |1 (11) 500 555-0119|
+           16649|Alison     |Lal            |1 (11) 500 555-0177|
+            5005|Alvin      |Lal            |1 (11) 500 555-0168|
+            5070|Andres     |Lal            |1 (11) 500 555-0127|
+           10416|Arturo     |Lal            |638-555-0164       |
+            8951|Ashlee     |Lal            |1 (11) 500 555-0148|
+            6283|Austin     |Lal            |541-555-0141       |
+           11600|Barbara    |Lal            |1 (11) 500 555-0176|
+            6744|Benjamin   |Lal            |1 (11) 500 555-0148|
+           17275|Bethany    |Lal            |1 (11) 500 555-0196|
+            3694|Bonnie     |Lal            |1 (11) 500 555-0191|
+            9390|Brad       |Lal            |463-555-0111       |
+           20292|Bradley    |Lal            |1 (11) 500 555-0124|
+		   ...
+Click me to see the solution
+
+12. From the following table write a query in SQL to find the sum of subtotal column. Group the sum on distinct salespersonid and customerid.
+ Rolls up the results into subtotal and running total. Return salespersonid, customerid and sum of subtotal column i.e. sum_subtotal.
+
+Sample table: sales.salesorderheader
+
+
+Click to view Full table
+
+Sample Output:
+
+salespersonid|customerid|sum_subtotal  |
+-------------+----------+--------------+
+          274|     29491|    33406.7043|
+          274|     29493|      2146.962|
+          274|     29514|     3405.1668|
+          274|     29523|    34349.2656|
+          274|     29576|        53.994|
+          274|     29579|      35331.66|
+          274|     29604|       647.994|
+          274|     29605|    29482.0603|
+          274|     29616|   138046.3212|
+          274|     29617|   198993.3507|
+          274|     29623|      1946.022|
+          274|     29650|        83.988|
+          274|     29666|    15842.6141|
+          274|     29669|     3962.2441|
+          274|     29671|     11802.564|
+          274|     29675|       4254.45|
+		  ...
+Click me to see the solution
+	
+13. From the following table write a query in SQL to find the sum of the quantity of all combination of group of distinct locationid and shelf column.
+	Return locationid, shelf and sum of quantity as TotalQuantity.
+
+Sample table: production.productinventory
+
+
+Click to view Full table
+
+Sample Output:
+
+locationid|shelf|totalquantity|
+----------+-----+-------------+
+          |     |       335974|
+        50|J    |         3321|
+         6|A    |         2734|
+        50|B    |         3591|
+         5|A    |         6572|
+        45|N/A  |          332|
+        60|K    |          107|
+        10|D    |         1727|
+        60|G    |         1050|
+        60|A    |         1116|
+        20|B    |          355|
+        50|S    |         1333|
+        50|K    |         8881|
+         1|G    |         3954|
+         6|K    |          164|
+        20|A    |         1680|
+        10|C    |         3464|
+		...
+Click me to see the solution
+
+14. From the following table write a query in SQL to find the sum of the quantity with subtotal for each locationid. 
+	Group the results for all combination of distinct locationid and shelf column. Rolls up the results into subtotal and running total.
+	Return locationid, shelf and sum of quantity as TotalQuantity.
+
+Sample table: production.productinventory
+
+
+Click to view Full table
+
+Sample Output:
+
+locationid|shelf|totalquantity|
+----------+-----+-------------+
+          |     |       335974|
+          |     |       335974|
+        50|J    |         3321|
+         6|A    |         2734|
+        50|B    |         3591|
+         5|A    |         6572|
+        45|N/A  |          332|
+        60|K    |          107|
+        10|D    |         1727|
+        60|G    |         1050|
+        60|A    |         1116|
+        20|B    |          355|
+        50|S    |         1333|
+        50|K    |         8881|
+         1|G    |         3954|
+         6|K    |          164|
+        20|A    |         1680|
+		...
+Click me to see the solution
+
+15. From the following table write a query in SQL to find the total quantity for each locationid and calculate the grand-total for all locations. 
+Return locationid and total quantity. Group the results on locationid.
+
+Sample table: production.productinventory
+
+
+Click to view Full table
+
+Sample Output:
+
+locationid|totalquantity|
+----------+-------------+
+          |       335974|
+         4|          110|
+        30|          958|
+        50|        95477|
+        40|          508|
+        60|        20419|
+         3|          186|
+        20|         5165|
+         7|        17319|
+        10|        13584|
+         1|        72899|
+        45|          332|
+         5|        20295|
+         2|         5549|
+         6|        83173|
+		...
+Click me to see the solution
+
+16. From the following table write a query in SQL to retrieve the number of employees for each City. Return city and number of employees. 
+Sort the result in ascending order on city.
+
+Sample table: Person.BusinessEntityAddress
+
+
+Click to view Full table
+
+Sample Output:
+
+city                 |noofemployees|
+---------------------+-------------+
+Abingdon             |            1|
+Albany               |            4|
+Alexandria           |            2|
+Alhambra             |            1|
+Alpine               |            1|
+Altadena             |            2|
+Altamonte Springs    |            1|
+Anacortes            |            3|
+Arlington            |            1|
+Ascheim              |            1|
+Atlanta              |            2|
+Auburn               |            1|
+Augsburg             |            2|
+Augusta              |            1|
+Aujan Mournede       |            1|
+Aurora               |            1|
+Austell              |            1|
+...
+Click me to see the solution
+
+17. From the following table write a query in SQL to retrieve the total sales for each year. 
+Return the year part of order date and total due amount. Sort the result in ascending order on year part of order date.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+Year  |Order Amount |
+------+-------------+
+2011.0|14155699.5250|
+2012.0|37675700.3120|
+2013.0|48965887.9632|
+2014.0|22419498.3157|
+Click me to see the solution
+
+18. From the following table write a query in SQL to retrieve the total sales for each year. 
+Filter the result set for those orders where order year is on or before 2016. Return the year part of orderdate and total due amount. 
+Sort the result in ascending order on year part of order date.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+yearoforderdate|totaldueorder|
+---------------+-------------+
+         2011.0|14155699.5250|
+         2012.0|37675700.3120|
+         2013.0|48965887.9632|
+         2014.0|22419498.3157|
+Click me to see the solution
+
+19. From the following table write a query in SQL to find the contacts who are designated as a manager in various departments.
+ Returns ContactTypeID, name. Sort the result set in descending order.
+
+Sample table: Person.ContactType
+
+
+Click to view Full table
+
+Sample Output:
+
+contacttypeid|name                           |
+-------------+-------------------------------+
+           19|Sales Manager                  |
+           15|Purchasing Manager             |
+           13|Product Manager                |
+            8|Marketing Manager              |
+            6|International Marketing Manager|
+            1|Accounting Manager             |	
+Click me to see the solution
+
+20. From the following tables write a query in SQL to make a list of contacts who are designated as 'Purchasing Manager'. 
+Return BusinessEntityID, LastName, and FirstName columns. Sort the result set in ascending order of LastName, and FirstName.
+
+Sample table: Person.BusinessEntityContact
+
+
+Click to view Full table
+
+Sample table: Person.ContactType
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|lastname      |firstname  |
+----------------+--------------+-----------+
+            1149|Alexander     |Mary       |
+             363|Arakawa       |Hannah     |
+             365|Arbelaez      |Kyley      |
+             377|Ault          |John       |
+             379|Avalos        |Robert     |
+             389|Bailey        |James      |
+             391|Baldwin       |Douglas    |
+             399|Banks         |Darrell    |
+             401|Barbariol     |Angela     |
+             403|Barber        |David      |
+             409|Barlow        |Brenda     |
+             411|Barnhill      |Josh       |
+             413|Barr          |Adam       |
+             423|Bauer         |Ciro       |
+             425|Beanston      |Glenna     |
+             427|Beasley       |Shaun      |
+             447|Ben-Sachar    |Ido        |
+...			 	
+Click me to see the solution
+
+21. From the following tables write a query in SQL to retrieve the salesperson for each PostalCode who belongs to a territory and SalesYTD is not zero. Return row numbers of each group of PostalCode, last name, salesytd, postalcode column. Sort the salesytd of each postalcode group in descending order. Shorts the postalcode in ascending order.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample Output:
+
+Row Number|lastname         |salesytd    |postalcode|
+----------+-----------------+------------+----------+
+         1|Mitchell         |4251368.5497|98027     |
+         2|Blythe           |3763178.1787|98027     |
+         3|Carson           |3189418.3662|98027     |
+         4|Reiter           | 2315185.611|98027     |
+         5|Vargas           |1453719.4653|98027     |
+         6|Ansman-Wolfe     |1352577.1325|98027     |
+         1|Pak              |4116871.2277|98055     |
+         2|Varkey Chudukatil|3121616.3202|98055     |
+         3|Saraiva          |2604540.7172|98055     |
+         4|Ito              |2458535.6169|98055     |
+         5|Valdez           |1827066.7118|98055     |
+         6|Mensa-Annan      |1576562.1966|98055     |
+         7|Campbell         |1573012.9383|98055     |
+         8|Tsoflias         |1421810.9242|98055     |
+Click me to see the solution
+
+22. From the following table write a query in SQL to count the number of contacts for combination of each type and name. Filter the output for those who have 100 or more contacts. Return ContactTypeID and ContactTypeName and BusinessEntityContact. Sort the result set in descending order on number of contacts.
+
+Sample table: Person.BusinessEntityContact
+
+
+Click to view Full table
+
+Sample table: Person.ContactType
+
+
+Click to view Full table
+
+Sample Output:
+
+contacttypeid|ctypename         |nocontacts|
+-------------+------------------+----------+
+           11|Owner             |       266|
+           15|Purchasing Manager|       245|
+           14|Purchasing Agent  |       242|
+Click me to see the solution
+
+23. From the following table write a query in SQL to retrieve the RateChangeDate, full name (first name, middle name and last name) and weekly salary (40 hours in a week) of employees. In the output the RateChangeDate should appears in date format. Sort the output in ascending order on NameInFull.
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+fromdate  |nameinfull                     |salaryinaweek|
+----------+-------------------------------+-------------+
+2013-03-14|Abbas, Syed E                  |     1924.040|
+2010-01-16|Abercrombie, Kim B             |       498.00|
+2009-02-28|Abolrous, Hazem E              |    1153.8480|
+2009-01-02|Ackerman, Pilar G              |     769.2320|
+2009-03-05|Adams, Jay G                   |       498.00|
+2009-01-17|Ajenstat, François P           |    1538.4600|
+2012-04-16|Alberts, Amy E                 |     1924.040|
+2008-12-02|Alderson, Greg F               |          400|
+2008-12-28|Alexander, Sean P              |     423.0760|
+2009-12-02|Altman, Gary E.                |     961.5400|
+2009-01-02|Anderson, Nancy A              |       498.00|
+2011-05-31|Ansman-Wolfe, Pamela O         |     923.0760|
+2009-01-04|Arifin, Zainal T               |     711.5400|
+2009-01-11|Bacon, Dan K                   |    1096.1520|
+2009-01-21|Baker, Bryan                   |       498.00|
+2009-12-25|Baker, Mary R                  |       538.00|
+2009-01-20|Barbariol, Angela W            |          440|
+...	
+Click me to see the solution
+
+24. From the following tables write a query in SQL to calculate and display the latest weekly salary of each employee. Return RateChangeDate, full name (first name, middle name and last name) and weekly salary (40 hours in a week) of employees Sort the output in ascending order on NameInFull.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.EmployeePayHistory
+
+
+Click to view Full table
+
+Sample Output:
+
+fromdate  |nameinfull                     |salaryinaweek|
+----------+-------------------------------+-------------+
+2013-03-14|Abbas, Syed E                  |     1924.040|
+2010-01-16|Abercrombie, Kim B             |       498.00|
+2009-02-28|Abolrous, Hazem E              |    1153.8480|
+2009-01-02|Ackerman, Pilar G              |     769.2320|
+2009-03-05|Adams, Jay G                   |       498.00|
+2009-01-17|Ajenstat, François P           |    1538.4600|
+2012-04-16|Alberts, Amy E                 |     1924.040|
+2008-12-02|Alderson, Greg F               |          400|
+2008-12-28|Alexander, Sean P              |     423.0760|
+2009-12-02|Altman, Gary E.                |     961.5400|
+2009-01-02|Anderson, Nancy A              |       498.00|
+2011-05-31|Ansman-Wolfe, Pamela O         |     923.0760|
+2009-01-04|Arifin, Zainal T               |     711.5400|
+2009-01-11|Bacon, Dan K                   |    1096.1520|
+2009-01-21|Baker, Bryan                   |       498.00|
+2009-12-25|Baker, Mary R                  |       538.00|
+2009-01-20|Barbariol, Angela W            |          440|
+...
+Click me to see the solution
+
+25. From the following table write a query in SQL to find the sum, average, count, minimum, and maximum order quentity for those orders whose id are 43659 and 43664. Return SalesOrderID, ProductID, OrderQty, sum, average, count, max, and min order quantity.
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|productid|orderqty|Total Quantity|Avg Quantity      |No of Orders|Min Quantity|Max Quantity|
+------------+---------+--------+--------------+------------------+------------+------------+------------+
+       43659|      776|       1|            26|2.1666666666666667|          12|           1|           6|
+       43659|      777|       3|            26|2.1666666666666667|          12|           1|           6|
+       43659|      778|       1|            26|2.1666666666666667|          12|           1|           6|
+       43659|      771|       1|            26|2.1666666666666667|          12|           1|           6|
+       43659|      772|       1|            26|2.1666666666666667|          12|           1|           6|
+       43659|      773|       2|            26|2.1666666666666667|          12|           1|           6|
+       43659|      774|       1|            26|2.1666666666666667|          12|           1|           6|
+       43659|      714|       3|            26|2.1666666666666667|          12|           1|           6|
+       43659|      716|       1|            26|2.1666666666666667|          12|           1|           6|
+       43659|      709|       6|            26|2.1666666666666667|          12|           1|           6|
+       43659|      712|       2|            26|2.1666666666666667|          12|           1|           6|
+       43659|      711|       4|            26|2.1666666666666667|          12|           1|           6|
+       43664|      772|       1|            14|1.7500000000000000|           8|           1|           4|
+       43664|      775|       4|            14|1.7500000000000000|           8|           1|           4|
+...
+Click me to see the solution
+
+26. From the following table write a query in SQL to find the sum, average, and number of order quantity for those orders whose ids are 43659 and 43664 and product id starting with '71'. Return SalesOrderID, OrderNumber,ProductID, OrderQty, sum, average, and number of order quantity.
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+ordernumber|productid|quantity|total|avg                   |count|
+-----------+---------+--------+-----+----------------------+-----+
+      43659|      711|       4|    4|    4.0000000000000000|    2|
+      43659|      712|       2|    6|    3.0000000000000000|    3|
+      43659|      714|       3|    9|    3.0000000000000000|    4|
+      43659|      716|       1|   10|    2.5000000000000000|    5|
+      43664|      714|       1|   11|1.00000000000000000000|    6|
+      43664|      716|       1|   12|1.00000000000000000000|    6|
+Click me to see the solution
+
+27. From the following table write a query in SQL to retrieve the total cost of each salesorderID that exceeds 100000. Return SalesOrderID, total cost.
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|orderidcost|
+------------+-----------+
+       43875|122744.1667|
+       43884|116248.4897|
+       44518|127099.9957|
+       44528|108783.5872|
+       44530|104960.0101|
+       44795|104588.7130|
+       46066|100378.9078|
+       46067|101857.2130|
+       46607|121037.4456|
+       46616|153432.0611|
+       46643|110830.3608|
+       46645|101373.1246|
+       46660|119415.1966|
+       46981|149533.7021|
+       47018|107991.0123|
+       47027|105375.2251|
+       47355|130185.6757|
+	   ...
+Click me to see the solution
+
+28. From the following table write a query in SQL to retrieve products whose names start with 'Lock Washer'. Return product ID, and name and order the result set in ascending order on product ID column.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name          |
+---------+--------------+
+      463|Lock Washer 4 |
+      464|Lock Washer 5 |
+      465|Lock Washer 10|
+      466|Lock Washer 6 |
+      467|Lock Washer 13|
+      468|Lock Washer 8 |
+      469|Lock Washer 1 |
+      470|Lock Washer 7 |
+      471|Lock Washer 12|
+      472|Lock Washer 2 |
+      473|Lock Washer 9 |
+      474|Lock Washer 3 |
+      475|Lock Washer 11|
+Click me to see the solution
+
+29. Write a query in SQL to fetch rows from product table and order the result set on an unspecified column listprice. Return product ID, name, and color of the product.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name                            |color       |
+---------+--------------------------------+------------+
+      388|Hex Nut 11                      |            |
+        2|Bearing Ball                    |            |
+        3|BB Ball Bearing                 |            |
+        4|Headset Ball Bearings           |            |
+      316|Blade                           |            |
+      317|LL Crankarm                     |Black       |
+      318|ML Crankarm                     |Black       |
+      319|HL Crankarm                     |Black       |
+      320|Chainring Bolts                 |Silver      |
+      321|Chainring Nut                   |Silver      |
+      322|Chainring                       |Black       |
+      323|Crown Race                      |            |
+      324|Chain Stays                     |            |
+      325|Decal 1                         |            |
+      326|Decal 2                         |            |
+      327|Down Tube                       |            |
+      328|Mountain End Caps               |            |
+	  ...
+Click me to see the solution
+
+30. From the following table write a query in SQL to retrieve records of employees. Order the output on year (default ascending order) of hiredate. Return BusinessEntityID, JobTitle, and HireDate.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|jobtitle                                |hiredate  |
+----------------+----------------------------------------+----------+
+              28|Production Technician - WC60            |2006-06-30|
+              17|Marketing Assistant                     |2007-01-26|
+              16|Marketing Manager                       |2007-12-20|
+               3|Engineering Manager                     |2007-11-11|
+              40|Production Supervisor - WC60            |2007-12-26|
+               4|Senior Tool Designer                    |2007-12-05|
+              12|Tool Designer                           |2007-12-11|
+             194|Production Technician - WC40            |2008-12-12|
+             193|Production Technician - WC40            |2008-12-06|
+             188|Production Technician - WC45            |2008-12-27|
+             187|Production Technician - WC45            |2008-12-09|
+              93|Production Supervisor - WC50            |2008-12-27|
+              94|Production Technician - WC50            |2008-12-12|
+              95|Production Technician - WC50            |2008-12-19|
+             235|Human Resources Manager                 |2008-12-06|
+             228|Maintenance Supervisor                  |2008-12-14|
+              42|Production Technician - WC60            |2008-12-27|
+			  ...
+Click me to see the solution
+
+31. From the following table write a query in SQL to retrieve those persons whose last name begins with letter 'R'. Return lastname, and firstname and display the result in ascending order on firstname and descending order on lastname columns.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+lastname      |firstname  |
+--------------+-----------+
+Russell       |Aaron      |
+Ross          |Aaron      |
+Roberts       |Aaron      |
+Rana          |Abby       |
+Raman         |Abby       |
+Russell       |Abigail    |
+Ross          |Abigail    |
+Ross          |Abigail    |
+Rogers        |Abigail    |
+Rodriguez     |Abigail    |
+Robinson      |Abigail    |
+Rivera        |Abigail    |
+Richardson    |Abigail    |
+Reed          |Abigail    |
+Ramirez       |Abigail    |
+Russell       |Adam       |
+Ross          |Adam       |
+...
+Click me to see the solution
+
+32. From the following table write a query in SQL to ordered the BusinessEntityID column descendingly when SalariedFlag set to 'true' and BusinessEntityID in ascending order when SalariedFlag set to 'false'. Return BusinessEntityID, SalariedFlag columns.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|salariedflag|
+----------------+------------+
+               4|false       |
+              11|false       |
+              12|false       |
+              13|false       |
+              17|false       |
+              18|false       |
+              19|false       |
+              20|false       |
+              21|false       |
+              22|false       |
+              23|false       |
+              24|false       |
+              27|false       |
+              28|false       |
+              29|false       |
+              30|false       |
+              31|false       |
+...			  
+Click me to see the solution
+
+33. From the following table write a query in SQL to set the result in order by the column TerritoryName when the column CountryRegionName is equal to 'United States' and by CountryRegionName for all other rows.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|lastname         |territoryname |countryregionname|
+----------------+-----------------+--------------+-----------------+
+             286|Tsoflias         |Australia     |Australia        |
+             282|Saraiva          |Canada        |Canada           |
+             278|Vargas           |Canada        |Canada           |
+             277|Carson           |Central       |United States    |
+             290|Varkey Chudukatil|France        |France           |
+             288|Valdez           |Germany       |Germany          |
+             275|Blythe           |Northeast     |United States    |
+             280|Ansman-Wolfe     |Northwest     |United States    |
+             284|Mensa-Annan      |Northwest     |United States    |
+             283|Campbell         |Northwest     |United States    |
+             279|Reiter           |Southeast     |United States    |
+             276|Mitchell         |Southwest     |United States    |
+             281|Ito              |Southwest     |United States    |
+             289|Pak              |United Kingdom|United Kingdom   |
+Click me to see the solution
+
+34. From the following table write a query in SQL to find those persons who lives in a territory and the value of salesytd except 0. Return first name, last name,row number as 'Row Number', 'Rank', 'Dense Rank' and NTILE as 'Quartile', salesytd and postalcode. Order the output on postalcode column.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname         |Row Number|Rank|Dense Rank|Quartile|salesytd    |postalcode|
+---------+-----------------+----------+----+----------+--------+------------+----------+
+Michael  |Blythe           |         1|   1|         1|       1|3763178.1787|98027     |
+Linda    |Mitchell         |         2|   1|         1|       1|4251368.5497|98027     |
+Jillian  |Carson           |         3|   1|         1|       1|3189418.3662|98027     |
+Garrett  |Vargas           |         4|   1|         1|       1|1453719.4653|98027     |
+Tsvi     |Reiter           |         5|   1|         1|       2| 2315185.611|98027     |
+Pamela   |Ansman-Wolfe     |         6|   1|         1|       2|1352577.1325|98027     |
+Shu      |Ito              |         7|   7|         2|       2|2458535.6169|98055     |
+José     |Saraiva          |         8|   7|         2|       2|2604540.7172|98055     |
+David    |Campbell         |         9|   7|         2|       3|1573012.9383|98055     |
+Tete     |Mensa-Annan      |        10|   7|         2|       3|1576562.1966|98055     |
+Lynn     |Tsoflias         |        11|   7|         2|       3|1421810.9242|98055     |
+Rachel   |Valdez           |        12|   7|         2|       4|1827066.7118|98055     |
+Jae      |Pak              |        13|   7|         2|       4|4116871.2277|98055     |
+Ranjit   |Varkey Chudukatil|        14|   7|         2|       4|3121616.3202|98055     |
+Click me to see the solution
+
+35. From the following table write a query in SQL to skip the first 10 rows from the sorted result set and return all remaining rows.
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+departmentid|name                      |groupname                           |
+------------+--------------------------+------------------------------------+
+          11|Information Services      |Executive General and Administration|
+          12|Document Control          |Quality Assurance                   |
+          13|Quality Assurance         |Quality Assurance                   |
+          14|Facilities and Maintenance|Executive General and Administration|
+          15|Shipping and Receiving    |Inventory Management                |
+          16|Executive                 |Executive General and Administration|
+Click me to see the solution
+
+36. From the following table write a query in SQL to skip the first 5 rows and return the next 5 rows from the sorted result set.
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+departmentid|name                    |groupname                           |
+------------+------------------------+------------------------------------+
+           6|Research and Development|Research and Development            |
+           7|Production              |Manufacturing                       |
+           8|Production Control      |Manufacturing                       |
+           9|Human Resources         |Executive General and Administration|
+          10|Finance                 |Executive General and Administration|
+Click me to see the solution
+
+37. From the following table write a query in SQL to list all the products that are Red or Blue in color. Return name, color and listprice.Sorts this result by the column listprice.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                       |color|listprice|
+---------------------------+-----+---------+
+Sport-100 Helmet, Blue     |Blue |    34.99|
+Sport-100 Helmet, Red      |Red  |    34.99|
+Classic Vest, S            |Blue |     63.5|
+Classic Vest, L            |Blue |     63.5|
+Classic Vest, M            |Blue |     63.5|
+LL Touring Frame - Blue, 54|Blue |   333.42|
+LL Touring Frame - Blue, 50|Blue |   333.42|
+LL Touring Frame - Blue, 44|Blue |   333.42|
+LL Touring Frame - Blue, 62|Blue |   333.42|
+LL Touring Frame - Blue, 58|Blue |   333.42|
+LL Road Frame - Red, 58    |Red  |   337.22|
+LL Road Frame - Red, 60    |Red  |   337.22|
+LL Road Frame - Red, 62    |Red  |   337.22|
+LL Road Frame - Red, 44    |Red  |   337.22|
+LL Road Frame - Red, 48    |Red  |   337.22|
+...
+Click me to see the solution
+
+38. Create a SQL query from the SalesOrderDetail table to retrieve the product name and any associated sales orders. Additionally, it returns any sales orders that don't have any items mentioned in the Product table as well as any products that have sales orders other than those that are listed there. Return product name, salesorderid. Sort the result set on product name column.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |salesorderid|
+--------------------------------+------------+
+Adjustable Race                 |            |
+All-Purpose Bike Stand          |       73803|
+All-Purpose Bike Stand          |       74760|
+All-Purpose Bike Stand          |       74086|
+All-Purpose Bike Stand          |       74310|
+All-Purpose Bike Stand          |       74845|
+All-Purpose Bike Stand          |       74580|
+All-Purpose Bike Stand          |       74516|
+All-Purpose Bike Stand          |       75123|
+All-Purpose Bike Stand          |       74525|
+All-Purpose Bike Stand          |       74130|
+All-Purpose Bike Stand          |       74960|
+All-Purpose Bike Stand          |       74852|
+All-Purpose Bike Stand          |       74879|
+...
+Click me to see the solution
+
+39. From the following table write a SQL query to retrieve the product name and salesorderid. Both ordered and unordered products are included in the result set.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |salesorderid|
+--------------------------------+------------+
+Adjustable Race                 |            |
+All-Purpose Bike Stand          |       73803|
+All-Purpose Bike Stand          |       74760|
+All-Purpose Bike Stand          |       74086|
+All-Purpose Bike Stand          |       74310|
+All-Purpose Bike Stand          |       74845|
+All-Purpose Bike Stand          |       74580|
+All-Purpose Bike Stand          |       74516|
+All-Purpose Bike Stand          |       75123|
+All-Purpose Bike Stand          |       74525|
+All-Purpose Bike Stand          |       74130|
+All-Purpose Bike Stand          |       74960|
+All-Purpose Bike Stand          |       74852|
+All-Purpose Bike Stand          |       74879|
+...
+Click me to see the solution
+
+40. From the following tables write a SQL query to get all product names and sales order IDs. Order the result set on product name column.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |salesorderid|
+--------------------------------+------------+
+All-Purpose Bike Stand          |       51488|
+All-Purpose Bike Stand          |       51558|
+All-Purpose Bike Stand          |       51179|
+All-Purpose Bike Stand          |       51520|
+All-Purpose Bike Stand          |       61953|
+All-Purpose Bike Stand          |       53295|
+All-Purpose Bike Stand          |       52705|
+All-Purpose Bike Stand          |       53299|
+All-Purpose Bike Stand          |       52754|
+All-Purpose Bike Stand          |       55513|
+All-Purpose Bike Stand          |       54397|
+All-Purpose Bike Stand          |       54291|
+All-Purpose Bike Stand          |       54286|
+All-Purpose Bike Stand          |       56866|
+...
+Click me to see the solution
+
+41. From the following tables write a SQL query to retrieve the territory name and BusinessEntityID. The result set includes all salespeople, regardless of whether or not they are assigned a territory.
+
+Sample table: Sales.SalesTerritory
+
+
+Click to view Full table
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+territory     |businessentityid|
+--------------+----------------+
+              |             274|
+Northeast     |             275|
+Southwest     |             276|
+Central       |             277|
+Canada        |             278|
+Southeast     |             279|
+Northwest     |             280|
+Southwest     |             281|
+Canada        |             282|
+Northwest     |             283|
+Northwest     |             284|
+              |             285|
+Australia     |             286|
+              |             287|
+Germany       |             288|
+United Kingdom|             289|
+France        |             290|
+Click me to see the solution
+
+42. Write a query in SQL to find the employee's full name (firstname and lastname) and city from the following tables. Order the result set on lastname then by firstname.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample table: Person.BusinessEntityAddress
+
+
+Click to view Full table
+
+Sample Output:
+
+name                    |city         |
+------------------------+-------------+
+Syed Abbas              |Bothell      |
+Kim Abercrombie         |Carnation    |
+Hazem Abolrous          |Kenmore      |
+Pilar Ackerman          |Seattle      |
+Jay Adams               |Monroe       |
+François Ajenstat       |Issaquah     |
+Amy Alberts             |Renton       |
+Greg Alderson           |Bellevue     |
+Sean Alexander          |Renton       |
+Gary Altman             |Renton       |
+Nancy Anderson          |Sammamish    |
+Pamela Ansman-Wolfe     |Portland     |
+Zainal Arifin           |Issaquah     |
+Dan Bacon               |Issaquah     |
+...
+Click me to see the solution
+
+43. Write a SQL query to return the businessentityid,firstname and lastname columns of all persons in the person table (derived table) with persontype is 'IN' and the last name is 'Adams'. Sort the result set in ascending order on firstname. A SELECT statement after the FROM clause is a derived table.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|firstname|lastname|
+----------------+---------+--------+
+           16867|Aaron    |Adams   |
+           16901|Adam     |Adams   |
+           16724|Alex     |Adams   |
+           10263|Alexandra|Adams   |
+           10312|Allison  |Adams   |
+           10274|Amanda   |Adams   |
+           10292|Amber    |Adams   |
+           10314|Andrea   |Adams   |
+           16699|Angel    |Adams   |
+           10299|Bailey   |Adams   |
+            1770|Ben      |Adams   |
+...
+Click me to see the solution
+
+44. Create a SQL query to retrieve individuals from the following table with a businessentityid inside 1500, a lastname starting with 'Al', and a firstname starting with 'M'.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|firstname|lastname |
+----------------+---------+---------+
+             327|Milton   |Albury   |
+             335|Michelle |Alexander|
+             341|Marvin   |Allen    |
+             343|Michael  |Allen    |
+            1149|Mary     |Alexander|
+Click me to see the solution
+
+45. Write a SQL query to find the productid, name, and colour of the items 'Blade', 'Crown Race' and 'AWC Logo Cap' using a derived table with multiple values.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|name        |color|
+---------+------------+-----+
+      316|Blade       |     |
+      323|Crown Race  |     |
+      712|AWC Logo Cap|Multi|
+Click me to see the solution
+
+46. Create a SQL query to display the total number of sales orders each sales representative receives annually. Sort the result set by SalesPersonID and then by the date component of the orderdate in ascending order. Return the year component of the OrderDate, SalesPersonID, and SalesOrderID.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+salespersonid|totalsales|salesyear|
+-------------+----------+---------+
+          274|         4|   2011.0|
+          274|        22|   2012.0|
+          274|        14|   2013.0|
+          274|         8|   2014.0|
+          275|        65|   2011.0|
+          275|       148|   2012.0|
+          275|       175|   2013.0|
+          275|        62|   2014.0|
+          276|        46|   2011.0|
+          276|       151|   2012.0|
+          276|       162|   2013.0|
+...
+Click me to see the solution
+
+47. From the following table write a query in SQL to find the average number of sales orders for all the years of the sales representatives.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample Output:
+
+Average Sales Per Person|
+------------------------+
+    223.8823529411764706|
+Click me to see the solution
+
+48. Write a SQL query on the following table to retrieve records with the characters green_ in the LargePhotoFileName field. The following table's columns must all be returned.
+
+Sample table: Production.ProductPhoto
+
+
+Click to view Full table
+
+Sample Output:
+
+productphotoid|thumbnailphoto                                                                                                                                                                                                                                                 |thumbnailphotofilename             |largephoto                                                                                                                                                                                                                                                     |largephotofilename                 |modifieddate           |
+--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------------------------------+-----------------------+
+            76|47494638396150003100F700007689B3B1D5A475777BECEBF234353A85A376FAFCFE45474BF1F2FEE2E2FC6B919D4D5A6CF8FAFEF4F6FE65676BDAE7ECEDEDFE787C805B994CBEBDC3BACFB65A6674AAABB0F6F8FC56565A478C349A9DA1E3E4EBDCDDE1CDD1D9244356D1D1D3586F8EDBDDEA78CA6ABBBCBE68AB58F9FAFA3|racer02_green_f_small.gif          |474946383961F0009500F70000CACBF8D6E4EFA3D19EECEDFEF3F4F4D3D3FEE2E3FEDCDDFED7D7E7979AA6B4C7CEA5A7AAC7C8DA85868983B67633C90754555A2C930797999A719CCD96A5B0F9FAFA777A8287ABCEFAFBFDEEF0F876767977858A3B3C41656669575A604DAE2FC7C6ECEAEBED47CA233A4149BBBCC3F7F9FCA|racer02_green_f_large.gif          |2012-10-19 09:56:38.273|
+            77|47494638396150003100F70000B8D3C4E2E3F397A5A945596B6B86B767AB56F5F8FC89BC7134353A45464AFAFCFEEBEBF3E1E2E3F1F2FEE3E3FB75767A797C816CC751F5F6FE65676BF8FAFD499434BEBDC26D9399EDEDFEA6AAB2ECF9E856565AE3E5E884D3713E47509A9DA15A9A4AADB2B6DEE3EADCDDE3CFD1D8D2D2D3D|racer02_green_small.gif            |474946383961F0009500F70000444549309407CACAF8D6E4EE34C90849CE24D8D8E8ECEDFEF2F3F3D3D3FEE2E3FEDCDDFE9699A7A4A6AAB9C4CD858689C6C8DA54555A719DCD96A5B098999A767A8350A731F9FAFAFAFBFD76767A88ABCDEEF1F4D4EDCF69A9563B3C41646569575A60EAEBED75868D6ADB49C6C6EC3C4148B|racer02_green_large.gif            |2012-10-19 09:56:38.273|
+            91|47494638396150003100F7000000000000000800080800081008081008100808101008101810101810181810182118182118212118212921212921292921293129293131294229313129313931313939314A3139392152082B472E393942394242424A42425231426B395A6B4239394A39424A42424A424A4A4A4A4A524A4A4|julianax_r_02_f_green_small.gif    |474946383961F0009500F70000000205000810040C10101808081414101018101818101021101821181021181818181821182110211010291010261B1B182118102121182121212121292121182129212129182921182929212929292929212931292931213110213129214A18313121312129293131312D35294B0E293E202|julianax_r_02_f_green_large.gif    |2012-10-19 09:56:38.273|
+            95|47494638396150003100F70000000000000008000808000810080810001000081010081018101018101818101821181821182121182129212129212929212931292931312939292942293131293139313139313939215A002D4E1C394A393139423939423942424A63424A6B4231294A39394A39424A42424A424A4A4A4A4A4|julianax_r_02_green_small.gif      |474946383961F0009500F70000000202000808000010000810020D0D081010000818081808081418101010101018101810101818180818181808211018181818211818101821181821082108212110182118212118102121212918213110294218264C10315218295A0C2E5D121821211821291829212118212121212121292|julianax_r_02_green_large.gif      |2012-10-19 09:56:38.273|
+           105|47494638396150003100F700000200050D0512151012181818220E14211C252621262929293100002D292D3129313131313929313931313131393931392139103142210852001C5A08316B103939394231394239394242393939424239424242424A39424A42424A424A4A4A4A52424252424A524A4A5A4A4A6F10106D2E2E6|roadster_green_f_small.gif         |474946383961F0009500F7000000000000080008000000000800080808000C08080808081010020810081008100808101014100818081421080C2D040A1010101014141810101810181818181818212113162E1512182118182121252114271D2225272B2F252D1F490A20670144101144272B3131353F372B3931393939393|roadster_green_f_large.gif         |2012-10-19 09:56:38.273|
+           106|47494638396150003100F70000020005080810100018120D1029040818151B211821231E262B1618292929312929292931312931313131313139392D31213910314221085200205A08316B103931393939394231394239393939424239424242424A39424A42424A424A4A4A4A632020573F41731C1C7B3C3C524A4A524A525|roadster_green_small.gif           |474946383961F0009500F7000000000000080008000000000800080808000C08080808081010020810081008100808101010100818081422080A3104081012121810101810181818182112161A1C1C211C1C2B191824241D2925292B272D3129311D51041C6300186B00296502451C2033312E35373045352D3F373D3C423C4|roadster_green_large.gif           |2012-10-19 09:56:38.273|
+           123|47494638396150003100F7000010081018101821102921103118181821181821182121182921212129212929213131213929292929293131293129293939294A31313139313131313939313929314239393139393942393939394242394242394A4242464A42424A4E35577029314A634A31524A424A4A4A4A4E464E524A4E4|superlight_metalicgreen_f_small.gif|474946383961F0009500F70000150E111B1221221E262921292525312B273331292931293139392131312931313131393136293633333639393142393118314A312D4631424A3929423931394231393931423B3B3F4239424242394242424A3D4242394A42424A4A394A4A424A39473E29425C52424A5242524A4A4E524A4A3|superlight_metalicgreen_f_large.gif|2012-10-19 09:56:38.273|
+           124|47494638396150003100F700001008101810181818182118182118212121212921292929292514312D2535292939312931332B3939313131313939313929314239393139393942393939394242394242394A4242424A6B2142424A4A424A4A4A4A4F474C524A52524A5A4A5A4A5D7B2652525263845252525A5A525A5A5A5A6|superlight_metalicgreen_small.gif  |474946383961F0009500F70000150E131C1821221D25292129291E3326292E3129293129312D2D3531312939293139293931313139313131313939462918314A21425A3929422E3C4A3931393939393F363C393F4C4239424A3942423F414444414A394A4A424A52424A524252414C3C394B504E4A4A4A524A525A39524A525|superlight_metalicgreen_large.gif  |2012-10-19 09:56:38.273| 
+Click me to see the solution
+
+49. Write a SQL query to retrieve the mailing address for any company that is outside the United States (US) and in a city whose name starts with Pa. Return Addressline1, Addressline2, city, postalcode, countryregioncode columns.
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample table: Person.StateProvince
+
+
+Click to view Full table
+
+Sample Output:
+
+addressline1              |addressline2  |city             |postalcode|countryregioncode|
+--------------------------+--------------+-----------------+----------+-----------------+
+21105, rue de Varenne     |				 |Paris			   |75013	  |FR				|
+22, rue du Départ	      |     		 |Pantin		   |93500	  |FR				| 
+36, avenue de la Gare     |     		 |Paris 		   |75019	  |FR				|  
+39, route de Marseille    |     		 |Paris 		   |75016	  |FR				|
+98, rue Montcalm	      |     		 |Paris 		   |75019	  |FR				|
+39, avenue des Laurentides|     		 |Paris La Defense |92081	  |FR				|
+3101, avenue de Malakoff  |     		 |Paris 		   |75003	  |FR				|
+9005, rue des Bouchers    |     		 |Paris 		   |75005	  |FR				|
+...	
+Click me to see the solution
+
+50. From the following table write a query in SQL to fetch first twenty rows. Return jobtitle, hiredate. Order the result set on hiredate column in descending order.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+jobtitle               |hiredate  |
+-----------------------+----------+
+Sales Representative   |2013-05-30|
+Sales Representative   |2013-05-30|
+Pacific Sales Manager  |2013-03-14|
+Sales Representative   |2012-09-30|
+Sales Representative   |2012-05-30|
+Sales Representative   |2012-05-30|
+European Sales Manager |2012-04-16|
+Sales Representative   |2011-05-31|
+Sales Representative   |2011-05-31|
+Sales Representative   |2011-05-31|
+Sales Representative   |2011-05-31|
+Sales Representative   |2011-05-31|
+Sales Representative   |2011-05-31|
+...
+Click me to see the solution
+
+51. From the following tables write a SQL query to retrieve the orders with orderqtys greater than 5 or unitpricediscount less than 1000, and totaldues greater than 100. Return all the columns from the tables.
+
+Sample table: Sales.SalesOrderHeader
+
+
+Click to view Full table
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+salesorderid|revisionnumber|orderdate              |duedate                |shipdate               |status|onlineorderflag|purchaseordernumber|accountnumber |customerid|salespersonid|territoryid|billtoaddressid|shiptoaddressid|shipmethodid|creditcardid|creditcardapprovalcode|currencyrateid|subtotal  |taxamt   |freight  |totaldue  |comment|rowguid                             |modifieddate           |salesorderid|salesorderdetailid|carriertrackingnumber|orderqty|productid|specialofferid|unitprice|unitpricediscount|rowguid                             |modifieddate           |
+------------+--------------+-----------------------+-----------------------+-----------------------+------+---------------+-------------------+--------------+----------+-------------+-----------+---------------+---------------+------------+------------+----------------------+--------------+----------+---------+---------+----------+-------+------------------------------------+-----------------------+------------+------------------+---------------------+--------+---------+--------------+---------+-----------------+------------------------------------+-----------------------+
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                30|2E53-4802-85         |       3|      764|             1| 419.4589|                0|2dfd4d76-e020-4b80-a0a5-6463d0c2df73|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                31|2E53-4802-85         |       5|      770|             1| 419.4589|                0|1f1aa6dc-04a2-48e2-af9f-e46d8f59aa55|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                32|2E53-4802-85         |       2|      730|             1| 183.9382|                0|5ace6cb5-7341-4d88-9425-56ab7ae512e7|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                33|2E53-4802-85         |       4|      754|             1|  874.794|                0|dff2a7f2-37f2-4016-bedf-4dbb8c88b631|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                34|2E53-4802-85         |       3|      725|             1| 183.9382|                0|92897ee9-72a6-49e6-a421-c243b531aff2|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                35|2E53-4802-85         |       5|      762|             1| 419.4589|                0|1ce18faa-047d-41b1-8cf6-5191c092ab3c|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                36|2E53-4802-85         |       3|      765|             1| 419.4589|                0|f833cb4a-d6e3-40ac-b383-1c4e7220afef|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                37|2E53-4802-85         |       2|      768|             1| 419.4589|                0|d8e84dbd-a1ed-41e4-a9a1-0ad95fb9b323|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                38|2E53-4802-85         |       1|      753|             1| 2146.962|                0|491c561f-6b1e-47d0-95d5-6519654a5f47|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                39|2E53-4802-85         |       1|      756|             1|  874.794|                0|2ba4cc58-b832-47c0-aef4-d15d029cc083|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                40|2E53-4802-85         |       3|      763|             1| 419.4589|                0|d5c51a6a-6d12-4ceb-aed4-842e78baf142|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                41|2E53-4802-85         |       1|      732|             1|  356.898|                0|48420c59-4fbd-4817-a1df-613dce40b18b|2011-05-31 00:00:00.000|
+       43662|             8|2011-05-31 00:00:00.000|2011-06-12 00:00:00.000|2011-06-07 00:00:00.000|     5|false          |PO18444174044      |10-4020-000227|     29994|          282|          6|            482|            482|           5|       10456|125295Vi53935         |             4|28832.5289|2775.1646| 867.2389|32474.9324|       |4a1ecfc0-cc3a-4740-b028-1c50bb48711c|2011-06-07 00:00:00.000|       43662|                42|2E53-4802-85         |       6|      758|             1|  874.794|                0|2c4f704d-c794-4613-9c8b-258619fa20fa|2011-05-31 00:00:00.000|
+	   ...
+Click me to see the solution
+
+52. From the following table write a query in SQL that searches for the word 'red' in the name column. Return name, and color columns from the table.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                   |color|
+-----------------------+-----+
+Paint - Red            |     |
+HL Road Frame - Red, 58|Red  |
+Sport-100 Helmet, Red  |Red  |
+HL Road Frame - Red, 62|Red  |
+HL Road Frame - Red, 44|Red  |
+HL Road Frame - Red, 48|Red  |
+HL Road Frame - Red, 52|Red  |
+HL Road Frame - Red, 56|Red  |
+LL Road Frame - Red, 44|Red  |
+LL Road Frame - Red, 48|Red  |
+LL Road Frame - Red, 52|Red  |
+LL Road Frame - Red, 58|Red  |
+LL Road Frame - Red, 60|Red  |
+...
+Click me to see the solution
+
+53. From the following table write a query in SQL to find all the products with a price of $80.99 that contain the word Mountain. Return name, and listprice columns from the table.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name             |listprice|
+-----------------+---------+
+HL Mountain Pedal|    80.99|
+Click me to see the solution
+
+54. From the following table write a query in SQL to retrieve all the products that contain either the phrase Mountain or Road. Return name, and color columns.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |color       |
+--------------------------------+------------+
+Mountain End Caps               |            |
+Road End Caps                   |            |
+LL Mountain Rim                 |            |
+ML Mountain Rim                 |            |
+HL Mountain Rim                 |            |
+LL Road Rim                     |            |
+ML Road Rim                     |            |
+HL Road Rim                     |            |
+LL Mountain Seat Assembly       |            |
+...
+Click me to see the solution
+
+55. From the following table write a query in SQL to search for name which contains both the word 'Mountain' and the word 'Black'. Return Name and color.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                         |color|
+-----------------------------+-----+
+HL Mountain Frame - Black, 42|Black|
+HL Mountain Frame - Black, 44|Black|
+HL Mountain Frame - Black, 48|Black|
+HL Mountain Frame - Black, 46|Black|
+HL Mountain Frame - Black, 38|Black|
+Mountain-100 Black, 38       |Black|
+Mountain-100 Black, 42       |Black|
+Mountain-100 Black, 44       |Black|
+Mountain-100 Black, 48       |Black|
+...
+Click me to see the solution
+
+56. From the following table write a query in SQL to return all the product names with at least one word starting with the prefix chain in the Name column.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name       |color |
+-----------+------+
+Chain Stays|      |
+Chain      |Silver|
+Click me to see the solution
+
+57. From the following table write a query in SQL to return all category descriptions containing strings with prefixes of either chain or full.
+
+Sample table: Production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                 |color |
+---------------------+------+
+Chain Stays          |      |
+Full-Finger Gloves, S|Black |
+Full-Finger Gloves, M|Black |
+Full-Finger Gloves, L|Black |
+Chain                |Silver|
+Click me to see the solution
+
+58. From the following table write a SQL query to output an employee's name and email address, separated by a new line character.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Person.EmailAddress
+
+
+Click to view Full table
+
+Sample Output:
+
+?column?                             |
+-------------------------------------+
+Ken Sánchez ¶ken0@adventure-works.com| 
+Click me to see the solution
+
+59. From the following table write a SQL query to locate the position of the string "yellow" where it appears in the product name.
+
+Sample table: production.product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                         |String Position|
+-----------------------------+---------------+
+Paint - Yellow               |              9|
+Road-550-W Yellow, 38        |             12|
+Road-550-W Yellow, 40        |             12|
+Road-550-W Yellow, 42        |             12|
+Road-550-W Yellow, 44        |             12|
+Road-550-W Yellow, 48        |             12|
+ML Road Frame-W - Yellow, 38 |             19|
+ML Road Frame-W - Yellow, 40 |             19|
+ML Road Frame-W - Yellow, 42 |             19|
+ML Road Frame-W - Yellow, 44 |             19|
+ML Road Frame-W - Yellow, 48 |             19|
+...
+Click me to see the solution
+
+60 From the following table write a query in SQL to concatenate the name, color, and productnumber columns.
+
+Sample table: production.product
+
+
+Click to view Full table
+
+Sample Output:
+
+result                                                         |color |
+---------------------------------------------------------------+------+
+Adjustable Race   color:- Product Number:AR-5381               |      |
+Bearing Ball   color:- Product Number:BA-8327                  |      |
+BB Ball Bearing   color:- Product Number:BE-2349               |      |
+Headset Ball Bearings   color:- Product Number:BE-2908         |      |
+Blade   color:- Product Number:BL-2036                         |      |
+LL Crankarm   color:-Black Product Number:CA-5965              |Black |
+ML Crankarm   color:-Black Product Number:CA-6738              |Black |
+HL Crankarm   color:-Black Product Number:CA-7457              |Black |
+Chainring Bolts   color:-Silver Product Number:CB-2903         |Silver|
+Chainring Nut   color:-Silver Product Number:CN-6137           |Silver|
+Chainring   color:-Black Product Number:CR-7833                |Black |
+...
+Click me to see the solution
+
+61 Write a SQL query that concatenate the columns name, productnumber, colour, and a new line character from the following table, each separated by a specified character.
+
+Sample table: production.product
+
+
+Click to view Full table
+
+Sample Output:
+
+databaseinfo                             |
+-----------------------------------------+
+Adjustable Race,AR-5381,¶                |
+Bearing Ball,BA-8327,¶                   |
+BB Ball Bearing,BE-2349,¶                |
+Headset Ball Bearings,BE-2908,¶          |
+Blade,BL-2036,¶                          |
+LL Crankarm,CA-5965,Black,¶              |
+ML Crankarm,CA-6738,Black,¶              |
+HL Crankarm,CA-7457,Black,¶              |
+Chainring Bolts,CB-2903,Silver,¶         |
+Chainring Nut,CN-6137,Silver,¶           |
+Chainring,CR-7833,Black,¶                |
+...
+Click me to see the solution
+
+62 From the following table write a query in SQL to return the five leftmost characters of each product name.
+
+Sample table: production.product
+
+
+Click to view Full table
+
+Sample Output:
+
+left |
+-----+
+Adjus|
+Beari|
+BB Ba|
+Heads|
+Blade|
+LL Cr|
+ML Cr|
+HL Cr|
+Chain|
+Chain|
+Chain|
+...
+Click me to see the solution
+
+63 From the following table write a query in SQL to select the number of characters and the data in FirstName for people located in Australia.
+
+Sample table: Sales.vindividualcustomer
+
+
+Click to view Full table
+
+Sample Output:
+
+length|firstname|lastname |
+------+---------+---------+
+     3|Jon      |Yang     |
+     6|Eugene   |Huang    |
+     5|Ruben    |Torres   |
+     7|Christy  |Zhu      |
+     9|Elizabeth|Johnson  |
+     5|Julio    |Ruiz     |
+     5|Janet    |Alvarez  |
+     5|Marco    |Mehta    |
+     3|Rob      |Verhoff  |
+     7|Shannon  |Carlson  |
+     9|Jacquelyn|Suarez   |
+	 ...
+Click me to see the solution
+
+64 From the following tables write a query in SQL to return the number of characters in the column FirstName and the first and last name of contacts located in Australia.
+
+Sample table: Sales.vstorewithcontacts
+
+
+Click to view Full table
+
+Sample table: Sales.vstorewithaddresses
+
+
+Click to view Full table
+
+Sample Output:
+
+fnamelength|firstname|lastname    |
+-----------+---------+------------+
+          3|Ann      |Wilson      |
+          3|Don      |Funk        |
+          3|Jay      |Fluegel     |
+          3|Mae      |Anderson    |
+          3|Ole      |Weldon      |
+          4|Eric     |Coleman     |
+          4|Jeff     |Hay         |
+          4|Jeff     |Henshaw     |
+          4|John     |Fredericksen|
+          4|Jose     |Lugo        |
+          4|Judy     |Storjohann  |
+          4|Lynn     |Gonzales    |
+          4|Neal     |Hasty       |
+          4|Neil     |Charney     |
+          4|Scot     |Bent        |
+...
+Click me to see the solution
+
+65 From the following table write a query in SQL to select product names that have prices between $1000.00 and $1220.00. Return product name as Lower, Upper, and also LowerUpper.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+lower                    |upper                    |lowerupper               |
+-------------------------+-------------------------+-------------------------+
+hl road frame - black, 58|HL ROAD FRAME - BLACK, 58|hl road frame - black, 58|
+hl road frame - red, 58  |HL ROAD FRAME - RED, 58  |hl road frame - red, 58  |
+road-350-w yellow, 40    |ROAD-350-W YELLOW, 40    |road-350-w yellow, 40    |
+road-350-w yellow, 42    |ROAD-350-W YELLOW, 42    |road-350-w yellow, 42    |
+road-350-w yellow, 44    |ROAD-350-W YELLOW, 44    |road-350-w yellow, 44    |
+road-350-w yellow, 48    |ROAD-350-W YELLOW, 48    |road-350-w yellow, 48    |
+Click me to see the solution
+
+66 Write a query in SQL to remove the spaces from the beginning of a string.
+
+Sample Output:
+
+Original Text                |Trimmed Text(space removed)|
+-----------------------------+---------------------------+
+     five space then the text|five space then the text   |
+Click me to see the solution
+
+67 From the following table write a query in SQL to remove the substring 'HN' from the start of the column productnumber. Filter the results to only show those productnumbers that start with "HN". Return original productnumber column and 'TrimmedProductnumber'.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productnumber|TrimmedProductnumber|
+-------------+--------------------+
+HN-1024      |-1024               |
+HN-1032      |-1032               |
+HN-1213      |-1213               |
+HN-1220      |-1220               |
+HN-1224      |-1224               |
+HN-1420      |-1420               |
+HN-1428      |-1428               |
+HN-3410      |-3410               |
+HN-3416      |-3416               |
+HN-3816      |-3816               |
+HN-3824      |-3824               |
+HN-4402      |-4402               |
+HN-5161      |-5161               |
+HN-5162      |-5162               |
+...
+Click me to see the solution
+
+68 From the following table write a query in SQL to repeat a 0 character four times in front of a production line for production line 'T'.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                         |Line Code|
+-----------------------------+---------+
+HL Touring Frame - Blue, 46  |0000T    |
+HL Touring Frame - Blue, 50  |0000T    |
+HL Touring Frame - Blue, 54  |0000T    |
+HL Touring Frame - Blue, 60  |0000T    |
+HL Touring Frame - Yellow, 46|0000T    |
+HL Touring Frame - Yellow, 50|0000T    |
+HL Touring Frame - Yellow, 54|0000T    |
+HL Touring Frame - Yellow, 60|0000T    |
+HL Touring Handlebars        |0000T    |
+HL Touring Seat/Saddle       |0000T    |
+LL Touring Frame - Blue, 44  |0000T    |
+LL Touring Frame - Blue, 50  |0000T    |
+LL Touring Frame - Blue, 54  |0000T    |
+LL Touring Frame - Blue, 58  |0000T    |
+LL Touring Frame - Blue, 62  |0000T    |
+...
+Click me to see the solution
+
+69 From the following table write a SQL query to retrieve all contact first names with the characters inverted for people whose businessentityid is less than 6.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|reverse|
+---------+-------+
+Gail     |liaG   |
+Ken      |neK    |
+Rob      |boR    |
+Roberto  |otreboR|
+Terri    |irreT  |
+Click me to see the solution
+
+70 From the following table write a query in SQL to return the eight rightmost characters of each name of the product. Also return name, productnumber column. Sort the result set in ascending order on productnumber.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name                            |productnumber|Product Name|
+--------------------------------+-------------+------------+
+Adjustable Race                 |AR-5381      |ble Race    |
+Bearing Ball                    |BA-8327      |ing Ball    |
+LL Bottom Bracket               |BB-7421      | Bracket    |
+ML Bottom Bracket               |BB-8107      | Bracket    |
+HL Bottom Bracket               |BB-9108      | Bracket    |
+Mountain Bottle Cage            |BC-M005      |tle Cage    |
+Road Bottle Cage                |BC-R205      |tle Cage    |
+BB Ball Bearing                 |BE-2349      | Bearing    |
+Headset Ball Bearings           |BE-2908      |Bearings    |
+Mountain-500 Black, 40          |BK-M18B-40   |lack, 40    |
+Mountain-500 Black, 42          |BK-M18B-42   |lack, 42    |
+Mountain-500 Black, 44          |BK-M18B-44   |lack, 44    |
+Mountain-500 Black, 48          |BK-M18B-48   |lack, 48    |
+Mountain-500 Black, 52          |BK-M18B-52   |lack, 52    |
+...
+Click me to see the solution
+
+71 Write a query in SQL to remove the spaces at the end of a string.
+
+Sample Output:
+
+Original Text                        |Trimmed Text(space removed)     |
+-------------------------------------+--------------------------------+
+text then five spaces     after space|text then five spacesafter space|
+Click me to see the solution
+
+72 From the following table write a query in SQL to fetch the rows for the product name ends with the letter 'S' or 'M' or 'L'. Return productnumber and name.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productnumber|name                           |
+-------------+-------------------------------+
+SO-B909-M    |Mountain Bike Socks, M         |
+SO-B909-L    |Mountain Bike Socks, L         |
+LJ-0192-S    |Long-Sleeve Logo Jersey, S     |
+LJ-0192-M    |Long-Sleeve Logo Jersey, M     |
+LJ-0192-L    |Long-Sleeve Logo Jersey, L     |
+LJ-0192-X    |Long-Sleeve Logo Jersey, XL    |
+SH-M897-S    |Men's Sports Shorts, S         |
+SH-M897-M    |Men's Sports Shorts, M         |
+SH-M897-L    |Men's Sports Shorts, L         |
+SH-M897-X    |Men's Sports Shorts, XL        |
+TG-W091-S    |Women's Tights, S              |
+TG-W091-M    |Women's Tights, M              |
+TG-W091-L    |Women's Tights, L              |
+SB-M891-S    |Men's Bib-Shorts, S            |
+SB-M891-M    |Men's Bib-Shorts, M            |
+...
+Click me to see the solution
+
+73 From the following table write a query in SQL to replace null values with 'N/A' and return the names separated by commas in a single row.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+test                                                                                                                                                                                                                                                           |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Ken, Terri, Roberto, Rob, Gail, Jossef, Dylan, Diane, Gigi, Michael, Ovidiu, Thierry, Janice, Michael, Sharon, David, Kevin, John, Mary, Wanida, Terry, Sariya, Mary, Jill, James, Peter, Jo, Guy, Mark, Britta, Margie, Rebecca, Annik, Suchitra, Brandon, Jos|
+Click me to see the solution
+
+74 From the following table write a query in SQL to return the names and modified date separated by commas in a single row.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+test                                                                                                                                                                                                                                                           |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Ken Sánchez (2009-01-07 00:00:00), Terri Duffy (2008-01-24 00:00:00), Roberto Tamburello (2007-11-04 00:00:00), Rob Walters (2007-11-28 00:00:00), Gail Erickson (2007-12-30 00:00:00), Jossef Goldberg (2013-12-16 00:00:00), Dylan Miller (2009-02-01 00:00:0|
+Click me to see the solution
+
+75 From the following table write a query in SQL to find the email addresses of employees and groups them by city. Return top ten rows.
+
+Sample table: Person.BusinessEntityAddress
+
+
+Click to view Full table
+
+Sample table: Person.Address
+
+
+Click to view Full table
+
+Sample table: Person.EmailAddress
+
+
+Click to view Full table
+
+Sample Output:
+
+city             |emails                                                                                                                                                                                                                                                         |
+-----------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Ballard          |peter21@adventure-works.com;jon26@adventure-works.com;dalton28@adventure-works.com;hunter63@adventure-works.com;karl3@adventure-works.com;clayton28@adventure-works.com;riley9@adventure-works.com;george17@adventure-works.com;jamie34@adventure-works.com;isa|
+Baltimore        |gilbert9@adventure-works.com                                                                                                                                                                                                                                   |
+Barstow          |kristen4@adventure-works.com                                                                                                                                                                                                                                   |
+Basingstoke Hants|dale10@adventure-works.com;heidi9@adventure-works.com                                                                                                                                                                                                          |
+Baytown          |kelvin15@adventure-works.com                                                                                                                                                                                                                                   |
+Beaverton        |hunter39@adventure-works.com;cassie12@adventure-works.com;jeffery22@adventure-works.com;victor9@adventure-works.com;rebekah4@adventure-works.com;megan51@adventure-works.com;jason37@adventure-works.com;tracy4@adventure-works.com;melissa11@adventure-works.c|
+Bell Gardens     |christy8@adventure-works.com                                                                                                                                                                                                                                   |
+Bellevue         |david8@adventure-works.com;gigi0@adventure-works.com;suchitra0@adventure-works.com;paul0@adventure-works.com;sylvester0@adventure-works.com;samantha0@adventure-works.com;min0@adventure-works.com;olinda0@adventure-works.com;paul1@adventure-works.com;jason0|
+Bellflower       |bridget22@adventure-works.com;gabriel14@adventure-works.com;samuel63@adventure-works.com;gregory12@adventure-works.com;edward57@adventure-works.com;douglas15@adventure-works.com;alex25@adventure-works.com;eduardo37@adventure-works.com;xavier18@adventure-w|
+Bellingham       |joe17@adventure-works.com;naomi4@adventure-works.com;stefanie6@adventure-works.com;alisha27@adventure-works.com;rosa3@adventure-works.com;kelvin33@adventure-works.com;natasha13@adventure-works.com;kellie2@adventure-works.com;jordan4@adventure-works.com;ja|
+Click me to see the solution
+
+76 From the following table write a query in SQL to create a new job title called "Production Assistant" in place of "Production Supervisor".
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+jobtitle                    |New Jobtitle               |
+----------------------------+---------------------------+
+Production Supervisor - WC60|Production Assistant - WC60|
+Production Supervisor - WC60|Production Assistant - WC60|
+Production Supervisor - WC10|Production Assistant - WC10|
+Production Supervisor - WC50|Production Assistant - WC50|
+Production Supervisor - WC60|Production Assistant - WC60|
+Production Supervisor - WC30|Production Assistant - WC30|
+Production Supervisor - WC40|Production Assistant - WC40|
+Production Supervisor - WC10|Production Assistant - WC10|
+Production Supervisor - WC50|Production Assistant - WC50|
+Production Supervisor - WC10|Production Assistant - WC10|
+...
+Click me to see the solution
+
+77 From the following table write a SQL query to retrieve all the employees whose job titles begin with "Sales". Return firstname, middlename, lastname and jobtitle column.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|middlename|lastname         |jobtitle            |
+---------+----------+-----------------+--------------------+
+Michael  |G         |Blythe           |Sales Representative|
+Linda    |C         |Mitchell         |Sales Representative|
+Jillian  |          |Carson           |Sales Representative|
+Garrett  |R         |Vargas           |Sales Representative|
+Tsvi     |Michael   |Reiter           |Sales Representative|
+Pamela   |O         |Ansman-Wolfe     |Sales Representative|
+Shu      |K         |Ito              |Sales Representative|
+José     |Edvaldo   |Saraiva          |Sales Representative|
+David    |R         |Campbell         |Sales Representative|
+Tete     |A         |Mensa-Annan      |Sales Representative|
+Lynn     |N         |Tsoflias         |Sales Representative|
+Rachel   |B         |Valdez           |Sales Representative|
+Jae      |B         |Pak              |Sales Representative|
+Ranjit   |R         |Varkey Chudukatil|Sales Representative|
+Click me to see the solution
+
+78 From the following table write a query in SQL to return the last name of people so that it is in uppercase, trimmed, and concatenated with the first name.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+name                           |
+-------------------------------+
+ABBAS, Syed                    |
+ABEL, Catherine                |
+ABERCROMBIE, Kim               |
+ABERCROMBIE, Kim               |
+ABERCROMBIE, Kim               |
+ABOLROUS, Sam                  |
+ABOLROUS, Hazem                |
+ACEVEDO, Humberto              |
+ACHONG, Gustavo                |
+ACKERMAN, Pilar                |
+ACKERMAN, Pilar                |
+ADAMS, Luke                    |
+ADAMS, Adam                    |
+ADAMS, Natalie                 |
+ADAMS, Isabella                |
+ADAMS, Morgan                  |
+...
+Click me to see the solution
+
+79 From the following table write a query in SQL to show a resulting expression that is too small to display. Return FirstName, LastName, Title, and SickLeaveHours. The SickLeaveHours will be shown as a small expression in text format.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname  |title|Sick Leave|
+---------+----------+-----+----------+
+Ken      |Sánchez   |     |6         |
+Terri    |Duffy     |     |2         |
+Roberto  |Tamburello|     |2         |
+Rob      |Walters   |     |8         |
+Gail     |Erickson  |Ms.  |2         |
+Click me to see the solution
+
+80 From the following table write a query in SQL to retrieve the name of the products. Product, that have 33 as the first two digits of listprice.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+productname                  |listprice|
+-----------------------------+---------+
+LL Road Frame - Black, 58    |   337.22|
+LL Road Frame - Black, 60    |   337.22|
+LL Road Frame - Black, 62    |   337.22|
+LL Road Frame - Red, 44      |   337.22|
+LL Road Frame - Red, 48      |   337.22|
+LL Road Frame - Red, 52      |   337.22|
+LL Road Frame - Red, 58      |   337.22|
+LL Road Frame - Red, 60      |   337.22|
+LL Road Frame - Red, 62      |   337.22|
+LL Road Frame - Black, 44    |   337.22|
+LL Road Frame - Black, 48    |   337.22|
+LL Road Frame - Black, 52    |   337.22|
+Mountain-100 Silver, 38      |  3399.99|
+Mountain-100 Silver, 42      |  3399.99|
+...
+Click me to see the solution
+
+81 From the following table write a query in SQL to calculate by dividing the total year-to-date sales (SalesYTD) by the commission percentage (CommissionPCT). Return SalesYTD, CommissionPCT, and the value rounded to the nearest whole number.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+salesytd    |commissionpct|computed |
+------------+-------------+---------+
+3763178.1787|        0.012|313598182|
+4251368.5497|        0.015|283424570|
+3189418.3662|        0.015|212627891|
+1453719.4653|         0.01|145371947|
+ 2315185.611|         0.01|231518561|
+1352577.1325|         0.01|135257713|
+2458535.6169|         0.01|245853562|
+2604540.7172|        0.015|173636048|
+1573012.9383|        0.012|131084412|
+1576562.1966|        0.019| 82976958|
+1421810.9242|        0.018| 78989496|
+1827066.7118|        0.018|101503706|
+4116871.2277|         0.02|205843561|
+3121616.3202|        0.016|195101020|
+Click me to see the solution
+
+82 From the following table write a query in SQL to find those persons that have a 2 in the first digit of their SalesYTD. Convert the SalesYTD column to an int type, and then to a char(20) type. Return FirstName, LastName, SalesYTD, and BusinessEntityID.
+
+Sample table: Person.Person
+
+
+Click to view Full table
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+firstname|lastname|salesytd    |businessentityid|
+---------+--------+------------+----------------+
+Tsvi     |Reiter  | 2315185.611|             279|
+Shu      |Ito     |2458535.6169|             281|
+José     |Saraiva |2604540.7172|             282|
+Click me to see the solution
+
+83 From the following table write a query in SQL to convert the Name column to a char(16) column. Convert those rows if the name starts with 'Long-Sleeve Logo Jersey'. Return name of the product and listprice.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+name            |listprice|
+----------------+---------+
+Long-Sleeve Logo|    49.99|
+Long-Sleeve Logo|    49.99|
+Long-Sleeve Logo|    49.99|
+Long-Sleeve Logo|    49.99|
+Click me to see the solution
+
+84 From the following table write a SQL query to determine the discount price for the salesorderid 46672. Calculate only those orders with discounts of more than.02 percent. Return productid, UnitPrice, UnitPriceDiscount, and DiscountPrice (UnitPrice*UnitPriceDiscount ).
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+productid|unitprice|unitpricediscount|discountprice|
+---------+---------+-----------------+-------------+
+      712|   4.7543|             0.05|            0|
+      707|  16.8221|              0.1|            2|
+      711|  16.8221|              0.1|            2|
+      762|  234.897|              0.3|           70|
+      854|  41.2445|             0.05|            2|
+      708|  16.8221|              0.1|            2|
+Click me to see the solution
+
+85 From the following table write a query in SQL to calculate the average vacation hours, and the sum of sick leave hours, that the vice presidents have used.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+Average vacation hours|Total sick leave hours|
+----------------------+----------------------+
+   25.0000000000000000|                    97|
+Click me to see the solution
+
+86 From the following table write a query in SQL to calculate the average bonus received and the sum of year-to-date sales for each territory. Return territoryid, Average bonus, and YTD sales.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+territoryid|Average bonus         |YTD sales   |
+-----------+----------------------+------------+
+          8|   75.0000000000000000|1827066.7118|
+           |0.00000000000000000000|1252127.9471|
+          4| 2775.0000000000000000|6709904.1666|
+          3| 2500.0000000000000000|3189418.3662|
+          7|  985.0000000000000000|3121616.3202|
+         10| 5150.0000000000000000|4116871.2277|
+          9| 5650.0000000000000000|1421810.9242|
+          1| 4133.3333333333333333|4502152.2674|
+          5| 6700.0000000000000000| 2315185.611|
+          2| 4100.0000000000000000|3763178.1787|
+          6| 2750.0000000000000000|4058260.1825|
+Click me to see the solution
+
+87 From the following table write a query in SQL to return the average list price of products. Consider the calculation only on unique values.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+avg                 |
+--------------------+
+437.4042718446601942|
+Click me to see the solution
+
+88 From the following table write a query in SQL to return a moving average of yearly sales for each territory. Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|territoryid|salesyear|salesytd    |movingavg           |cumulativetotal|
+----------------+-----------+---------+------------+--------------------+---------------+
+             280|          1|   2011.0|1352577.1325|1462795.035400000000|   2925590.0708|
+             283|          1|   2011.0|1573012.9383|1462795.035400000000|   2925590.0708|
+             284|          1|   2012.0|1576562.1966|1500717.422466666667|   4502152.2674|
+             275|          2|   2011.0|3763178.1787|3763178.178700000000|   3763178.1787|
+             277|          3|   2011.0|3189418.3662|3189418.366200000000|   3189418.3662|
+             281|          4|   2011.0|2458535.6169|3354952.083300000000|   6709904.1666|
+             276|          4|   2011.0|4251368.5497|3354952.083300000000|   6709904.1666|
+             274|           |   2010.0|559697.5639 | 559697.563900000000|    559697.5639|
+             287|           |   2012.0|519905.932  | 539801.747950000000|   1079603.4959|
+             285|           |   2013.0|172524.4512 | 417375.982366666667|   1252127.9471|
+Click me to see the solution
+
+89 From the following table write a query in SQL to return a moving average of sales, by year, for all sales territories. Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+businessentityid|territoryid|salesyear|salesytd    |movingavg           |cumulativetotal|
+----------------+-----------+---------+------------+--------------------+---------------+
+             274|           |   2010.0|559697.5639 | 559697.563900000000|    559697.5639|
+             275|          2|   2011.0|3763178.1787|2449684.049457142857|  17147788.3462|
+             276|          4|   2011.0|4251368.5497|2449684.049457142857|  17147788.3462|
+             277|          3|   2011.0|3189418.3662|2449684.049457142857|  17147788.3462|
+             280|          1|   2011.0|1352577.1325|2449684.049457142857|  17147788.3462|
+             283|          1|   2011.0|1573012.9383|2449684.049457142857|  17147788.3462|
+             281|          4|   2011.0|2458535.6169|2449684.049457142857|  17147788.3462|
+             284|          1|   2012.0|1576562.1966|2138250.719422222222|  19244256.4748|
+             287|           |   2012.0|519905.932  |2138250.719422222222|  19244256.4748|
+             285|           |   2013.0|172524.4512 |1941678.092600000000|  19416780.9260|
+Click me to see the solution
+
+90 From the following table write a query in SQL to return the number of different titles that employees can hold.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+Number of Jobtitles|
+-------------------+
+                 67|
+Click me to see the solution
+
+91 From the following table write a query in SQL to find the total number of employees.
+
+Sample table: HumanResources.Employee
+
+
+Click to view Full table
+
+Sample Output:
+
+Number of Employees|
+-------------------+
+                290|
+Click me to see the solution
+
+92 From the following table write a query in SQL to find the average bonus for the salespersons who achieved the sales quota above 25000. Return number of salespersons, and average bonus.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+count|avg                  |
+-----+---------------------+
+   14|3472.1428571428571429|
+Click me to see the solution
+
+93 From the following tables wirte a query in SQL to return aggregated values for each department. Return name, minimum salary, maximum salary, average salary, and number of employees in each department.
+
+Sample table: HumanResources.employeepayhistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.employeedepartmenthistory
+
+
+Click to view Full table
+
+Sample table: HumanResources.Department
+
+
+Click to view Full table
+
+Sample Output:
+
+name                      |minsalary|maxsalary|avgsalary          |employeesperdept|
+--------------------------+---------+---------+-------------------+----------------+
+Document Control          |    10.25|  17.7885|14.3884600000000000|               5|
+Engineering               |  32.6923|  63.4615|40.1442166666666667|               6|
+Executive                 |    39.06|    125.5|68.3034750000000000|               4|
+Facilities and Maintenance|     9.25|  24.0385|13.0316000000000000|               7|
+Finance                   |  13.4615|  43.2692|23.9350900000000000|              10|
+Human Resources           |  13.9423|  27.1394|18.0248166666666667|               6|
+Information Services      |  27.4038|  50.4808|34.1586300000000000|              10|
+Marketing                 |  13.4615|     37.5|18.4318181818181818|              11|
+Production                |      6.5|  84.1346|13.5537671794871795|             195|
+...
+Click me to see the solution
+
+94 From the following tables write a SQL query to return the departments of a company that each have more than 15 employees.
+
+Sample table: humanresources.employee
+
+
+Click to view Full table
+
+Sample Output:
+
+jobtitle                    |employeesindesig|
+----------------------------+----------------+
+Production Technician - WC30|              25|
+Production Technician - WC60|              26|
+Production Technician - WC50|              26|
+Production Technician - WC20|              22|
+Production Technician - WC10|              17|
+Production Technician - WC40|              26|
+Click me to see the solution
+
+95 From the following table write a query in SQL to find the number of products that ordered in each of the specified sales orders.
+
+Sample table: Sales.SalesOrderDetail
+
+
+Click to view Full table
+
+Sample Output:
+
+productcount|salesorderid|
+------------+------------+
+          13|       43855|
+          15|       43661|
+Click me to see the solution
+
+96 From the following table write a query in SQL to compute the statistical variance of the sales quota values for each quarter in a calendar year for a sales person. Return year, quarter, salesquota and variance of salesquota.
+
+Sample table: sales.salespersonquotahistory
+
+
+Click to view Full table
+
+Sample Output:
+
+year                   |quarter|salesquota|variance             |
+-----------------------+-------+----------+---------------------+
+2012-02-29 00:00:00.000|    1.0|    952000|                     |
+2012-05-30 00:00:00.000|    2.0|   1600000|209952000000.00000000|
+2012-08-30 00:00:00.000|    3.0|   1352000|106901333333.33333333|
+2012-11-30 00:00:00.000|    4.0|    839000|124705583333.33333333|
+Click me to see the solution
+
+97 From the following table write a query in SQL to populate the variance of all unique values as well as all values, including any duplicates values of SalesQuota column.
+
+Sample table: sales.salespersonquotahistory
+
+
+Click to view Full table
+
+Sample Output:
+
+distinct_values      |all_values           |
+---------------------+---------------------+
+158146830494.18114353|157788848582.93499944|
+Click me to see the solution
+
+98 From the following table write a query in SQL to return the total ListPrice and StandardCost of products for each color. Products that name starts with 'Mountain' and ListPrice is more than zero. Return Color, total list price, total standardcode. Sort the result set on color in ascending order.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+color |sum     |sum       |
+------+--------+----------+
+Black |27404.84|15214.9616|
+Silver|26462.84|14665.6792|
+White |    19.0|    6.7926|
+Click me to see the solution
+
+99 From the following table write a query in SQL to find the TotalSalesYTD of each SalesQuota. Show the summary of the TotalSalesYTD amounts for all SalesQuota groups. Return SalesQuota and TotalSalesYTD.
+
+Sample table: Sales.SalesPerson
+
+
+Click to view Full table
+
+Sample Output:
+
+salesquota|TotalSalesYTD|Grouping|
+----------+-------------+--------+
+          |36277591.9034|       1|
+          | 1252127.9471|       0|
+    300000| 7654925.9863|       0|
+    250000|27370537.9700|       0|
+Click me to see the solution
+
+100 From the following table write a query in SQL to calculate the sum of the ListPrice and StandardCost for each color. Return color, sum of ListPrice.
+
+Sample table: production.Product
+
+
+Click to view Full table
+
+Sample Output:
+
+color       |totallist|totalcost |
+------------+---------+----------+
+Black       |67436.260|38636.5002|
+Blue        | 24015.66|14746.1464|
+Grey        |      125|   51.5625|
+Multi       |   478.92|  272.2542|
+Red         | 53274.10|32610.7661|
+Silver      | 36563.13|20060.0483|
+Silver/Black|   448.13|  198.9700|
+White       |    36.98|   13.5172|
+Yellow      | 34527.29|21507.6521|
+            |  4182.32| 2238.4755|
+Click me to see the solution
+
+ 
+
+More to Come !
+
+SQL AdventureWorks Editor:
+
+Practice Online
+ 
+
+VALIDATE SUBMIT RESET
+Do not submit any solution of the above exercises at here, if you want to contribute go to the appropriate exercise page.
+
+﻿
+Follow us on Facebook and Twitter for latest update.
+
+
+SQL: Tips of the Day
+How to concatenate strings of a string field in a PostgreSQL 'group by' Query?
+
+ID   COMPANY_ID   EMPLOYEE
+1    1            Anna
+2    1            Bill
+3    2            Carol
+4    2            Dave
+and group by company_id to get something like:
+
+COMPANY_ID   EMPLOYEE
+1            Anna, Bill
+2            Carol, Dave
+PostgreSQL 9.0 or later:
+
+Modern Postgres (since 2010) has the string_agg(expression, delimiter) function which will do exactly what the asker was looking for:
+
+SELECT company_id, string_agg(employee, ', ')
+FROM mytable
+GROUP BY company_id;

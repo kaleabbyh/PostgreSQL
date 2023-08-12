@@ -1590,7 +1590,7 @@ BEgin
  Print 'Column EmailAddress already exists'
 End
 
-
+------------------------------------------------------
 --Col_length() function can also be used to check for the existence of a column
 If col_length('tblEmployee','EmailAddress') is not null
 Begin
@@ -1604,14 +1604,14 @@ End
 --altering column data type without droping table
 Alter table tblEmployee
 Alter column Salary int
+------------------------------------------------------
 
 
 
 
 
 
-
-
+------------------------------------------------------
 --optional parametrs
 select * from tblEmployee
 
@@ -1626,7 +1626,7 @@ Begin
 End
 
 exec spSearchEmployees 
-
+------------------------------------------------------
 
 
 
@@ -1635,6 +1635,7 @@ exec spSearchEmployees
 
 --Merge statement
 --Merge statement syntax
+------------------------------------------------------
 MERGE [TARGET] AS T
 USING [SOURCE] AS S
    ON [JOIN_CONDITIONS]
@@ -1644,33 +1645,30 @@ USING [SOURCE] AS S
       [INSERT STATEMENT] 
  WHEN NOT MATCHED BY SOURCE THEN
       [DELETE STATEMENT]
-
-
-
-
+------------------------------------------------------
 Create table StudentSource
 (
      ID int primary key,
      Name nvarchar(20)
 )
 GO
-
+------------------------------------------------------
 Insert into StudentSource values (1, 'Mike')
 Insert into StudentSource values (2, 'Sara')
 GO
-
+------------------------------------------------------
 Create table StudentTarget
 (
      ID int primary key,
      Name nvarchar(20)
 )
 GO
-
+------------------------------------------------------
 Insert into StudentTarget values (1, 'Mike M')
 Insert into StudentTarget values (3, 'John')
 GO
-
---inserting and deleting to source table and target table respectively
+------------------------------------------------------
+--inserting and deleting to source table and target table respectively using MERGE
 MERGE StudentTarget AS T
 USING StudentSource AS S
 ON T.ID = S.ID
@@ -1680,7 +1678,7 @@ WHEN NOT MATCHED BY TARGET THEN
      INSERT (ID, NAME) VALUES(S.ID, S.NAME)
 WHEN NOT MATCHED BY SOURCE THEN
      DELETE;
-
+------------------------------------------------------
 --inserting to target table only
 MERGE StudentTarget AS T
 USING StudentSource AS S
@@ -1689,22 +1687,21 @@ WHEN MATCHED THEN
      UPDATE SET T.NAME = S.NAME
 WHEN NOT MATCHED BY TARGET THEN
      INSERT (ID, NAME) VALUES(S.ID, S.NAME);
-
+------------------------------------------------------
 --selecting 
 if OBJECT_ID('StudentTarget') is not null
 begin
 drop table StudentTarget
 end
-
+------------------------------------------------------
 if OBJECT_ID('StudentSource') is not null
 begin
 drop table StudentSource
 end
-
-
-
+------------------------------------------------------
 select * from StudentTarget;
 select * from StudentSource
+------------------------------------------------------
 
 
 
@@ -1714,6 +1711,7 @@ select * from StudentSource
 
 ---Transactin problems
 -- Transfer $100 from Mark to Mary Account
+------------------------------------------------------
 BEGIN TRY
     BEGIN TRANSACTION
          UPDATE Accounts SET Balance = Balance - 100 WHERE Id = 1
@@ -1725,14 +1723,15 @@ BEGIN CATCH
     ROLLBACK TRANSACTION
     PRINT 'Transaction Rolled back'
 END CATCH
+------------------------------------------------------
 
-
-
+------------------------------------------------------
 --Some of the common concurrency problems
 	--Dirty Reads
 	--Lost Updates
 	--Nonrepeatable Reads
 	--Phantom Reads
+------------------------------------------------------
 
 
 
@@ -1741,7 +1740,8 @@ END CATCH
 
 
 
-	--Dirty Reads
+--Dirty Reads
+------------------------------------------------------
 Create table tblInventory
 (
     Id int identity primary key,
@@ -1749,21 +1749,24 @@ Create table tblInventory
     ItemsInStock int
 )
 Go
-
+------------------------------------------------------
 Insert into tblInventory values ('iPhone', 10)
-
+------------------------------------------------------
 
 
 
 --Transaction 1 : 
+------------------------------------------------------
 Begin Tran
 Update tblInventory set ItemsInStock = 9 where Id=1
 Waitfor Delay '00:00:15'
 Rollback Transaction
+------------------------------------------------------
 
 --Transaction 2 :
 Set Transaction Isolation Level Read Uncommitted
 Select * from tblInventory where Id=1
+------------------------------------------------------
 
 
 
@@ -1777,6 +1780,7 @@ Select * from tblInventory where Id=1
 
 
 -- Transaction 1
+------------------------------------------------------
 Set Transaction Isolation Level Repeatable Read --prevents lost update problem
 
 Begin Tran
@@ -1792,10 +1796,12 @@ Update tblInventory
 Set ItemsInStock = @ItemsInStock where Id=1
 Print @ItemsInStock
 Commit Transaction
+------------------------------------------------------
 
 
 
 -- Transaction 2
+------------------------------------------------------
 Set Transaction Isolation Level Repeatable Read  --prevents lost update problem
 Begin Tran
 Declare @ItemsInStock int
@@ -1808,9 +1814,10 @@ Update tblInventory
 Set ItemsInStock = @ItemsInStock where Id=1
 Print @ItemsInStock
 Commit Transaction
-
+------------------------------------------------------
 
 select * from HumanResources.Employee
+------------------------------------------------------
 
 
 
@@ -1820,6 +1827,7 @@ select * from HumanResources.Employee
 
 --transaction isolation level repeatable read
 -- Transaction 1
+------------------------------------------------------
 Set transaction isolation level repeatable read
 Begin Transaction
 Select ItemsInStock from tblInventory where Id = 1
@@ -1829,9 +1837,12 @@ waitfor delay '00:00:10'
 
 Select ItemsInStock from tblInventory where Id = 1
 Commit Transaction
+------------------------------------------------------
 
 -- Transaction 2
+------------------------------------------------------
 Update tblInventory set ItemsInStock = 5 where Id = 1
+------------------------------------------------------
 
 
 
@@ -1841,30 +1852,820 @@ Update tblInventory set ItemsInStock = 5 where Id = 1
 
 --transaction isolation level serializable
 --Transaction 1
+------------------------------------------------------
 Set transaction isolation level serializable
 Begin Transaction
 Update tblInventory set ItemsInStock = 5 where Id = 1
 waitfor delay '00:00:10'
 Commit Transaction
-
+------------------------------------------------------
+------------------------------------------------------
 -- Transaction 2
 Set transaction isolation level serializable
 Select ItemsInStock from tblInventory where Id = 1
+------------------------------------------------------
 
 
 
 
 
 
-
+------------------------------------------------------
 -- Transaction 2
 -- Enable snapshot isloation for the database
-Alter database SampleDB SET ALLOW_SNAPSHOT_ISOLATION ON
+Alter database demo SET ALLOW_SNAPSHOT_ISOLATION ON
 -- Set the transaction isolation level to snapshot
 Set transaction isolation level snapshot
 Select ItemsInStock from tblInventory where Id = 1
+------------------------------------------------------
+
+
+
+------------------------------------------------------
+--Transaction 1
+--transaction isolation level snapshot
+Alter database demo SET ALLOW_SNAPSHOT_ISOLATION ON
+Set transaction isolation level snapshot
+Begin Transaction
+Update tblInventory set ItemsInStock = 8 where Id = 1
+waitfor delay '00:00:10'
+Commit Transaction
+------------------------------------------------------
+------------------------------------------------------
+-- Transaction 2
+Set transaction isolation level snapshot
+Begin Transaction
+Update tblInventory set ItemsInStock = 5 where Id = 1
+Commit Transaction
+------------------------------------------------------
+
+
+------------------------------------------------------
+--Disable Snapshot Isolation
+Alter database SampleDB SET ALLOW_SNAPSHOT_ISOLATION OFF
+-- Enable Read Committed Sanpshot Isolation at the database level
+Alter database SampleDB SET READ_COMMITTED_SNAPSHOT ON
+------------------------------------------------------
+--Transaction 1
+Set transaction isolation level read committed
+Begin Transaction
+Update tblInventory set ItemsInStock = 8 where Id = 1
+waitfor delay '00:00:10'
+Commit Transaction
+
+-- Transaction 2
+Set transaction isolation level read committed
+Begin Transaction
+Update tblInventory set ItemsInStock = 5 where Id = 1
+Commit Transaction
+------------------------------------------------------
 
 
 
 
 
+
+
+------------------------------------------------------
+--Deadlock
+Create table TableA
+(
+    Id int identity primary key,
+    Name nvarchar(50)
+)
+Go
+
+Insert into TableA values ('Mark')
+Go
+------------------------------------------------------
+Create table TableB
+(
+    Id int identity primary key,
+    Name nvarchar(50)
+)
+Go
+
+Insert into TableB values ('Mary')
+
+Go
+------------------------------------------------------
+
+
+------------------------------------------------------
+-- Transaction 1
+Begin Tran
+Update TableA Set Name = 'Mark Transaction 1' where Id = 1
+
+-- From Transaction 2 window execute the first update statement
+
+Update TableB Set Name = 'Mary Transaction 1' where Id = 1
+
+-- From Transaction 2 window execute the second update statement
+Commit Transaction
+------------------------------------------------------
+
+------------------------------------------------------
+-- Transaction 2
+Begin Tran
+Update TableB Set Name = 'Mark Transaction 2' where Id = 1
+
+-- From Transaction 1 window execute the second update statement
+
+Update TableA Set Name = 'Mary Transaction 2' where Id = 1
+
+-- After a few seconds notice that one of the transactions complete
+-- successfully while the other transaction is made the deadlock victim
+
+Commit Transaction
+------------------------------------------------------
+
+
+
+
+
+
+
+------------------------------------------------------
+--deadlock two
+select * from TableA
+select * from TableB
+
+exec procedure1
+
+Alter proc procedure1
+as
+begin
+	begin try
+		begin transaction
+			update TableA set Name='abebe' where id=1
+			Waitfor delay '00:00:05' 
+			update TableB set Name='alemu' where id=1
+		commit transaction
+		select 'transaction is sucessful'
+	end try
+	begin catch
+		select 'transaction is unsucessful'
+		rollback
+	end catch
+
+end
+------------------------------------------------------
+
+------------------------------------------------------
+--deadlock two
+select * from TableA
+select * from TableB
+
+exec procedure2
+
+create proc procedure2
+as
+begin
+	begin try
+		begin transaction
+		update TableB set Name='kebed' where id=1
+		Waitfor delay '00:00:05' 
+		update TableA set Name='chala' where id=1
+		commit transaction
+		select 'transaction is sucessful'
+	end try
+	begin catch
+		select 'transaction is unsucessful'
+		rollback
+	end catch
+
+end
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
+--Except operator
+--order and type of columns must be similar
+if OBJECT_ID('TableA') is not null 
+begin
+drop table TableA
+end
+
+if OBJECT_ID('TableB') is not null 
+begin
+drop table TableB
+end
+------------------------------------------------------
+Create Table TableA
+(
+    Id int primary key,
+    Name nvarchar(50),
+    Gender nvarchar(10)
+)
+Go
+
+Insert into TableA values (1, 'Mark', 'Male')
+Insert into TableA values (2, 'Mary', 'Female')
+Insert into TableA values (3, 'Steve', 'Male')
+Insert into TableA values (4, 'John', 'Male')
+Insert into TableA values (5, 'Sara', 'Female')
+Go
+------------------------------------------------------
+Create Table TableB
+(
+    Id int primary key,
+    Name nvarchar(50),
+    Gender nvarchar(10)
+)
+Go
+
+Insert into TableB values (4, 'John', 'Male')
+Insert into TableB values (5, 'Sara', 'Female')
+Insert into TableB values (6, 'Pam', 'Female')
+Insert into TableB values (7, 'Rebeka', 'Female')
+Insert into TableB values (8, 'Jordan', 'Male')
+Go
+------------------------------------------------------
+-- returns the unique rows from the left query that aren’t in the right query’s results.
+Select Id, Name, Gender
+From TableA
+Except
+Select Id, Name, Gender
+From TableB
+------------------------------------------------------
+
+Select Id, Name, Gender
+From TableA
+where Id not in ( Select Id From TableB )
+------------------------------------------------------
+
+Select Id, Name, Gender from TableA
+Intersect
+Select Id, Name, Gender from TableB
+
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
+--cross apply=inner join
+--outer apply =left join
+
+Create table Department
+(
+    Id int primary key,
+    DepartmentName nvarchar(50)
+)
+Go
+
+Insert into Department values (1, 'IT')
+Insert into Department values (2, 'HR')
+Insert into Department values (3, 'Payroll')
+Insert into Department values (4, 'Administration')
+Insert into Department values (5, 'Sales')
+Go
+------------------------------------------------------
+Create table Employee
+(
+    Id int primary key,
+    Name nvarchar(50),
+    Gender nvarchar(10),
+    Salary int,
+    DepartmentId int foreign key references Department(Id)
+)
+Go
+
+Insert into Employee values (1, 'Mark', 'Male', 50000, 1)
+Insert into Employee values (2, 'Mary', 'Female', 60000, 3)
+Insert into Employee values (3, 'Steve', 'Male', 45000, 2)
+Insert into Employee values (4, 'John', 'Male', 56000, 1)
+Insert into Employee values (5, 'Sara', 'Female', 39000, 2)
+Go
+------------------------------------------------------
+
+Create function fn_GetEmployeesByDepartmentId(@DepartmentId int)
+Returns Table
+as
+Return
+(
+    Select Id, Name, Gender, Salary, DepartmentId
+    from Employee where DepartmentId = @DepartmentId
+)
+Go
+
+--returns the employees of the department with Id =1.
+Select * from fn_GetEmployeesByDepartmentId(1)
+------------------------------------------------------
+-- Inner or Left join between Department table and fn_GetEmployeesByDepartmentId() function you will get an error.
+Select D.DepartmentName, E.Name, E.Gender, E.Salary
+from Department D
+Inner Join fn_GetEmployeesByDepartmentId(D.Id) E
+On D.Id = E.DepartmentId
+------------------------------------------------------
+
+
+--solution is using cross apply
+Select D.DepartmentName, E.Name, E.Gender, E.Salary
+from Department D
+Cross Apply fn_GetEmployeesByDepartmentId(D.Id) E
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+------------------------------------------------------
+--Syntax for creating DDL trigger
+CREATE TRIGGER [Trigger_Name]
+ON [Scope (Server|Database)]
+FOR [EventType1, EventType2, EventType3, ...],
+AS
+BEGIN
+   -- Trigger Body
+END
+------------------------------------------------------
+
+--trigger for CREATE_TABLE
+CREATE TRIGGER trMyFirstTrigger
+ON Database
+FOR CREATE_TABLE
+AS
+BEGIN
+   Print 'New table created'
+END
+------------------------------------------------------
+
+--trigger for CREATE_TABLE,...
+ALTER TRIGGER trMyFirstTrigger
+ON Database
+FOR CREATE_TABLE, ALTER_TABLE, DROP_TABLE
+AS
+BEGIN
+   Print 'A table has just been created, modified or deleted'
+END
+------------------------------------------------------
+
+
+------------------------------------------------------
+DISABLE TRIGGER trMyFirstTrigger ON DATABASE
+ENABLE TRIGGER trMyFirstTrigger ON DATABASE
+DROP TRIGGER trMyFirstTrigger ON DATABASE
+------------------------------------------------------
+
+------------------------------------------------------
+CREATE TRIGGER trRenameTable
+ON DATABASE
+FOR RENAME
+AS
+BEGIN
+    Print 'You just renamed something'
+END
+------------------------------------------------------
+
+------------------------------------------------------
+--server scope
+CREATE TRIGGER tr_ServerScopeTrigger
+ON ALL SERVER
+FOR CREATE_TABLE, ALTER_TABLE, DROP_TABLE
+AS
+BEGIN
+    ROLLBACK
+    Print 'You cannot create, alter or drop a table in any database on the server'
+END
+------------------------------------------------------
+
+------------------------------------------------------
+DISABLE TRIGGER tr_ServerScopeTrigger ON ALL SERVER
+ENABLE TRIGGER tr_ServerScopeTrigger ON ALL SERVER
+DROP TRIGGER tr_ServerScopeTrigger ON ALL SERVER
+------------------------------------------------------
+
+-- The server-scope trigger marked First
+-- Other server-scope triggers
+-- The server-scope trigger marked Last
+-- The database-scope trigger marked First
+-- Other database-scope triggers
+-- The database-scope trigger marked Last
+
+
+
+
+
+
+
+
+
+
+
+--audit
+
+--retrives even audit during CREATE_TABLE, ALTER_TABLE, DROP_TABLE
+--CREATE TRIGGER tr_AuditTableChanges
+--ON ALL SERVER
+--FOR CREATE_TABLE, ALTER_TABLE, DROP_TABLE
+--AS
+--BEGIN
+  --  SELECT  EVENTDATA()
+--END
+
+
+
+--saves audit to tables
+create table TableChanges(
+	DatabaseName varchar(250) ,
+	TableName varchar(250), 
+	EventType varchar(250),
+	LoginName varchar(250),
+	SQLCommand varchar(250),
+	AuditDateTime varchar(250)
+	)
+
+
+ALTER TRIGGER tr_AuditTableChanges
+ON ALL SERVER
+FOR CREATE_TABLE, ALTER_TABLE, DROP_TABLE
+AS
+BEGIN
+    DECLARE @EventData XML
+    SELECT @EventData = EVENTDATA()
+
+    INSERT INTO demo.dbo.TableChanges
+    (DatabaseName, TableName, EventType, LoginName,
+     SQLCommand, AuditDateTime)
+    VALUES
+    (
+         @EventData.value('(/EVENT_INSTANCE/DatabaseName)[1]', 'varchar(250)'),
+         @EventData.value('(/EVENT_INSTANCE/ObjectName)[1]', 'varchar(250)'),
+         @EventData.value('(/EVENT_INSTANCE/EventType)[1]', 'nvarchar(250)'),
+         @EventData.value('(/EVENT_INSTANCE/LoginName)[1]', 'varchar(250)'),
+         @EventData.value('(/EVENT_INSTANCE/TSQLCommand)[1]', 'nvarchar(2500)'),
+         GetDate()
+    )
+
+	select * from demo.dbo.TableChanges
+END
+
+
+create table try( id int )
+drop trigger tr_AuditTableChanges
+
+
+--LOGON Triggers
+
+CREATE TRIGGER tr_LogonAuditTriggers
+ON ALL SERVER
+FOR LOGON
+AS
+BEGIN
+    DECLARE @LoginName NVARCHAR(100)
+
+    Set @LoginName = ORIGINAL_LOGIN()
+
+    IF (SELECT COUNT(*) FROM sys.dm_exec_sessions   --allows only up to 3 users to login 
+         WHERE is_user_process = 1
+         AND original_login_name = @LoginName) > 3
+    BEGIN
+         Print 'Fourth connection of ' + @LoginName + ' blocked'
+         ROLLBACK
+    END
+END
+
+
+
+
+
+
+
+-- SELECT INTO
+--creating a table and insertinge(copying) data from Employee to EmployeesBackup
+SELECT * INTO EmployeesBackup FROM Employee
+
+SELECT * INTO EmployeesBackup FROM Employee WHERE DeptId = 1
+
+
+
+
+
+
+
+--can't use aggregate functions
+SELECT Product, SUM(SaleAmount) AS TotalSales
+FROM Sales
+GROUP BY Product
+WHERE SUM(SaleAmount) > 1000 --not possible bc aggregate function
+
+--possible
+SELECT Product, SUM(SaleAmount) AS TotalSales
+FROM Sales
+GROUP BY Product
+WHERE product > 1000 -- possible
+
+
+
+----can use aggregate functions
+SELECT Product, SUM(SaleAmount) AS TotalSales
+FROM Sales
+GROUP BY Product
+HAVING SUM(SaleAmount) > 1000 --possible
+
+--possible
+SELECT Product, SUM(SaleAmount) AS TotalSales
+FROM Sales
+GROUP BY Product
+WHERE product > 1000 -- possible
+
+
+
+
+
+
+
+
+
+--Create User-defined Table Type
+CREATE TYPE EmpTableType AS TABLE
+(
+    Id INT PRIMARY KEY,
+    Name NVARCHAR(50),
+    Gender NVARCHAR(10)
+)
+Go
+
+
+CREATE PROCEDURE spInsertEmployees
+@EmpTableType EmpTableType READONLY
+AS
+BEGIN
+    INSERT INTO Employees
+    SELECT * FROM @EmpTableType
+END
+
+
+DECLARE @EmployeeTableType EmpTableType
+
+INSERT INTO @EmployeeTableType VALUES (1, 'Mark', 'Male')
+INSERT INTO @EmployeeTableType VALUES (2, 'Mary', 'Female')
+INSERT INTO @EmployeeTableType VALUES (3, 'John', 'Male')
+INSERT INTO @EmployeeTableType VALUES (4, 'Sara', 'Female')
+INSERT INTO @EmployeeTableType VALUES (5, 'Rob', 'Male')
+
+EXECUTE spInsertEmployees @EmployeeTableType
+
+
+
+
+
+
+
+
+--GROUPING SETS
+ 
+Select Country, Gender, Sum(Salary) TotalSalary
+From Employees
+Group BY
+      GROUPING SETS
+      (
+            (Country, Gender), -- Sum of Salary by Country and Gender
+            (Country),               -- Sum of Salary by Country
+            (Gender) ,               -- Sum of Salary by Gender
+            ()                             -- Grand Total
+      )
+Order By Grouping(Country), Grouping(Gender), Gender
+
+
+--==
+
+Select Country, Gender, Sum(Salary) as TotalSalary
+From Employees 
+Group By Country, Gender
+UNION ALL
+Select Country, NULL, Sum(Salary) as TotalSalary
+From Employees 
+Group By Country
+UNION ALL
+Select NULL, Gender, Sum(Salary) as TotalSalary
+From Employees 
+Group By Gender
+UNION ALL
+Select NULL, NULL, Sum(Salary) as TotalSalary
+From Employees 
+
+
+
+
+
+
+
+
+------------------------------------------------------
+--returns sum group by country and total sum
+SELECT Country, SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY ROLLUP(Country)
+
+
+--==
+
+SELECT Country, SUM(Salary) AS TotalSalary
+FROM Employees
+GROUP BY Country
+UNION ALL
+SELECT NULL, SUM(Salary) AS TotalSalary
+FROM Employees
+------------------------------------------------------
+
+
+
+
+
+
+
+------------------------------------------------------
+--OVER CLAUSE
+
+Create Table Employees
+(
+     Id int ,
+     Name nvarchar(50),
+     Gender nvarchar(10),
+     Salary int
+)
+Go
+
+Insert Into Employees Values (1, 'Mark', 'Male', 5000)
+Insert Into Employees Values (1, 'Mark', 'Male', 5000)
+Insert Into Employees Values (2, 'John', 'Male', 4500)
+Insert Into Employees Values (3, 'Pam', 'Female', 5500)
+Insert Into Employees Values (4, 'Sara', 'Female', 4000)
+Insert Into Employees Values (4, 'Sara', 'Female', 4000)
+Insert Into Employees Values (5, 'Todd', 'Male', 3500)
+Insert Into Employees Values (6, 'Mary', 'Female', 5000)
+Insert Into Employees Values (7, 'Ben', 'Male', 6500)
+Insert Into Employees Values (8, 'Jodi', 'Female', 7000)
+Insert Into Employees Values (9, 'Tom', 'Male', 5500)
+Insert Into Employees Values (10, 'Ron', 'Male', 5000)
+Go
+------------------------------------------------------
+
+------------------------------------------------------
+SELECT Name, Salary, Employees.Gender, Genders.GenderTotals,
+        Genders.AvgSal, Genders.MinSal, Genders.MaxSal   
+FROM Employees
+INNER JOIN
+(SELECT	Gender, 
+		COUNT(*) AS GenderTotals,
+		AVG(Salary) AS AvgSal,
+		MIN(Salary) AS MinSal,
+		MAX(Salary) AS MaxSal
+FROM Employees
+GROUP BY Gender) AS Genders
+ON Genders.Gender = Employees.Gender
+
+--== equivalent output using OVER CLAUSE
+
+SELECT Name, Salary, Gender,
+        COUNT(Gender) OVER(PARTITION BY Gender) AS GenderTotals,
+        AVG(Salary) OVER(PARTITION BY Gender) AS AvgSal,
+        MIN(Salary) OVER(PARTITION BY Gender) AS MinSal,
+        MAX(Salary) OVER(PARTITION BY Gender) AS MaxSal
+FROM Employees
+------------------------------------------------------
+
+
+
+
+
+
+
+
+------------------------------------------------------
+--ROW_NUMBER  must have an OVER clause with ORDER BY.
+SELECT Name, Gender, Salary,
+        ROW_NUMBER() OVER (ORDER BY Gender) AS RowNumber
+FROM Employees
+
+SELECT Name, Gender, Salary,
+        ROW_NUMBER() OVER (PARTITION BY Gender ORDER BY salary desc) AS RowNumber
+FROM Employees
+
+
+
+--delete all duplicate rows except one
+--WITH can be followed by one delete ,select...statement only
+WITH EmployeesCTE AS
+(
+   SELECT *, ROW_NUMBER() OVER(PARTITION BY ID ORDER BY ID) AS RowNumber
+   FROM Employees
+)
+DELETE FROM EmployeesCTE WHERE RowNumber > 1
+select * from EmployeesCTE
+------------------------------------------------------
+
+
+
+
+
+
+
+------------------------------------------------------
+--RANK and DENSE_RANK
+--ORDER BY clause is required
+--PARTITION BY clause is optional
+
+SELECT Name, Salary, Gender,
+RANK() OVER (ORDER BY Salary DESC) AS [Rank], --Rank function skips ranking(s) if there is a tie where as Dense_Rank will not.
+DENSE_RANK() OVER (ORDER BY Salary DESC) AS DenseRank
+FROM Employees
+
+
+SELECT Name, Gender,Salary,
+ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowNumber,
+RANK() OVER (ORDER BY Salary DESC) AS [Rank],
+DENSE_RANK() OVER (ORDER BY Salary DESC) AS DenseRank
+FROM Employees
+
+
+SELECT Name, Gender,Salary,
+ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowNumber,
+NTILE(2) OVER (ORDER BY Salary DESC) AS [NTILE],
+DENSE_RANK() OVER (ORDER BY Salary DESC) AS DenseRank
+FROM Employees
+
+
+SELECT Name, Gender, Salary,
+        SUM(Salary) OVER (ORDER BY ID) AS RunningTotal
+FROM Employees
+------------------------------------------------------
+
+
+
+------------------------------------------------------
+--Syntax LEAD LAG
+LEAD(Column_Name, Offset, Default_Value) OVER (ORDER BY Col1, Col2, ...)
+LAG(Column_Name, Offset, Default_Value) OVER (ORDER BY Col1, Col2, ...)
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+        LEAD(Salary, 2, -1) OVER (ORDER BY Salary) AS Lead_2,
+        LAG(Salary, 1, -1) OVER (ORDER BY Salary) AS Lag_1
+FROM Employees ORDER BY Salary
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+        LEAD(Salary, 2, -1) OVER (PARTITION By Gender ORDER BY Salary) AS Lead_2,
+        LAG(Salary, 1, -1) OVER (PARTITION By Gender ORDER BY Salary) AS Lag_1
+FROM Employees
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+FIRST_VALUE(Name) OVER (ORDER BY Salary) AS FirstValue
+FROM Employees
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+FIRST_VALUE(Name) OVER (PARTITION BY Gender ORDER BY Salary) AS FirstValue
+FROM Employees
+------------------------------------------------------
+
+
+
+
+------------------------------------------------------
+--Windows FUNCTIONS
+--In SQL Server we have different categories of window functions
+--Aggregate functions - AVG, SUM, COUNT, MIN, MAX etc..
+--Ranking functions - RANK, DENSE_RANK, ROW_NUMBER etc..
+--Analytic functions - LEAD, LAG, FIRST_VALUE, LAST_VALUE etc...
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+        AVG(Salary) OVER(ORDER BY Salary						 --avg for 3 rows
+        ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING) AS Average
+FROM Employees
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+        AVG(Salary) OVER(ORDER BY Salary ROWS BETWEEN			 --avg for all rows
+        UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS Average
+FROM Employees
+------------------------------------------------------
+--it's default value RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW.
+SELECT Name, Gender, Salary,
+    LAST_VALUE(Name) OVER (ORDER BY Salary) AS LastValue
+FROM Employees
+
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+    LAST_VALUE(Name) OVER (ORDER BY Salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS LastValue
+FROM Employees
+------------------------------------------------------
+SELECT Name, Gender, Salary,
+    LAST_VALUE(Name) OVER (ORDER BY Salary ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS LastValue
+FROM Employees
+------------------------------------------------------
