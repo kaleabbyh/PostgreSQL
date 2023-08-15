@@ -567,3 +567,233 @@ FROM Production.Product AS pp
 INNER JOIN Sales.SalesOrderDetail AS ss  
 ON pp.ProductID = ss.ProductID  
 ORDER BY pp.Name ;
+
+
+--==========================================================================
+--41. From the following tables write a SQL query to retrieve the territory name and BusinessEntityID. 
+--The result set includes all salespeople, regardless of whether or not they are assigned a territory.
+SELECT isnull(st.Name,'') AS Territory, sp.BusinessEntityID  
+FROM Sales.SalesTerritory AS st   
+RIGHT  JOIN Sales.SalesPerson AS sp  
+ON st.TerritoryID = sp.TerritoryID ;
+
+
+--==========================================================================
+--42. Write a query in SQL to find the employee's full name (firstname and lastname) and city from the following tables.
+ --Order the result set on lastname then by firstname.
+select *from Person.Person
+select * from HumanResources.Employee
+select * from Person.Address
+select *from Person.BusinessEntityAddress
+
+SELECT concat(pp.FirstName,' ', pp.LastName) AS Name, sub.City  
+FROM Person.Person AS pp
+JOIN HumanResources.Employee HE
+	ON pp.BusinessEntityID = HE.BusinessEntityID   
+JOIN  (SELECT pb.BusinessEntityID, pa.City   
+		FROM Person.Address AS pa 
+		JOIN Person.BusinessEntityAddress AS pb  
+			ON pa.AddressID = pb.AddressID
+		) AS sub  
+ON pp.BusinessEntityID = sub.BusinessEntityID  
+ORDER BY pp.LastName, pp.FirstName;
+
+--==========================================================================
+--43. Write a SQL query to return the businessentityid,firstname and lastname columns of all persons in the person table (derived table)
+ --with persontype is 'IN' and the last name is 'Adams'. Sort the result set in ascending order on firstname.
+ --A SELECT statement after the FROM clause is a derived table.
+
+ select businessentityid,firstname,lastname
+ from ( select businessentityid,firstname,lastname
+		from Person.Person
+		where lastname in('Adams')
+		) as derived
+order by FirstName
+
+
+--==========================================================================
+--44. Create a SQL query to retrieve individuals from the following table with a businessentityid inside 1500, a lastname starting with 'Al', 
+--and a firstname starting with 'M'.
+SELECT businessentityid, firstname,LastName  
+FROM person.person 
+WHERE businessentityid <= 1500 AND LastName LIKE 'Al%' AND FirstName LIKE 'M%';
+
+
+--==========================================================================
+--45. Write a SQL query to find the productid, name, and colour of the items 'Blade', 'Crown Race' and 'AWC Logo Cap' 
+--using a derived table with multiple values.
+SELECT ProductID, a.Name, Color  
+FROM Production.Product AS a  
+INNER JOIN (VALUES ('Blade'), ('Crown Race'), ('AWC Logo Cap')) AS b(Name)   
+ON a.Name = b.Name;
+
+
+--==========================================================================
+--45. Write a SQL query to find the productid, name, and colour of the items 'Blade', 'Crown Race' and 'AWC Logo Cap' 
+--using a derived table with multiple values.
+
+select productid, name, isnull(Color,'') Color
+from (select productid, name, Color 
+		from Production.Product 
+		where name in ('Blade', 'Crown Race' , 'AWC Logo Cap' )
+		) as derv
+order by ProductID
+
+
+--==========================================================================
+--46. Create a SQL query to display the total number of sales orders each sales representative receives annually. 
+--Sort the result set by SalesPersonID and then by the date component of the orderdate in ascending order. 
+--Return the year component of the OrderDate, SalesPersonID, and SalesOrderID.
+
+WITH Sales_CTE (SalesPersonID, SalesOrderID, SalesYear)
+AS
+(
+    SELECT SalesPersonID, SalesOrderID, year(OrderDate) AS SalesYear
+    FROM Sales.SalesOrderHeader
+    WHERE SalesPersonID IS NOT NULL
+)
+SELECT SalesPersonID, COUNT(SalesOrderID) AS TotalSales, SalesYear
+FROM Sales_CTE
+GROUP BY SalesYear, SalesPersonID
+ORDER BY SalesPersonID, SalesYear;
+
+-----------OR---------------
+SELECT  SalesPersonID, COUNT(SalesOrderID) AS TotalSales,     year(OrderDate) AS SalesYear 
+FROM Sales.SalesOrderHeader
+WHERE SalesPersonID IS NOT NULL
+GROUP BY year(OrderDate), SalesPersonID
+ORDER BY SalesPersonID, SalesYear
+
+--==========================================================================
+--47. From the following table write a query in SQL to find the average number of sales orders for all the years of the sales representatives.
+WITH Sales_CTE (SalesPersonID, NumberOfOrders)
+AS
+(
+    SELECT SalesPersonID, COUNT(*)
+    FROM Sales.SalesOrderHeader
+    WHERE SalesPersonID IS NOT NULL
+    GROUP BY SalesPersonID
+)
+SELECT AVG(NumberOfOrders) AS "Average Sales Per Person"
+FROM Sales_CTE;
+
+SELECT AVG(NumberOfOrders) AS "Average Sales Per Person"
+FROM (
+		SELECT SalesPersonID, COUNT(*) AS  NumberOfOrders 
+		FROM Sales.SalesOrderHeader
+		WHERE SalesPersonID IS NOT NULL
+		GROUP BY SalesPersonID
+		) derived
+
+
+--==========================================================================
+--48. Write a SQL query on the following table to retrieve records with the characters green_ in the LargePhotoFileName field. 
+--The following table's columns must all be returned.
+
+select productphotoid,thumbnailphoto   from Production.ProductPhoto where LargePhotoFileName like '%green_%'
+		
+
+--==========================================================================
+--49. Write a SQL query to retrieve the mailing address for any company that is outside the United States (US) and in a city whose name starts with Pa. 
+--Return Addressline1, Addressline2, city, postalcode, countryregioncode columns.
+
+SELECT AddressLine1, AddressLine2, City, PostalCode, CountryRegionCode    
+FROM Person.Address AS a  
+JOIN Person.StateProvince AS s ON a.StateProvinceID = s.StateProvinceID  
+WHERE CountryRegionCode NOT IN ('US')  
+AND City LIKE 'Pa%' ;
+
+
+--==========================================================================
+--50. From the following table write a query in SQL to fetch first twenty rows. Return jobtitle, hiredate.
+ --Order the result set on hiredate column in descending order.
+ SELECT JobTitle, HireDate  
+FROM HumanResources.Employee
+ORDER BY HireDate desc
+ OFFSET 0 ROWS 
+FETCH FIRST 20 ROWS ONLY;
+
+
+--==========================================================================
+--51. From the following tables write a SQL query to retrieve the orders with orderqtys greater than 5 or unitpricediscount less than 1000,
+ --and totaldues greater than 100. Return all the columns from the tables.
+ select * from  Sales.SalesOrderHeader
+select * from  Sales.SalesOrderDetail 
+
+select * from  Sales.SalesOrderHeader ss
+join Sales.SalesOrderDetail so
+on ss.SalesOrderID=so.SalesOrderID
+where (so.OrderQty>5 or so.UnitPriceDiscount<1000) and ss.TotalDue>100
+
+
+
+--==========================================================================
+--52. From the following table write a query in SQL that searches for the word 'red' in the name column. Return name, and color columns from the table.
+SELECT Name, isnull(Color,'') Color   
+FROM Production.Product
+WHERE name like ('%red%');
+
+--==========================================================================
+--53. From the following table write a query in SQL to find all the products with a price of $80.99 that contain the word Mountain. 
+--Return name, and listprice columns from the table.
+
+SELECT Name, ListPrice  
+FROM Production.Product  
+WHERE ListPrice = 80.99  
+and name like ('%Mountain%');
+
+--==========================================================================
+--54. From the following table write a query in SQL to retrieve all the products that contain either the phrase Mountain or Road.
+ --Return name, and color columns.
+
+ SELECT Name, isnull(Color,'') Color  
+FROM Production.Product  
+WHERE name like ('%Mountain%') or name like ('%Road%');
+
+--==========================================================================
+--55. From the following table write a query in SQL to search for name which contains both the word 'Mountain' and the word 'Black'. 
+--Return Name and color.
+
+ SELECT Name, isnull(Color,'') Color  
+FROM Production.Product  
+WHERE name like ('%Mountain%') and name like ('%Black%');
+
+--==========================================================================
+--56. From the following table write a query in SQL to return all the product names with at least one word starting with the prefix chain in the Name column.
+
+ SELECT Name, isnull(Color,'') Color  
+FROM Production.Product  
+WHERE  name like ('%chain%');
+
+--==========================================================================
+--57. From the following table write a query in SQL to return all category descriptions containing strings with prefixes of either chain or full.
+
+ SELECT Name, isnull(Color,'') Color  
+FROM Production.Product  
+WHERE name like ('%chain%') or name like ('%full%');
+
+--==========================================================================
+--58. From the following table write a SQL query to output an employee's name and email address, separated by a new line character.
+SELECT concat(pp.FirstName,' ', pp.LastName) + ' '+'¶'+  pe.EmailAddress   
+FROM Person.Person pp
+INNER JOIN Person.EmailAddress pe ON pp.BusinessEntityID = pe.BusinessEntityID  	 
+where pp.BusinessEntityID = 1;
+								
+--==========================================================================
+--59. From the following table write a SQL query to locate the position of the string "yellow" where it appears in the product name.
+SELECT name, CHARINDEX('yellow', name) as "String Position" 
+from production.product
+where CHARINDEX('yellow', name)>0
+order by CHARINDEX('yellow', name)
+
+
+--==========================================================================
+--60 From the following table write a query in SQL to concatenate the name, color, and productnumber columns.
+SELECT CONCAT( name, '   color:-',color,' Product Number:', productnumber ) AS result, isnull(color,'') color
+FROM production.product;
+
+--==========================================================================
+--61 Write a SQL query that concatenate the columns name, productnumber, colour, and a new line character from
+--the following table, each separated by a specified character.
+
+
