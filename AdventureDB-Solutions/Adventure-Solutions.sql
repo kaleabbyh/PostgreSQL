@@ -795,5 +795,815 @@ FROM production.product;
 --==========================================================================
 --61 Write a SQL query that concatenate the columns name, productnumber, colour, and a new line character from
 --the following table, each separated by a specified character.
+SELECT CONCAT_WS( ',', name, productnumber, color,'¶') AS DatabaseInfo
+FROM production.product;
 
 
+--==========================================================================
+--62 From the following table write a query in SQL to return the five leftmost characters of each product name.
+
+SELECT LEFT(Name, 5)   
+FROM Production.Product  
+ORDER BY ProductID;
+
+SELECT SUBSTRING(Name,1,5)  
+FROM Production.Product  
+ORDER BY ProductID;
+
+--==========================================================================
+--63 From the following table write a query in SQL to select the number of characters and the data in FirstName for people located in Australia.
+SELECT len(FirstName) AS Length, FirstName, LastName   
+FROM Sales.vIndividualCustomer  
+WHERE CountryRegionName = 'Australia';
+
+--==========================================================================
+--64 From the following tables write a query in SQL to return the number of characters in the column FirstName and the first and 
+--last name of contacts located in Australia.
+
+SELECT distinct len(FirstName) AS FNameLength, FirstName, LastName   
+FROM Sales.vstorewithcontacts  AS e  
+INNER JOIN Sales.vstorewithaddresses AS g   
+    ON e.businessentityid = g.businessentityid   
+WHERE CountryRegionName = 'Australia'
+
+
+--==========================================================================
+--65 From the following table write a query in SQL to select product names that have prices between $1000.00 and $1220.00. Return product 
+--name as Lower, Upper, and also LowerUpper.
+
+SELECT LOWER(Name) AS Lower,   
+       UPPER(Name) AS Upper,   
+       LOWER(UPPER(Name)) As LowerUpper  
+FROM production.Product  
+WHERE standardcost between 1000.00 and 1220.00;
+
+--==========================================================================
+--66 Write a query in SQL to remove the spaces from the beginning of a string.
+ select '     five space then the text' as [Original Text]    ,
+		LTRIM('     five space then the text') as [Trimmed Text(space removed)]
+
+
+
+--==========================================================================
+--67 From the following table write a query in SQL to remove the substring 'HN' from the start of the column productnumber. 
+--Filter the results to only show those productnumbers that start with "HN". Return original productnumber column and 'TrimmedProductnumber'.
+SELECT productnumber,LTRIM(productnumber , 'HN') as "TrimmedProductnumber"
+from production.product
+where left(productnumber,2)='HN';
+
+SELECT productnumber,substring(productnumber,3,len(productnumber)) as "TrimmedProductnumber"
+from production.product
+where productnumber like 'HN%';
+
+--==========================================================================
+--68 From the following table write a query in SQL to repeat a 0 character four times in front of a production line for production line 'T'.
+SELECT Name, concat(REPLICATE('0', 4) , ProductLine) AS "Line Code"  
+FROM Production.Product  
+WHERE ProductLine = 'T'  
+ORDER BY Name;
+
+--==========================================================================
+--69 From the following table write a SQL query to retrieve all contact first names with the characters inverted for people whose 
+--businessentityid is less than 6.
+SELECT FirstName, REVERSE(FirstName) AS Reverse  
+FROM Person.Person  
+WHERE BusinessEntityID < 6 
+ORDER BY FirstName;
+
+--==========================================================================
+--70 From the following table write a query in SQL to return the eight rightmost characters of each name of the product. Also return name,
+--productnumber column. Sort the result set in ascending order on productnumber.
+
+SELECT name, productnumber, RIGHT(name, 8) AS "Product Name"  
+FROM production.product 
+ORDER BY productnumber;
+
+--==========================================================================
+--71 Write a query in SQL to remove the spaces at the end of a string.
+SELECT  CONCAT('text then five spaces     ','after space') as [Original Text],
+		CONCAT(RTRIM('text then five spaces     '),'after space') as [Trimmed Text(space removed)];
+
+
+--==========================================================================
+--72 From the following table write a query in SQL to fetch the rows for the product name ends with the letter 'S' or 'M' or 'L'. 
+--Return productnumber and name.
+SELECT distinct productnumber, name
+FROM production.product
+WHERE RIGHT(name,1) in ('S','M','L');
+
+--==========================================================================
+--73 From the following table write a query in SQL to replace null values with 'N/A' and return the names separated by commas in a single row.
+SELECT coalesce(firstname, ' N/A') AS test 
+FROM Person.Person;
+
+SELECT STRING_AGG(
+		CONVERT(NVARCHAR(max),coalesce(firstname, ' N/A')),','
+		) as test
+FROM Person.Person;
+
+--==========================================================================
+--74 From the following table write a query in SQL to return the names and modified date separated by commas in a single row.
+SELECT STRING_AGG( 
+		CONVERT(
+			NVARCHAR(max),
+			CONCAT(FirstName, ' ', LastName, ' (', ModifiedDate, ')'
+				)),', '
+		) AS test
+FROM Person.Person;
+
+
+--==========================================================================
+--75 From the following table write a query in SQL to find the email addresses of employees and groups them by city. Return top ten rows.
+
+SELECT TOP 10 City, STRING_AGG(cast(EmailAddress as varchar(max)), ';') AS emails 
+FROM Person.BusinessEntityAddress AS PB  
+INNER JOIN Person.Address AS PA  ON PB.AddressID = PA .AddressID
+INNER JOIN Person.EmailAddress AS PE ON PB.BusinessEntityID = PE.BusinessEntityID 
+GROUP BY City
+
+--==========================================================================
+--76 From the following table write a query in SQL to create a new job title called "Production Assistant" in place of "Production Supervisor".
+SELECT jobtitle ,REPLACE(jobtitle, 'Production Supervisor', 'Production Assistant') as "New Jobtitle"
+FROM humanresources.employee e 
+WHERE jobtitle like  '%Production Supervisor%' 
+
+
+--==========================================================================
+
+--77 From the following table write a SQL query to retrieve all the employees whose job titles begin with "Sales". 
+--Return firstname, middlename, lastname and jobtitle column.
+SELECT PP.firstname, PP.middlename, PP.lastname, HE.jobtitle
+FROM person.person PP
+JOIN humanresources.employee HE
+ON PP.businessentityid=HE.businessentityid
+WHERE SUBSTRING(HE.jobtitle,1,5)='Sales';
+
+
+--==========================================================================
+--78 From the following table write a query in SQL to return the last name of people so that it is in uppercase, trimmed, 
+--and concatenated with the first name.
+select concat(UPPER(TRIM(LastName)),', ',FirstName) as name
+from Person.Person
+
+
+--==========================================================================
+--79 From the following table write a query in SQL to show a resulting expression that is too small to display. 
+--Return FirstName, LastName, Title, and SickLeaveHours. The SickLeaveHours will be shown as a small expression in text format.
+SELECT  PP.FirstName, 
+		PP.LastName, 
+		isnull(PP.Title,''),
+		SUBSTRING(CAST(HE.SickLeaveHours AS varchar(10)),1,1) AS "Sick Leave"
+FROM HumanResources.Employee HE JOIN Person.Person PP
+    ON HE.BusinessEntityID = PP.BusinessEntityID  
+WHERE  HE.BusinessEntityID <= 5;
+
+
+--==========================================================================
+--80 From the following table write a query in SQL to retrieve the name of the products. Product, that have 33 as the first two digits of listprice.
+
+SELECT Name as [product name],ListPrice
+FROM production.Product
+where SUBSTRING(CAST(ListPrice AS varchar(10)),1,2) ='33'
+
+
+--==========================================================================
+--81 From the following table write a query in SQL to calculate by dividing the total year-to-date sales (SalesYTD) by the commission percentage (CommissionPCT).
+--Return SalesYTD, CommissionPCT, and the value rounded to the nearest whole number.
+
+select salesytd ,commissionpct,salesytd/commissionpct as computed
+from Sales.SalesPerson
+where commissionpct <>0
+
+
+--==========================================================================
+--82 From the following table write a query in SQL to find those persons that have a 2 in the first digit of their SalesYTD. 
+--Convert the SalesYTD column to an int type, and then to a char(20) type. Return FirstName, LastName, SalesYTD, and BusinessEntityID.
+SELECT pp.FirstName, pp.LastName, ss.SalesYTD, ss.BusinessEntityID  
+FROM Person.Person AS pp   
+JOIN Sales.SalesPerson AS ss  
+    ON pp.BusinessEntityID = ss.BusinessEntityID  
+WHERE CAST(CAST(ss.SalesYTD AS INT) AS char(20)) LIKE '2%';
+
+
+--==========================================================================
+--83 From the following table write a query in SQL to convert the Name column to a char(16) column. 
+--Convert those rows if the name starts with 'Long-Sleeve Logo Jersey'. Return name of the product and listprice.
+SELECT  CAST(Name AS CHAR(16)) AS Name, ListPrice  
+FROM production.Product  
+WHERE Name LIKE 'Long-Sleeve Logo Jersey%';
+
+
+--==========================================================================
+--84 From the following table write a SQL query to determine the discount price for the salesorderid 46672.
+ --Calculate only those orders with discounts of more than.02 percent. Return productid, UnitPrice, UnitPriceDiscount, 
+ --and DiscountPrice (UnitPrice*UnitPriceDiscount ).
+
+ select  CAST(ROUND (.1*45.9,0) AS int) AS DiscountPrice  
+
+ SELECT productid, UnitPrice,UnitPriceDiscount,  
+       CAST(UnitPrice*UnitPriceDiscount AS int) AS DiscountPrice  
+FROM sales.salesorderdetail  
+WHERE SalesOrderid = 46672   
+      AND UnitPriceDiscount > .02;
+
+
+--==========================================================================
+--85 From the following table write a query in SQL to calculate the average vacation hours, and the sum of sick leave hours, that the vice presidents have used.
+SELECT cast(AVG(VacationHours) as float)AS "Average vacation hours",   
+       SUM(SickLeaveHours) AS "Total sick leave hours"  
+FROM HumanResources.Employee  
+WHERE JobTitle LIKE 'Vice President%';
+
+--==========================================================================
+--86 From the following table write a query in SQL to calculate the average bonus received and the sum of year-to-date sales for each territory. 
+--Return territoryid, Average bonus, and YTD sales.
+SELECT TerritoryID, AVG(Bonus)as [Average bonus], 
+SUM(SalesYTD) as [YTD sales]
+FROM Sales.SalesPerson  
+GROUP BY TerritoryID;
+
+
+
+--==========================================================================
+--87 From the following table write a query in SQL to return the average list price of products. Consider the calculation only on unique values.
+SELECT AVG(DISTINCT ListPrice)  
+FROM Production.Product;
+
+
+--==========================================================================
+--88 From the following table write a query in SQL to return a moving average of yearly sales for each territory. 
+--Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
+SELECT BusinessEntityID, TerritoryID   
+   ,year(ModifiedDate) AS SalesYear  
+   ,SalesYTD AS  SalesYTD  
+   ,AVG(SalesYTD) OVER (PARTITION BY TerritoryID ) AS MovingAvg  
+   ,SUM(SalesYTD) OVER (PARTITION BY TerritoryID ) AS CumulativeTotal  
+FROM Sales.SalesPerson  
+WHERE TerritoryID IS NULL OR TerritoryID < 5 
+ORDER BY SalesYear ,TerritoryID;
+
+
+--==========================================================================
+--89 From the following table write a query in SQL to return a moving average of sales, by year, for all sales territories.
+--Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
+
+SELECT BusinessEntityID, TerritoryID   
+   ,year(ModifiedDate) AS SalesYear  
+   ,SalesYTD AS  SalesYTD  
+   ,AVG(SalesYTD) OVER (PARTITION BY year(ModifiedDate) ) AS MovingAvg  
+   ,SUM(SalesYTD) OVER (PARTITION BY year(ModifiedDate) ) AS CumulativeTotal  
+FROM Sales.SalesPerson  
+WHERE TerritoryID IS NULL OR TerritoryID < 5 
+ORDER BY BusinessEntityID
+
+SELECT * FROM Sales.SalesPerson 
+
+--==========================================================================
+--90 From the following table write a query in SQL to return the number of different titles that employees can hold.
+
+select count (distinct JobTitle) as [number of job titles]
+ from HumanResources.Employee
+
+ --==========================================================================
+ --91 From the following table write a query in SQL to find the total number of employees.
+
+select count (*) as [number of Employees]
+ from HumanResources.Employee
+
+ --==========================================================================
+--93 From the following tables wirte a query in SQL to return aggregated values for each department. 
+--Return name, minimum salary, maximum salary, average salary, and number of employees in each department.
+
+select * from HumanResources.employeepayhistory
+select * from HumanResources.employeedepartmenthistory
+select * from HumanResources.Department
+
+
+SELECT DISTINCT Name  
+       , MIN(Rate) OVER win AS MinSalary  
+       , MAX(Rate) OVER win AS MaxSalary  
+       , AVG(Rate) OVER win AS AvgSalary  
+       ,COUNT(HED.BusinessEntityID) OVER win AS EmployeesPerDept  
+FROM HumanResources.EmployeePayHistory AS HE  
+JOIN HumanResources.EmployeeDepartmentHistory AS HED  
+     ON HE.BusinessEntityID = HED.BusinessEntityID  
+JOIN HumanResources.Department AS HD  
+ON HD.DepartmentID = HED.DepartmentID
+WHERE HED.EndDate IS NULL 
+WINDOW win AS (PARTITION BY HED.DepartmentID)
+ORDER BY Name;
+
+
+
+
+--==========================================================================
+--94 From the following tables write a SQL query to return the departments of a company that each have more than 15 employees.
+select * from humanresources.employee
+
+SELECT jobtitle,   
+       COUNT(businessentityid) AS EmployeesInDesig  
+FROM humanresources.employee
+GROUP BY jobtitle  
+HAVING COUNT(businessentityid) > 15;
+
+--==========================================================================
+--95 From the following table write a query in SQL to find the number of products that ordered in each of the specified sales orders.
+select * from Sales.SalesOrderDetail
+
+select COUNT(*),salesorderid from Sales.SalesOrderDetail
+group by SalesOrderID
+having COUNT(*)>12
+
+
+--==========================================================================
+--96 From the following table write a query in SQL to compute the statistical variance of the sales quota values for 
+--each quarter in a calendar year for a sales person. Return year, quarter, salesquota and variance of salesquota.
+SELECT quotadate AS Year,
+		date_part('quarter',quotadate) AS Quarter, 
+		SalesQuota AS SalesQuota,  
+        variance(SalesQuota) OVER (ORDER BY date_part('year',quotadate), date_part('quarter',quotadate)) AS Variance  
+FROM sales.salespersonquotahistory  
+WHERE businessentityid = 277 AND date_part('year',quotadate) = 2012  
+ORDER BY date_part('quarter',quotadate);
+
+select * from sales.salespersonquotahistory 
+
+
+--==========================================================================
+--97 SELECT var_pop(DISTINCT SalesQuota) AS Distinct_Values, var_pop(SalesQuota) AS All_Values  
+--FROM sales.salespersonquotahistory;
+
+SELECT varp(DISTINCT SalesQuota) AS Distinct_Values, varp(SalesQuota) AS All_Values  
+FROM sales.salespersonquotahistory;
+
+--==========================================================================
+--98 From the following table write a query in SQL to return the total ListPrice and StandardCost of products for each color.
+--Products that name starts with 'Mountain' and ListPrice is more than zero. Return Color, total list price, total standardcode. 
+--Sort the result set on color in ascending order.
+
+--==========================================================================
+SELECT Color, SUM(ListPrice), SUM(StandardCost)  
+FROM Production.Product  
+WHERE Color IS NOT NULL   
+    AND ListPrice >0   
+    AND Name LIKE 'Mountain%'  
+GROUP BY Color  
+ORDER BY Color;
+
+--==========================================================================
+--99 From the following table write a query in SQL to find the TotalSalesYTD of each SalesQuota.
+--Show the summary of the TotalSalesYTD amounts for all SalesQuota groups. Return SalesQuota and TotalSalesYTD.
+SELECT SalesQuota, 
+	SUM(SalesYTD) as "TotalSalesYTD" , 
+	GROUPING(SalesQuota) as "Grouping" 
+FROM Sales.SalesPerson  
+GROUP BY rollup(SalesQuota)
+order by GROUPING(SalesQuota)
+
+select GROUPING(SalesQuota) from sales.SalesPerson
+
+--==========================================================================
+--100 From the following table write a query in SQL to calculate the sum of the ListPrice and StandardCost for each color.
+--Return color, sum of ListPrice.
+SELECT Color, SUM(ListPrice)AS TotalList,   
+       SUM(StandardCost) AS TotalCost  
+FROM production.product  
+GROUP BY Color  
+ORDER BY  CASE  Color 
+			WHEN  not null THEN Color  END asc
+
+
+--==========================================================================
+--101. From the following table write a query in SQL to calculate the salary percentile for each employee within a given department. 
+--Return department, last name, rate, cumulative distribution and percent rank of rate. 
+--Order the result set by ascending on department and descending on rate.
+
+
+select HD.Name,
+	LastName,
+	Rate,   
+    CUME_DIST () OVER (PARTITION BY HD.DepartmentID ORDER BY Rate) AS CumeDist,   
+    PERCENT_RANK() OVER (PARTITION BY HD.DepartmentID ORDER BY Rate ) AS PctRank  
+from HumanResources.EmployeeDepartmentHistory HED
+join  HumanResources.Department HD
+	on HD.DepartmentID=HED.DepartmentID
+join Person.Person PP
+   on PP.BusinessEntityID=HED.BusinessEntityID
+join  HumanResources.EmployeePayHistory HEP
+	on PP.BusinessEntityID=HEP.BusinessEntityID
+
+ORDER BY HD.Name, Rate DESC;
+
+--==========================================================================
+--102. From the following table write a query in SQL to return the name of the product that is the least expensive in a given product category. 
+--Return name, list price and the first value i.e. LeastExpensive of the product.
+
+alter proc listPricedProduct
+@ProductSubcategoryID int
+as
+begin
+SELECT Name, 
+	   ListPrice,
+       FIRST_VALUE(Name) OVER (ORDER BY ListPrice ASC) AS LeastExpensive
+FROM Production.Product
+WHERE ProductSubcategoryID = @ProductSubcategoryID 
+end
+
+execute listPricedProduct @ProductSubcategoryID=37
+
+
+--==========================================================================
+--103. From the following table write a query in SQL to return the employee with the fewest number of vacation hours 
+--compared to other employees with the same job title. Partitions the employees by job title and apply the first value 
+--to each partition independently.
+
+select * from  HumanResources.Employee
+
+create view leastVacationHour
+as
+SELECT HE.jobTitle,
+	   PP.lastName,
+	   HE.vacationhours,
+       FIRST_VALUE(PP.lastName) OVER ( partition by jobTitle ORDER BY VacationHours ASC) AS fewestvacationhours
+from  HumanResources.Employee HE
+join Person.Person PP
+    on PP.BusinessEntityID=HE.BusinessEntityID
+
+select * from leastVacationHour
+
+--==========================================================================
+--104. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over previous years. 
+--Returun BusinessEntityID, sales year, current quota, and previous quota.
+
+select * from Sales.SalesPersonQuotaHistory;
+
+create proc diffQuotas
+@BusinessEntityID int, 
+@year1 int,
+@year2 int
+as
+begin
+SELECT BusinessEntityID, 
+		year(QuotaDate) AS SalesYear, 
+		SalesQuota AS CurrentQuota,   
+       LAG(SalesQuota, 1,0) OVER (ORDER BY year(QuotaDate)) AS PreviousQuota  
+FROM Sales.SalesPersonQuotaHistory  
+WHERE BusinessEntityID = @BusinessEntityID AND year(QuotaDate) in (@year1,@year2)
+end
+
+exec diffQuotas
+	@BusinessEntityID =275, 
+	@year1 =2012,
+	@year2 =2013
+
+
+--==========================================================================
+--105. From the following table write a query in SQL to compare year-to-date sales between employees. Return TerritoryName, 
+--BusinessEntityID, SalesYTD, and sales of previous year i.e.PrevRepSales. Sort the result set in ascending order on territory name.
+select * from Sales.vSalesPerson
+
+
+ALTER proc yearToDateDiff
+as 
+begin
+select territoryname,
+		businessentityid,
+		salesytd ,
+		LAG(salesytd, 1,0) OVER (partition by TerritoryName ORDER BY salesytd) AS prevrepsales  
+from Sales.vSalesPerson
+WHERE territoryname IS NOT NULL
+end
+
+EXEC yearToDateDiff
+
+
+--==========================================================================
+--106. From the following tables write a query in SQL to return the hire date of the last employee in each
+--department for the given salary (Rate). Return department, lastname, rate, hiredate, and the last value of hiredate.
+select * from HumanResources.vEmployeeDepartmentHistory
+select * from HumanResources.EmployeePayHistory
+select * from HumanResources.Employee
+
+create proc lastEmployeHireDate
+@department varchar(30),
+@department2 varchar(30)
+as 
+begin
+select HVED.department,
+		HVED.lastname ,
+		HEP.rate ,
+		hiredate,
+		LAST_VALUE(HireDate) OVER ( PARTITION BY Department ORDER BY Rate) AS lastvalue
+from HumanResources.vEmployeeDepartmentHistory HVED
+join HumanResources.EmployeePayHistory HEP
+on HEP.BusinessEntityID=HVED.BusinessEntityID
+join HumanResources.Employee HE
+on HE.BusinessEntityID=HVED.BusinessEntityID
+
+where HVED.department in (@department,@department2)
+end
+
+exec lastEmployeHireDate
+@department ='Document Control',
+@department2 ='Information Services'
+
+
+--==========================================================================
+--107. From the following table write a query in SQL to compute the difference between the sales quota value for the 
+--current quarter and the first and last quarter of the year respectively for a given number of employees. Return BusinessEntityID, 
+--quarter, year, differences between current quarter and first and last quarter. Sort the result set on BusinessEntityID, SalesYear,
+--and Quarter in ascending order.
+
+select * from Sales.SalesPersonQuotaHistory
+
+
+create proc quarterDifference
+as
+begin
+SELECT BusinessEntityID
+    , DATEPART(QUARTER, QuotaDate) AS Quarter
+	,QuotaDate
+    , year(QuotaDate) AS SalesYear
+    , SalesQuota AS QuotaThisQuarter
+    , SalesQuota - FIRST_VALUE(SalesQuota)
+      OVER (PARTITION BY BusinessEntityID, year(QuotaDate)
+			 ORDER BY DATEPART(QUARTER, QuotaDate)
+	) AS DifferenceFromFirstQuarter
+    , SalesQuota - LAST_VALUE(SalesQuota)
+          OVER (PARTITION BY BusinessEntityID, year(QuotaDate)
+              ORDER BY DATEPART(QUARTER, QuotaDate)
+              RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS DifferenceFromLastQuarter
+FROM Sales.SalesPersonQuotaHistory
+ORDER BY BusinessEntityID, SalesYear, Quarter;
+end
+
+exec quarterDifference
+
+--==========================================================================
+--108. From the following table write a query in SQL to return the statistical variance of the sales quota values for a salesperson 
+--for each quarter in a calendar year. Return quotadate, quarter, SalesQuota, and statistical variance.
+--Order the result set in ascending order on quarter.
+
+
+SELECT quotadate AS Year,
+		DATEPART(QUARTER, QuotaDate) AS Quarter, 
+		SalesQuota AS SalesQuota,  
+       varp(SalesQuota) OVER (ORDER BY year(quotadate), DATEPART(QUARTER, QuotaDate)) AS Variance  
+FROM sales.salespersonquotahistory  
+--WHERE businessentityid = 277 AND year(quotadate) = 2012  
+ORDER BY DATEPART(QUARTER, QuotaDate);
+
+
+--==========================================================================
+--109. From the following table write a query in SQL to return the difference in sales quotas for
+--a specific employee over subsequent years. 
+--Return BusinessEntityID, year, SalesQuota, and the salesquota coming in next row.
+SELECT BusinessEntityID,
+		year(quotadate) AS SalesYear, 
+		SalesQuota AS CurrentQuota,   
+	    LEAD( SalesQuota, 1,0) OVER ( partition by BusinessEntityID ORDER BY year(quotadate)) AS NextQuota  
+FROM Sales.SalesPersonQuotaHistory  
+
+
+
+--==========================================================================
+--110. From the following query write a query in SQL to compare year-to-date sales between employees for specific terrotery. 
+--Return TerritoryName, BusinessEntityID, SalesYTD, and the salesquota coming in next row.
+ create proc compareWithTerritory
+ @TerritoryName1 varchar(20),
+ @TerritoryName2 varchar(20)
+as
+begin
+SELECT TerritoryName, BusinessEntityID, SalesYTD,   
+       LEAD (SalesYTD, 1, 0) OVER (PARTITION BY TerritoryName ORDER BY SalesYTD DESC) AS NextRepSales  
+FROM Sales.vSalesPerson  
+WHERE TerritoryName IN (@TerritoryName1, @TerritoryName2)   
+ORDER BY TerritoryName; 
+end;
+
+exec compareWithTerritory
+ @TerritoryName1= 'Canada',
+ @TerritoryName2= 'Northwest'
+
+
+--==========================================================================
+--111. From the following table write a query in SQL to obtain the difference in sales quota values for a specified employee 
+--over subsequent calendar quarters. Return year, quarter, sales quota, next sales quota, and the difference in sales quota.
+--Sort the result set on year and then by quarter, both in ascending order.
+
+select * from Sales.SalesPersonQuotaHistory
+
+
+alter proc calendarDifference
+as
+begin
+SELECT year(QuotaDate) AS Year, year(QuotaDate) AS Quarter, SalesQuota AS SalesQuota,  
+       LEAD(SalesQuota,1,0) OVER (ORDER BY year(QuotaDate), DATEPART(QUARTER, QuotaDate)) AS NextQuota,  
+   SalesQuota - LEAD(SalesQuota,1,0) OVER (ORDER BY year(QuotaDate), DATEPART(QUARTER, QuotaDate)) AS Diff  
+FROM sales.salespersonquotahistory  
+WHERE businessentityid = 277 AND year(QuotaDate) IN (2012,2013)  
+ORDER BY year(QuotaDate), DATEPART(QUARTER, QuotaDate);
+end
+
+exec calendarDifference
+
+
+
+
+--==========================================================================
+--112. From the following table write a query in SQL to compute the salary percentile for each employee within a given department. 
+--Return Department, LastName, Rate, CumeDist, and percentile rank. Sort the result set in ascending order on department and descending order on rate.
+
+--N.B.: The cumulative distribution calculates the relative position of a specified value in a group of values.
+
+select * from HumanResources.vEmployeeDepartmentHistory
+
+ALTER proc pr_percentileCumdist
+@Department1 varchar(30),
+@Department2 varchar(30)
+AS
+begin
+
+SELECT Department, LastName, Rate,   
+       CUME_DIST () OVER (PARTITION BY Department ORDER BY Rate) AS CumeDist,   
+       PERCENT_RANK() OVER (PARTITION BY Department ORDER BY Rate ) AS PctRank  
+FROM HumanResources.vEmployeeDepartmentHistory AS HEVD  
+    INNER JOIN HumanResources.EmployeePayHistory AS HEP    
+    ON HEP.BusinessEntityID = HEVD.BusinessEntityID  
+WHERE Department IN (@Department1 ,@Department2)   
+ORDER BY Department, Rate DESC
+end
+
+exec  pr_percentileCumdist
+@Department1 ='Information Services',
+@Department2 ='Document Control'
+
+
+--==========================================================================
+--113. From the following table write a query in SQL to add two days to each value in the OrderDate column, 
+--to derive a new column named PromisedShipDate. Return salesorderid, orderdate, and promisedshipdate column.
+
+select * from  sales.salesorderheader
+
+select salesorderid,
+		orderdate ,
+		DATEADD(DAY, 2, orderdate) AS NewDatepromisedshipdate
+from sales.salesorderheader
+
+
+--==========================================================================
+--114. From the following table write a query in SQL to obtain a newdate by adding two days with current date for each salespersons. 
+--Filter the result set for those salespersons whose sales value is more than zero.
+
+select * from  Sales.SalesPerson
+select * from  Person.Person
+select * from Person.Address
+
+select firstname,lastname ,DATEADD(DAY, 2, GETDATE()) AS [New Date] 
+from  Sales.SalesPerson SS
+join  Person.Person PP
+on SS.BusinessEntityID = PP.BusinessEntityID  
+JOIN Person.Address AS A  
+ ON A.AddressID = PP.BusinessEntityID  
+WHERE TerritoryID IS NOT NULL  AND SalesYTD <> 0;
+
+
+
+--==========================================================================
+--115. From the following table write a query in SQL to find the differences between the maximum and minimum orderdate.
+
+select * from Sales.SalesOrderHeader
+
+SELECT DATEDIFF(DAY, MIN(OrderDate), MAX(OrderDate)) AS DateDifferenceInDays
+FROM Sales.SalesOrderHeader;
+
+--==========================================================================
+--116. From the following table write a query in SQL to rank the products in inventory, by the specified inventory locations,
+--according to their quantities. Divide the result set by LocationID and sort the result set on Quantity in descending order.
+
+select * from Production.ProductInventory
+select * from Production.Product
+
+select PP.productid,
+		PP.name ,
+		locationid,
+		quantity,
+		DENSE_RANK() OVER ( partition by LocationID order by Quantity desc) as [rank]
+from Production.ProductInventory PPI
+join Production.Product PP
+on PP.ProductID=PPI.productID
+
+
+--==========================================================================
+--117. From the following table write a query in SQL to return the top ten employees ranked by their salary.
+select * from HumanResources.EmployeePayHistory
+select top 10 businessEntityID,
+			  Rate ,
+			  DENSE_RANK() OVER (  order by rate desc) as rankbysalary
+from HumanResources.EmployeePayHistory order by rate desc
+
+
+
+--==========================================================================
+--118. From the following table write a query in SQL to divide rows into four groups of employees based on their year-to-date sales. 
+--Return first name, last name, group as quartile, year-to-date sales, and postal code.
+
+select * from Sales.SalesPerson
+select * from Person.Person
+select * from  Person.Address
+
+select firstname,
+	lastname,
+	NTILE(4) OVER (  order by salesYTD  ) AS quartile,
+	salesytd,
+	postalcode
+
+from  Sales.SalesPerson SS
+join  Person.Person PP
+on SS.BusinessEntityID = PP.BusinessEntityID  
+JOIN Person.Address AS A  
+ ON A.AddressID = PP.BusinessEntityID  
+
+
+
+ --==========================================================================
+ --119. From the following tables write a query in SQL to rank the products in inventory the specified
+ --inventory locations according to their quantities. The result set is partitioned by LocationID and logically ordered by Quantity.
+ --Return productid, name, locationid, quantity, and rank.
+
+select * from production.productinventory
+select * from production.Product
+
+
+select PP.productid,
+	PP.Name,
+	PPI.locationid,
+	PPI.quantity,
+	RANK() over(partition by locationID order by Quantity desc) as [rank]
+from production.productinventory PPI
+join Production.Product PP
+on PP.ProductID=PPI.productID
+order by locationID
+
+--==========================================================================
+--120. From the following table write a query in SQL to find the salary of top ten employees. 
+--Return BusinessEntityID, Rate, and rank of employees by salary.
+
+select * from HumanResources.EmployeePayHistory
+
+select top 10 businessentityid,rate ,
+			RANK() over( order by rate desc) as rankbysalary
+from HumanResources.EmployeePayHistory
+ORDER BY BusinessEntityID
+
+
+SELECT top 10 BusinessEntityID, Rate,   
+       RANK() OVER (ORDER BY Rate DESC) AS RankBySalary  
+FROM HumanResources.EmployeePayHistory AS eph1  
+WHERE RateChangeDate = (SELECT MAX(RateChangeDate)   
+                        FROM HumanResources.EmployeePayHistory AS eph2  
+                        WHERE eph1.BusinessEntityID = eph2.BusinessEntityID)  
+ORDER BY BusinessEntityID
+
+
+--==========================================================================
+--121. From the following table write a query in SQL to calculate a row number for the salespeople based on 
+--their year-to-date sales ranking. Return row number, first name, last name, and year-to-date sales.
+SELECT ROW_NUMBER() OVER(ORDER BY SalesYTD DESC) AS [Row],   
+		FirstName, 
+		LastName, 
+		ROUND(SalesYTD,2) AS [Sales YTD]  
+FROM Sales.vSalesPerson  
+WHERE TerritoryName IS NOT NULL AND SalesYTD <> 0;
+
+
+--==========================================================================
+--122. From the following table write a query in SQL to calculate row numbers for all rows between 50 to 60 inclusive. 
+--Sort the result set on orderdate.
+
+Select * from Sales.SalesOrderHeader
+
+select salesorderid,orderdate , rownumber
+from (select salesorderid,
+			 orderdate ,
+			 ROW_NUMBER() OVER(ORDER BY orderDate ) AS rownumber
+	  from Sales.SalesOrderHeader
+	  ) derived
+WHERE rownumber BETWEEN 50 AND 60;
+
+
+
+WITH OrderedOrders AS  
+(  
+    SELECT SalesOrderID, OrderDate,  
+    ROW_NUMBER() OVER (ORDER BY OrderDate) AS RowNumber  
+    FROM Sales.SalesOrderHeader   
+)   
+SELECT SalesOrderID, OrderDate, RowNumber    
+FROM OrderedOrders   
+WHERE RowNumber BETWEEN 50 AND 60;
+
+--==========================================================================
+--123. From the following table write a query in SQL to return first name, last name, territoryname, salesytd, and row number. 
+--Partition the query result set by the TerritoryName. Orders the rows in each partition by SalesYTD.
+--Sort the result set on territoryname in ascending order.

@@ -1,7 +1,8 @@
 SQL Queries: AdventureWorks Part-II [100 exercises with solution]
 [An editor is available at the bottom of the page to write and execute the scripts. Go to the editor]
 
-101. From the following table write a query in SQL to calculate the salary percentile for each employee within a given department. Return department, last name, rate, cumulative distribution and percent rank of rate. Order the result set by ascending on department and descending on rate.
+101. From the following table write a query in SQL to calculate the salary percentile for each employee within a given department. 
+Return department, last name, rate, cumulative distribution and percent rank of rate. Order the result set by ascending on department and descending on rate.
 
 Sample table: HumanResources.EmployeeDepartmentHistory
 
@@ -34,7 +35,8 @@ Information Services|Bacon        |27.4038|     0.4|               0.0|
 Information Services|Berg         |27.4038|     0.4|               0.0|
 Click me to see the solution
 
-102. From the following table write a query in SQL to return the name of the product that is the least expensive in a given product category. Return name, list price and the first value i.e. LeastExpensive of the product.
+102. From the following table write a query in SQL to return the name of the product that is the least expensive in a given product category. 
+Return name, list price and the first value i.e. LeastExpensive of the product.
 
 Sample table: production.Product
 
@@ -58,7 +60,9 @@ HL Road Tire       |     32.6|Patch Kit/8 Patches|
 HL Mountain Tire   |       35|Patch Kit/8 Patches|
 Click me to see the solution
 
-103. From the following table write a query in SQL to return the employee with the fewest number of vacation hours compared to other employees with the same job title. Partitions the employees by job title and apply the first value to each partition independently.
+103. From the following table write a query in SQL to return the employee with the fewest number of vacation hours 
+compared to other employees with the same job title. Partitions the employees by job title and apply the first value 
+to each partition independently.
 
 Sample table: HumanResources.Employee
 
@@ -89,9 +93,7 @@ Application Specialist                  |Berg             |           74|Bueno  
 ...
 Click me to see the solution
 
-104. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over previous years. Returun BusinessEntityID, sales year, current quota, and previous quota.
 
-Sample table: Sales.SalesPersonQuotaHistory
 
 
 Click to view Full table
@@ -110,7 +112,8 @@ businessentityid|salesyear|currentquota|previousquota|
              275|   2013.0|      849000|      1218000|
 Click me to see the solution
 
-105. From the following table write a query in SQL to compare year-to-date sales between employees. Return TerritoryName, BusinessEntityID, SalesYTD, and sales of previous year i.e.PrevRepSales. Sort the result set in ascending order on territory name.
+105. From the following table write a query in SQL to compare year-to-date sales between employees. Return TerritoryName, 
+BusinessEntityID, SalesYTD, and sales of previous year i.e.PrevRepSales. Sort the result set in ascending order on territory name.
 
 Sample table: Sales.vSalesPerson
 
@@ -128,7 +131,8 @@ Northwest    |             283|1573012.9383|1576562.1966|
 Northwest    |             280|1352577.1325|1573012.9383|
 Click me to see the solution
 
-106. From the following tables write a query in SQL to return the hire date of the last employee in each department for the given salary (Rate). Return department, lastname, rate, hiredate, and the last value of hiredate.
+106. From the following tables write a query in SQL to return the hire date of the last employee in each department for the given salary (Rate). 
+Return department, lastname, rate, hiredate, and the last value of hiredate.
 
 Sample table: HumanResources.vEmployeeDepartmentHistory
 
@@ -162,7 +166,10 @@ Information Services|Sharma       |32.4519|2008-12-04|2009-02-23|
 ...
 Click me to see the solution
 
-107. From the following table write a query in SQL to compute the difference between the sales quota value for the current quarter and the first and last quarter of the year respectively for a given number of employees. Return BusinessEntityID, quarter, year, differences between current quarter and first and last quarter. Sort the result set on BusinessEntityID, SalesYear, and Quarter in ascending order.
+107. From the following table write a query in SQL to compute the difference between the sales quota value for the 
+current quarter and the first and last quarter of the year respectively for a given number of employees. Return BusinessEntityID, 
+quarter, year, differences between current quarter and first and last quarter. Sort the result set on BusinessEntityID, SalesYear,
+ and Quarter in ascending order.
 
 Sample table: Sales.SalesPersonQuotaHistory
 
@@ -190,7 +197,8 @@ businessentityid|quarter|salesyear|quotathisquarter|differencefromfirstquarter|d
 ...
 Click me to see the solution
 
-108. From the following table write a query in SQL to return the statistical variance of the sales quota values for a salesperson for each quarter in a calendar year. Return quotadate, quarter, SalesQuota, and statistical variance. Order the result set in ascending order on quarter.
+108. From the following table write a query in SQL to return the statistical variance of the sales quota values for a salesperson 
+for each quarter in a calendar year. Return quotadate, quarter, SalesQuota, and statistical variance. Order the result set in ascending order on quarter.
 
 Sample table: Sales.SalesPersonQuotaHistory
 
@@ -209,7 +217,8 @@ year                   |quarter|salesquota|variance             |
 ...
 Click me to see the solution
 
-109. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over subsequent years. Return BusinessEntityID, year, SalesQuota, and the salesquota coming in next row.
+109. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over subsequent years. 
+Return BusinessEntityID, year, SalesQuota, and the salesquota coming in next row.
 
 Sample table: Sales.SalesPersonQuotaHistory
 
@@ -229,7 +238,8 @@ businessentityid|salesyear|currentquota|nextquota|
              277|   2012.0|      839000|        0|
 Click me to see the solution
 
-110. From the following query write a query in SQL to compare year-to-date sales between employees for specific terrotery. Return TerritoryName, BusinessEntityID, SalesYTD, and the salesquota coming in next row.
+110. From the following query write a query in SQL to compare year-to-date sales between employees for specific terrotery. 
+Return TerritoryName, BusinessEntityID, SalesYTD, and the salesquota coming in next row.
 
 Sample table: Sales.vSalesPerson
 
@@ -247,7 +257,9 @@ Northwest    |             283|1573012.9383|1352577.1325|
 Northwest    |             280|1352577.1325|           0|
 Click me to see the solution
 
-111. From the following table write a query in SQL to obtain the difference in sales quota values for a specified employee over subsequent calendar quarters. Return year, quarter, sales quota, next sales quota, and the difference in sales quota. Sort the result set on year and then by quarter, both in ascending order.
+111. From the following table write a query in SQL to obtain the difference in sales quota values for a specified employee 
+over subsequent calendar quarters. Return year, quarter, sales quota, next sales quota, and the difference in sales quota.
+ Sort the result set on year and then by quarter, both in ascending order.
 
 Sample table: Sales.SalesPersonQuotaHistory
 
@@ -267,7 +279,8 @@ year  |quarter|salesquota|nextquota|diff   |
 2013.0|    3.0|    971000|   714000| 257000|
 Click me to see the solution
 
-112. From the following table write a query in SQL to compute the salary percentile for each employee within a given department. Return Department, LastName, Rate, CumeDist, and percentile rank. Sort the result set in ascending order on department and descending order on rate.
+112. From the following table write a query in SQL to compute the salary percentile for each employee within a given department. 
+Return Department, LastName, Rate, CumeDist, and percentile rank. Sort the result set in ascending order on department and descending order on rate.
 
 N.B.: The cumulative distribution calculates the relative position of a specified value in a group of values.
 
@@ -297,7 +310,8 @@ Information Services|Bacon        |27.4038|     0.4|               0.0|
 Information Services|Berg         |27.4038|     0.4|               0.0|
 Click me to see the solution
 
-113. From the following table write a query in SQL to add two days to each value in the OrderDate column, to derive a new column named PromisedShipDate. Return salesorderid, orderdate, and promisedshipdate column.
+113. From the following table write a query in SQL to add two days to each value in the OrderDate column, 
+to derive a new column named PromisedShipDate. Return salesorderid, orderdate, and promisedshipdate column.
 
 Sample table: sales.salesorderheader
 
@@ -322,7 +336,8 @@ salesorderid|orderdate              |promisedshipdate       |
 ...	
 Click me to see the solution
 
-114. From the following table write a query in SQL to obtain a newdate by adding two days with current date for each salespersons. Filter the result set for those salespersons whose sales value is more than zero.
+114. From the following table write a query in SQL to obtain a newdate by adding two days with current date for each salespersons. 
+Filter the result set for those salespersons whose sales value is more than zero.
 
 Sample table: Sales.SalesPerson
 
@@ -373,7 +388,8 @@ Sample Output:
 1126 days|
 Click me to see the solution
 
-116. From the following table write a query in SQL to rank the products in inventory, by the specified inventory locations, according to their quantities. Divide the result set by LocationID and sort the result set on Quantity in descending order.
+116. From the following table write a query in SQL to rank the products in inventory, by the specified inventory locations,
+ according to their quantities. Divide the result set by LocationID and sort the result set on Quantity in descending order.
 
 Sample table: Production.ProductInventory
 
@@ -419,7 +435,8 @@ businessentityid|rate   |rankbysalary|
              274| 48.101|           8|
 Click me to see the solution
 
-118. From the following table write a query in SQL to divide rows into four groups of employees based on their year-to-date sales. Return first name, last name, group as quartile, year-to-date sales, and postal code.
+118. From the following table write a query in SQL to divide rows into four groups of employees based on their year-to-date sales. 
+Return first name, last name, group as quartile, year-to-date sales, and postal code.
 
 Sample table: Sales.SalesPerson
 
@@ -456,7 +473,8 @@ Lynn     |Tsoflias         |       4|1421810.9242|98055     |
 Pamela   |Ansman-Wolfe     |       4|1352577.1325|98027     |
 Click me to see the solution
 
-119. From the following tables write a query in SQL to rank the products in inventory the specified inventory locations according to their quantities. The result set is partitioned by LocationID and logically ordered by Quantity. Return productid, name, locationid, quantity, and rank.
+119. From the following tables write a query in SQL to rank the products in inventory the specified inventory locations according to their quantities. 
+The result set is partitioned by LocationID and logically ordered by Quantity. Return productid, name, locationid, quantity, and rank.
 
 Sample table: production.productinventory
 
@@ -507,7 +525,8 @@ businessentityid|rate   |rankbysalary|
               10|42.4808|          13| 
 Click me to see the solution
 
-121. From the following table write a query in SQL to calculate a row number for the salespeople based on their year-to-date sales ranking. Return row number, first name, last name, and year-to-date sales.
+121. From the following table write a query in SQL to calculate a row number for the salespeople based on their year-to-date sales ranking. 
+Return row number, first name, last name, and year-to-date sales.
 
 Sample table: Sales.vSalesPerson
 
@@ -558,7 +577,9 @@ salesorderid|orderdate              |rownumber|
        43718|2011-06-05 00:00:00.000|       60|
 Click me to see the solution
 
-123. From the following table write a query in SQL to return first name, last name, territoryname, salesytd, and row number. Partition the query result set by the TerritoryName. Orders the rows in each partition by SalesYTD. Sort the result set on territoryname in ascending order.
+123. From the following table write a query in SQL to return first name, last name, territoryname, salesytd, and row number. 
+Partition the query result set by the TerritoryName. Orders the rows in each partition by SalesYTD.
+Sort the result set on territoryname in ascending order.
 
 Sample table: Sales.vSalesPerson
 

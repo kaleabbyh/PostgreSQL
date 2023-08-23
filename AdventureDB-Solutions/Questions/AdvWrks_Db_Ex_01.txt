@@ -1817,7 +1817,8 @@ Original Text                |Trimmed Text(space removed)|
      five space then the text|five space then the text   |
 Click me to see the solution
 
-67 From the following table write a query in SQL to remove the substring 'HN' from the start of the column productnumber. Filter the results to only show those productnumbers that start with "HN". Return original productnumber column and 'TrimmedProductnumber'.
+67 From the following table write a query in SQL to remove the substring 'HN' from the start of the column productnumber. 
+Filter the results to only show those productnumbers that start with "HN". Return original productnumber column and 'TrimmedProductnumber'.
 
 Sample table: production.Product
 
@@ -1892,7 +1893,8 @@ Roberto  |otreboR|
 Terri    |irreT  |
 Click me to see the solution
 
-70 From the following table write a query in SQL to return the eight rightmost characters of each name of the product. Also return name, productnumber column. Sort the result set in ascending order on productnumber.
+70 From the following table write a query in SQL to return the eight rightmost characters of each name of the product. 
+Also return name, productnumber column. Sort the result set in ascending order on productnumber.
 
 Sample table: production.Product
 
@@ -1929,7 +1931,8 @@ Original Text                        |Trimmed Text(space removed)     |
 text then five spaces     after space|text then five spacesafter space|
 Click me to see the solution
 
-72 From the following table write a query in SQL to fetch the rows for the product name ends with the letter 'S' or 'M' or 'L'. Return productnumber and name.
+72 From the following table write a query in SQL to fetch the rows for the product name ends with the letter 'S' or 'M' or 'L'. 
+Return productnumber and name.
 
 Sample table: production.Product
 
@@ -1983,7 +1986,8 @@ Sample Output:
 
 test                                                                                                                                                                                                                                                           |
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-Ken Sánchez (2009-01-07 00:00:00), Terri Duffy (2008-01-24 00:00:00), Roberto Tamburello (2007-11-04 00:00:00), Rob Walters (2007-11-28 00:00:00), Gail Erickson (2007-12-30 00:00:00), Jossef Goldberg (2013-12-16 00:00:00), Dylan Miller (2009-02-01 00:00:0|
+Ken Sánchez (2009-01-07 00:00:00), Terri Duffy (2008-01-24 00:00:00), Roberto Tamburello (2007-11-04 00:00:00), 
+Rob Walters (2007-11-28 00:00:00), Gail Erickson (2007-12-30 00:00:00), Jossef Goldberg (2013-12-16 00:00:00), Dylan Miller (2009-02-01 00:00:0|
 Click me to see the solution
 
 75 From the following table write a query in SQL to find the email addresses of employees and groups them by city. Return top ten rows.
@@ -2023,7 +2027,6 @@ Click me to see the solution
 
 Sample table: HumanResources.Employee
 
-
 Click to view Full table
 
 Sample Output:
@@ -2043,7 +2046,8 @@ Production Supervisor - WC10|Production Assistant - WC10|
 ...
 Click me to see the solution
 
-77 From the following table write a SQL query to retrieve all the employees whose job titles begin with "Sales". Return firstname, middlename, lastname and jobtitle column.
+77 From the following table write a SQL query to retrieve all the employees whose job titles begin with "Sales". 
+Return firstname, middlename, lastname and jobtitle column.
 
 Sample table: Person.Person
 
@@ -2075,7 +2079,8 @@ Jae      |B         |Pak              |Sales Representative|
 Ranjit   |R         |Varkey Chudukatil|Sales Representative|
 Click me to see the solution
 
-78 From the following table write a query in SQL to return the last name of people so that it is in uppercase, trimmed, and concatenated with the first name.
+78 From the following table write a query in SQL to return the last name of people so that it is in uppercase, trimmed, 
+and concatenated with the first name.
 
 Sample table: Person.Person
 
@@ -2105,7 +2110,8 @@ ADAMS, Morgan                  |
 ...
 Click me to see the solution
 
-79 From the following table write a query in SQL to show a resulting expression that is too small to display. Return FirstName, LastName, Title, and SickLeaveHours. The SickLeaveHours will be shown as a small expression in text format.
+79 From the following table write a query in SQL to show a resulting expression that is too small to display. 
+Return FirstName, LastName, Title, and SickLeaveHours. The SickLeaveHours will be shown as a small expression in text format.
 
 Sample table: HumanResources.Employee
 
@@ -2183,7 +2189,8 @@ salesytd    |commissionpct|computed |
 3121616.3202|        0.016|195101020|
 Click me to see the solution
 
-82 From the following table write a query in SQL to find those persons that have a 2 in the first digit of their SalesYTD. Convert the SalesYTD column to an int type, and then to a char(20) type. Return FirstName, LastName, SalesYTD, and BusinessEntityID.
+82 From the following table write a query in SQL to find those persons that have a 2 in the first digit of their SalesYTD. 
+Convert the SalesYTD column to an int type, and then to a char(20) type. Return FirstName, LastName, SalesYTD, and BusinessEntityID.
 
 Sample table: Person.Person
 
@@ -2204,7 +2211,8 @@ Shu      |Ito     |2458535.6169|             281|
 José     |Saraiva |2604540.7172|             282|
 Click me to see the solution
 
-83 From the following table write a query in SQL to convert the Name column to a char(16) column. Convert those rows if the name starts with 'Long-Sleeve Logo Jersey'. Return name of the product and listprice.
+83 From the following table write a query in SQL to convert the Name column to a char(16) column. 
+Convert those rows if the name starts with 'Long-Sleeve Logo Jersey'. Return name of the product and listprice.
 
 Sample table: production.Product
 
@@ -2221,7 +2229,9 @@ Long-Sleeve Logo|    49.99|
 Long-Sleeve Logo|    49.99|
 Click me to see the solution
 
-84 From the following table write a SQL query to determine the discount price for the salesorderid 46672. Calculate only those orders with discounts of more than.02 percent. Return productid, UnitPrice, UnitPriceDiscount, and DiscountPrice (UnitPrice*UnitPriceDiscount ).
+84 From the following table write a SQL query to determine the discount price for the salesorderid 46672.
+ Calculate only those orders with discounts of more than.02 percent. Return productid, UnitPrice, UnitPriceDiscount, 
+ and DiscountPrice (UnitPrice*UnitPriceDiscount ).
 
 Sample table: Sales.SalesOrderDetail
 
@@ -2254,7 +2264,8 @@ Average vacation hours|Total sick leave hours|
    25.0000000000000000|                    97|
 Click me to see the solution
 
-86 From the following table write a query in SQL to calculate the average bonus received and the sum of year-to-date sales for each territory. Return territoryid, Average bonus, and YTD sales.
+86 From the following table write a query in SQL to calculate the average bonus received and the sum of year-to-date sales for each territory. 
+Return territoryid, Average bonus, and YTD sales.
 
 Sample table: Sales.SalesPerson
 
@@ -2292,7 +2303,8 @@ avg                 |
 437.4042718446601942|
 Click me to see the solution
 
-88 From the following table write a query in SQL to return a moving average of yearly sales for each territory. Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
+88 From the following table write a query in SQL to return a moving average of yearly sales for each territory. 
+Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
 
 Sample table: Sales.SalesPerson
 
@@ -2315,7 +2327,8 @@ businessentityid|territoryid|salesyear|salesytd    |movingavg           |cumulat
              285|           |   2013.0|172524.4512 | 417375.982366666667|   1252127.9471|
 Click me to see the solution
 
-89 From the following table write a query in SQL to return a moving average of sales, by year, for all sales territories. Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
+89 From the following table write a query in SQL to return a moving average of sales, by year, for all sales territories.
+ Return BusinessEntityID, TerritoryID, SalesYear, SalesYTD, average SalesYTD as MovingAvg, and total SalesYTD as CumulativeTotal.
 
 Sample table: Sales.SalesPerson
 
@@ -2366,7 +2379,8 @@ Number of Employees|
                 290|
 Click me to see the solution
 
-92 From the following table write a query in SQL to find the average bonus for the salespersons who achieved the sales quota above 25000. Return number of salespersons, and average bonus.
+92 From the following table write a query in SQL to find the average bonus for the salespersons who achieved the sales quota above 25000. 
+Return number of salespersons, and average bonus.
 
 Sample table: Sales.SalesPerson
 
@@ -2380,7 +2394,8 @@ count|avg                  |
    14|3472.1428571428571429|
 Click me to see the solution
 
-93 From the following tables wirte a query in SQL to return aggregated values for each department. Return name, minimum salary, maximum salary, average salary, and number of employees in each department.
+93 From the following tables wirte a query in SQL to return aggregated values for each department. 
+Return name, minimum salary, maximum salary, average salary, and number of employees in each department.
 
 Sample table: HumanResources.employeepayhistory
 
@@ -2447,7 +2462,8 @@ productcount|salesorderid|
           15|       43661|
 Click me to see the solution
 
-96 From the following table write a query in SQL to compute the statistical variance of the sales quota values for each quarter in a calendar year for a sales person. Return year, quarter, salesquota and variance of salesquota.
+96 From the following table write a query in SQL to compute the statistical variance of the sales quota values for 
+each quarter in a calendar year for a sales person. Return year, quarter, salesquota and variance of salesquota.
 
 Sample table: sales.salespersonquotahistory
 
@@ -2494,7 +2510,8 @@ Silver|26462.84|14665.6792|
 White |    19.0|    6.7926|
 Click me to see the solution
 
-99 From the following table write a query in SQL to find the TotalSalesYTD of each SalesQuota. Show the summary of the TotalSalesYTD amounts for all SalesQuota groups. Return SalesQuota and TotalSalesYTD.
+99 From the following table write a query in SQL to find the TotalSalesYTD of each SalesQuota.
+ Show the summary of the TotalSalesYTD amounts for all SalesQuota groups. Return SalesQuota and TotalSalesYTD.
 
 Sample table: Sales.SalesPerson
 
