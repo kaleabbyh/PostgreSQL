@@ -2,8 +2,8 @@ use AdventureWorks2022
 GO
 
 --=========================================================================================================
---1) retrieve all rows and columns and sort by JobTitle
-select * from  HumanResources.Employee order by JobTitle
+-- --1) retrieve all rows and columns and sort by JobTitle
+-- select * from  HumanResources.Employee order by JobTitle
 
 --=========================================================================================================
 --2) retrieve all rows and columns from the employee table using table aliasing in the Adventureworks database
@@ -774,7 +774,7 @@ WHERE name like ('%chain%') or name like ('%full%');
 
 --==========================================================================
 --58. From the following table write a SQL query to output an employee's name and email address, separated by a new line character.
-SELECT concat(pp.FirstName,' ', pp.LastName) + ' '+'¶'+  pe.EmailAddress   
+SELECT concat(pp.FirstName,' ', pp.LastName) + ' '+'Â¶'+  pe.EmailAddress   
 FROM Person.Person pp
 INNER JOIN Person.EmailAddress pe ON pp.BusinessEntityID = pe.BusinessEntityID  	 
 where pp.BusinessEntityID = 1;
@@ -795,7 +795,7 @@ FROM production.product;
 --==========================================================================
 --61 Write a SQL query that concatenate the columns name, productnumber, colour, and a new line character from
 --the following table, each separated by a specified character.
-SELECT CONCAT_WS( ',', name, productnumber, color,'¶') AS DatabaseInfo
+SELECT CONCAT_WS( ',', name, productnumber, color,'Â¶') AS DatabaseInfo
 FROM production.product;
 
 
