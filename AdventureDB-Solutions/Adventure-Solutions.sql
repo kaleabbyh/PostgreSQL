@@ -2,8 +2,8 @@ use AdventureWorks2022
 GO
 
 --=========================================================================================================
--- --1) retrieve all rows and columns and sort by JobTitle
--- select * from  HumanResources.Employee order by JobTitle
+--1) retrieve all rows and columns and sort by JobTitle
+select * from  HumanResources.Employee order by JobTitle
 
 --=========================================================================================================
 --2) retrieve all rows and columns from the employee table using table aliasing in the Adventureworks database
