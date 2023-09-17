@@ -1607,3 +1607,1243 @@ WHERE RowNumber BETWEEN 50 AND 60;
 --123. From the following table write a query in SQL to return first name, last name, territoryname, salesytd, and row number. 
 --Partition the query result set by the TerritoryName. Orders the rows in each partition by SalesYTD.
 --Sort the result set on territoryname in ascending order.
+ SELECT FirstName, 
+		LastName, 
+		TerritoryName, 
+		ROUND(SalesYTD,2) AS SalesYTD,  
+		ROW_NUMBER() OVER(PARTITION BY TerritoryName ORDER BY SalesYTD DESC)  AS Row  
+FROM Sales.vSalesPerson  
+WHERE TerritoryName IS NOT NULL AND SalesYTD <> 0  
+ORDER BY TerritoryName;
+
+
+
+
+--==========================================================================
+--124. From the following table write a query in SQL to order the result set by the column TerritoryName
+ --when the column CountryRegionName is equal to 'United States' and by CountryRegionName for all other rows.
+ --Return BusinessEntityID, LastName, TerritoryName, CountryRegionName.
+
+select * from Sales.vSalesPerson
+
+SELECT BusinessEntityID, LastName, TerritoryName, CountryRegionName  
+FROM Sales.vSalesPerson  
+WHERE TerritoryName IS NOT NULL  
+ORDER BY CASE CountryRegionName WHEN 'United States' 
+								THEN TerritoryName  
+         ELSE CountryRegionName END;
+
+
+--==========================================================================
+--125. From the following tables write a query in SQL to return the highest hourly wage for each job title. 
+--Restricts the titles to those that are held by men with a maximum pay rate greater than 40 dollars or women with a maximum pay rate greater than 42 dollars.
+
+select * from  HumanResources.Employee
+select * from  HumanResources.EmployeePayHistory
+
+
+
+SELECT jobtitle, MAX(HEP.Rate) AS maximumrate  
+FROM HumanResources.Employee AS HE 
+JOIN HumanResources.EmployeePayHistory AS HEP 
+ON HE.BusinessEntityID = HEP.BusinessEntityID  
+GROUP BY JobTitle  
+HAVING (
+		MAX(
+			CASE WHEN Gender = 'M' THEN HEP.Rate   
+			ELSE NULL END
+			) > 40.00 
+			
+			OR 
+
+		MAX(
+			CASE WHEN Gender  = 'F' THEN HEP.Rate    
+			ELSE NULL END
+			) > 42.00
+		)  
+ORDER BY MaximumRate DESC;
+
+ 
+
+
+ --==========================================================================
+ --126. From the following table write a query in SQL to sort the BusinessEntityID in descending order for those employees that 
+ --have the SalariedFlag set to 'true' and in ascending order that have the SalariedFlag set to 'false'.
+ --Return BusinessEntityID, and SalariedFlag.
+
+select businessEntityID,salariedflag from HumanResources.Employee
+order by CASE when SalariedFlag  = 'true' 
+           THEN BusinessEntityID END  DESC ,
+		 CASE WHEN SalariedFlag = 'false'
+			THEN BusinessEntityID END;
+		
+
+--==========================================================================
+--127. From the following table write a query in SQL to display the list price as a text comment based on the price range for a product.
+-- Return ProductNumber, Name, and listprice. Sort the result set on ProductNumber in ascending order.
+
+select * from production.Product
+
+
+SELECT   ProductNumber, Name, listprice, 
+      CASE 
+         WHEN ListPrice =  0 THEN 'Mfg item - not for resale'  
+         WHEN ListPrice < 50 THEN 'Under $50'  
+         WHEN ListPrice >= 50 and ListPrice < 250 THEN 'Under $250'  
+         WHEN ListPrice >= 250 and ListPrice < 1000 THEN 'Under $1000'  
+         ELSE 'Over $1000'  
+      END as [Price Range] 
+FROM Production.Product  
+ORDER BY ProductNumber ;
+
+--128. From the following table write a query in SQL to change the display of product line categories to make them more understandable. 
+--Return ProductNumber, category, and name of the product. Sort the result set in ascending order on ProductNumber.
+SELECT   ProductNumber,   
+      CASE ProductLine  
+         WHEN 'R' THEN 'Road'  
+         WHEN 'M' THEN 'Mountain'  
+         WHEN 'T' THEN 'Touring'  
+         WHEN 'S' THEN 'Other sale items'  
+         ELSE 'Not for sale'  
+      end "Category",  
+   Name  
+FROM Production.Product  
+ORDER BY ProductNumber;
+
+--------------------------------------or-------------------------------------------
+SELECT   ProductNumber,   
+      CASE   
+         WHEN ProductLine ='R' THEN 'Road'  
+         WHEN ProductLine ='M' THEN 'Mountain'  
+         WHEN ProductLine ='T' THEN 'Touring'  
+         WHEN ProductLine ='S' THEN 'Other sale items'  
+         ELSE 'Not for sale'  
+      end [Category],  
+   Name  
+FROM Production.Product  
+ORDER BY ProductNumber;
+
+
+--129. From the following table write a query in SQL to evaluate whether the values in the MakeFlag and FinishedGoodsFlag 
+--columns are the same.
+select * from production.Product
+
+select  productid, 
+		makeflag,
+		finishedgoodsflag,
+	   CASE  
+		   WHEN MakeFlag = FinishedGoodsFlag THEN isnull( CONVERT(VARCHAR(10), null) ,'')
+		   ELSE MakeFlag  
+	   END  as makeflag
+from production.Product
+
+
+--130. From the following table write a query in SQL to select the data from the first column that has a nonnull value. 
+--Retrun Name, Class, Color, ProductNumber, and FirstNotNull.
+SELECT Name, 
+		Class,
+		Color, 
+		ProductNumber,  
+		COALESCE(Class, Color, ProductNumber) AS FirstNotNull  
+FROM Production.Product;
+
+
+
+
+--131. From the following table write a query in SQL to check the values of MakeFlag and FinishedGoodsFlag columns 
+--and return whether they are same or not. Return ProductID, MakeFlag, FinishedGoodsFlag, and the column that are null or not null.
+
+select * from production.Product
+
+SELECT ProductID, MakeFlag, FinishedGoodsFlag,   
+   NULLIF(MakeFlag,FinishedGoodsFlag) AS "Null if Equal"
+FROM Production.Product  
+WHERE ProductID < 10;
+
+
+SELECT ProductID, MakeFlag, FinishedGoodsFlag,
+       CASE 
+		 WHEN MakeFlag = FinishedGoodsFlag THEN NULL 
+		 ELSE MakeFlag 
+	   END AS "Null if Equal"
+FROM Production.Product
+WHERE ProductID < 10;
+
+
+--132. From the following tables write a query in SQL to return any distinct values that are returned by both the query.
+SELECT ProductID   
+FROM Production.Product  
+INTERSECT  
+SELECT ProductID   
+FROM Production.WorkOrder ;
+
+SELECT ProductID   
+FROM Production.Product  
+where ProductID in( SELECT ProductID FROM Production.WorkOrder)
+
+
+
+					  
+--133. From the following tables write a query in SQL to return any distinct values from first query that aren't
+--also found on the 2nd query.
+
+select * from  production.Product
+
+SELECT ProductID   
+FROM Production.Product  
+EXCEPT  
+SELECT ProductID   
+FROM Production.WorkOrder ;
+
+
+SELECT ProductID   
+FROM Production.Product  
+where ProductID not in (SELECT ProductID FROM Production.WorkOrder)
+
+
+
+
+--134. From the following tables write a query in SQL to fetch any distinct values from the left query 
+--that aren't also present in the query to the right.
+
+SELECT ProductID   
+FROM Production.WorkOrder  
+EXCEPT  
+SELECT ProductID   
+FROM Production.Product ;
+
+
+--135. From the following tables write a query in SQL to fetch distinct businessentityid that are returned 
+--by both the specified query. Sort the result set by ascending order on businessentityid.
+
+SELECT businessentityid   
+FROM person.businessentity    
+INTERSECT   
+SELECT businessentityid   
+FROM person.person
+WHERE person.persontype = 'IN'  
+ORDER BY businessentityid;
+
+
+SELECT businessentityid   
+FROM person.businessentity    
+where   businessentityid in (SELECT businessentityid  FROM person.person where person.persontype = 'IN'  )
+ORDER BY businessentityid;
+
+
+--136. From the following table write a query which is the combination of two queries.
+ --Return any distinct businessentityid from the 1st query that aren't also found in the 2nd query. 
+ --Sort the result set in ascending order on businessentityid.
+ SELECT businessentityid   
+FROM person.businessentity    
+WHERE businessentityid NOT IN (
+    SELECT businessentityid   
+    FROM person.person
+    WHERE person.persontype = 'IN'
+)
+ORDER BY businessentityid;
+
+
+
+
+--137. From the following tables write a query in SQL to combine the ProductModelID and Name columns.
+-- A result set includes columns for productid 3 and 4. Sort the results by name ascending.
+SELECT ProductID, Name  
+FROM Production.Product  
+WHERE ProductID NOT IN (3, 4)  
+UNION ALL
+SELECT ProductModelID,  Name  
+FROM Production.ProductModel   
+ORDER BY Name;
+
+
+--138. From the following table write a query in SQL to find a total number of hours away from work can be 
+--calculated by adding vacation time and sick leave. Sort results ascending by Total Hours Away.
+SELECT p.FirstName, p.LastName, VacationHours, SickLeaveHours,   
+    (CASE WHEN VacationHours IS NULL THEN 0 ELSE VacationHours END) +
+    (CASE WHEN SickLeaveHours IS NULL THEN 0 ELSE SickLeaveHours END) AS TotalHoursAway  
+FROM HumanResources.Employee AS e  
+JOIN Person.Person AS p ON e.BusinessEntityID = p.BusinessEntityID  
+ORDER BY TotalHoursAway ASC;
+
+
+SELECT p.FirstName, p.LastName, VacationHours, SickLeaveHours,   
+    VacationHours + SickLeaveHours AS "Total Hours Away"  
+FROM HumanResources.Employee AS e  
+    JOIN Person.Person AS p ON e.BusinessEntityID = p.BusinessEntityID  
+ORDER BY "Total Hours Away" ASC;
+
+
+
+--139. From the following table write a query in SQL to calculate the tax difference between the highest and lowest tax-rate state or province.
+SELECT MAX(TaxRate) - MIN(TaxRate) AS "Tax Rate Difference"  
+FROM Sales.SalesTaxRate  
+WHERE StateProvinceID IS NOT NULL;
+
+
+
+
+--140. From the following tables write a query in SQL to calculate sales targets per month for salespeople.
+SELECT SS.BusinessEntityID AS SalesPersonID, 
+		FirstName, LastName, 
+		SalesQuota, 
+		SalesQuota/12 AS [Sales Target Per Month]
+FROM Sales.SalesPerson AS SS  
+JOIN HumanResources.Employee AS HE   
+    ON SS.BusinessEntityID = HE.BusinessEntityID  
+JOIN Person.Person AS p   
+    ON HE.BusinessEntityID = p.BusinessEntityID;
+
+
+
+
+
+--141. From the following table write a query in SQL to return the ID number, unit price, 
+--and the modulus (remainder) of dividing product prices. Convert the modulo to an integer value.
+SELECT ProductID, UnitPrice, OrderQty,  
+   CAST(UnitPrice AS INT) % OrderQty AS Modulo  
+FROM Sales.SalesOrderDetail;
+
+
+
+--142. From the following table write a query in SQL to select employees who 
+--have the title of Marketing Assistant and more than 41 vacation hours.
+SELECT  BusinessEntityID, LoginID, JobTitle, VacationHours   
+FROM HumanResources.Employee  
+WHERE JobTitle = 'Marketing Assistant'  
+AND VacationHours > 41 ;
+
+
+
+--143. From the following tables write a query in SQL to find all rows outside a specified range of rate between 27 and 30. 
+--Sort the result in ascending order on rate.
+SELECT HVE.FirstName, HVE.LastName, HEP.Rate  
+FROM HumanResources.vEmployee HVE   
+JOIN HumanResources.EmployeePayHistory HEP   
+    ON HVE.BusinessEntityID = HEP.BusinessEntityID  
+WHERE HEP.Rate NOT BETWEEN 27 AND 30
+ORDER BY HEP.Rate;
+
+
+--144. From the follwing table write a query in SQL to retrieve rows whose datetime values are between '20111212' and '20120105'.
+SELECT BusinessEntityID, RateChangeDate  
+FROM HumanResources.EmployeePayHistory  
+WHERE RateChangeDate BETWEEN '20111212' AND '20120105';
+
+SELECT * 
+FROM HumanResources.EmployeePayHistory  
+
+
+
+
+--145. From the following table write a query in SQL to return TRUE even if NULL is specified in the subquery. 
+--Return DepartmentID, Name and sort the result set in ascending order.
+
+SELECT DepartmentID, Name
+FROM HumanResources.Department
+ORDER BY Name ASC;
+
+
+--146. From the following tables write a query in SQL to get employees with Johnson last names. Return first name and last name.
+SELECT a.FirstName, a.LastName  
+FROM Person.Person AS a  
+WHERE EXISTS  
+(SELECT *   
+    FROM HumanResources.Employee AS b  
+    WHERE a.BusinessEntityID = b.BusinessEntityID  
+    AND a.LastName = 'Johnson') ; 
+
+
+SELECT PP.FirstName, PP.LastName  
+FROM Person.Person AS PP  
+JOIN HumanResources.Employee AS HE  
+    ON PP.BusinessEntityID = HE.BusinessEntityID  
+WHERE PP.LastName = 'Johnson';
+
+
+--147. From the following tables write a query in SQL to find stores whose name is the same name as a vendor.
+SELECT DISTINCT s.Name  
+FROM Sales.Store AS s   
+WHERE EXISTS  
+(SELECT *  
+    FROM Purchasing.Vendor AS v  
+    WHERE s.Name = v.Name) ;
+
+
+SELECT DISTINCT SS.Name  
+FROM Sales.Store AS SS  
+join Purchasing.Vendor AS PV
+on SS.Name = PV.Name
+
+
+--148. From the following tables write a query in SQL to find employees of departments that start with P. 
+--Return first name, last name, job title.
+SELECT p.FirstName, p.LastName, e.JobTitle  
+FROM Person.Person AS p   
+JOIN HumanResources.Employee AS e  
+   ON e.BusinessEntityID = p.BusinessEntityID   
+WHERE EXISTS  
+(SELECT *  
+    FROM HumanResources.Department AS d  
+    JOIN HumanResources.EmployeeDepartmentHistory AS edh  
+       ON d.DepartmentID = edh.DepartmentID  
+    WHERE e.BusinessEntityID = edh.BusinessEntityID  
+    AND d.Name LIKE 'P%') 
+order by p.FirstName
+
+
+SELECT p.FirstName, p.LastName, e.JobTitle  
+FROM Person.Person AS p   
+JOIN HumanResources.Employee AS e  
+   ON e.BusinessEntityID = p.BusinessEntityID   
+JOIN HumanResources.EmployeeDepartmentHistory AS edh  
+   ON e.BusinessEntityID = edh.BusinessEntityID  
+JOIN HumanResources.Department AS d  
+   ON d.DepartmentID = edh.DepartmentID  
+WHERE d.Name LIKE 'P%'
+order by p.FirstName
+
+
+
+--149. From the following tables write a query in SQL to find all employees that do not belong to departments whose names
+--begin with P.
+
+
+SELECT p.FirstName, p.LastName, e.JobTitle  
+FROM Person.Person AS p   
+JOIN HumanResources.Employee AS e  
+   ON e.BusinessEntityID = p.BusinessEntityID   
+WHERE NOT EXISTS  
+(SELECT *  
+   FROM HumanResources.Department AS d  
+   JOIN HumanResources.EmployeeDepartmentHistory AS edh  
+      ON d.DepartmentID = edh.DepartmentID  
+   WHERE e.BusinessEntityID = edh.BusinessEntityID  
+   AND d.Name LIKE 'P%')  
+ORDER BY LastName, FirstName  ;
+
+
+
+
+SELECT pp.FirstName, pp.LastName, e.JobTitle  
+FROM Person.Person AS pp   
+JOIN HumanResources.Employee AS e  
+   ON e.BusinessEntityID = pp.BusinessEntityID   
+LEFT JOIN (
+   SELECT edh.BusinessEntityID
+   FROM HumanResources.EmployeeDepartmentHistory AS edh  
+   JOIN HumanResources.Department AS d  
+      ON d.DepartmentID = edh.DepartmentID  
+   WHERE d.Name LIKE 'P%'
+) AS subquery
+   ON e.BusinessEntityID = subquery.BusinessEntityID
+WHERE subquery.BusinessEntityID IS NULL
+ORDER BY pp.LastName, pp.FirstName;
+
+
+--150. From the following table write a query in SQL to select employees who work as design engineers,
+--tool designers, or marketing assistants.
+SELECT pp.FirstName, pp.LastName, he.JobTitle  
+FROM Person.Person  pp  
+JOIN HumanResources.Employee  he  
+    ON pp.BusinessEntityID = he.BusinessEntityID  
+WHERE he.JobTitle IN ('Design Engineer', 'Tool Designer', 'Marketing Assistant');
+
+
+--151. From the following tables write a query in SQL to identify all SalesPerson IDs for employees with sales quotas over $250,000. 
+--Return first name, last name of the sales persons.
+SELECT p.FirstName, p.LastName  
+FROM Person.Person AS p  
+    JOIN Sales.SalesPerson AS sp  
+    ON p.BusinessEntityID = sp.BusinessEntityID  
+WHERE p.BusinessEntityID IN  
+   (SELECT BusinessEntityID  
+   FROM Sales.SalesPerson  
+   WHERE SalesQuota > 250000);
+
+
+
+
+ SELECT p.FirstName, p.LastName  
+FROM Person.Person AS p  
+JOIN Sales.SalesPerson AS sp  
+    ON p.BusinessEntityID = sp.BusinessEntityID  
+JOIN (
+   SELECT BusinessEntityID  
+   FROM Sales.SalesPerson  
+   WHERE SalesQuota > 250000
+) AS subquery
+    ON p.BusinessEntityID = subquery.BusinessEntityID;
+
+
+--152. From the following tables write a query in SQL to find the salespersons who do not have a quota greater than $250,000. 
+--Return first name and last name.
+SELECT p.FirstName, p.LastName  
+FROM Person.Person AS p  
+    JOIN Sales.SalesPerson AS sp  
+    ON p.BusinessEntityID = sp.BusinessEntityID  
+WHERE p.BusinessEntityID NOT IN  
+   (SELECT BusinessEntityID  
+   FROM Sales.SalesPerson  
+   WHERE SalesQuota > 250000);
+
+
+--153. From the following tables write a query in SQL to identify salesorderheadersalesreason and SalesReason
+--tables with the same salesreasonid.
+
+SELECT * FROM sales.salesorderheadersalesreason  
+WHERE salesreasonid   
+IN (SELECT salesreasonid  FROM sales.SalesReason);
+
+SELECT sohs.*
+FROM sales.salesorderheadersalesreason sohs
+JOIN sales.SalesReason sr
+   ON sohs.salesreasonid = sr.salesreasonid;
+
+
+
+--154. From the following table write a query in SQL to find all telephone numbers that have area code 415. 
+--Returns the first name, last name, and phonenumber. Sort the result set in ascending order by lastname.
+SELECT pp.FirstName, pp.LastName, ppp.PhoneNumber  
+FROM Person.PersonPhone AS ppp  
+INNER JOIN Person.Person AS pp  
+ON ppp.BusinessEntityID = pp.BusinessEntityID  
+WHERE ppp.PhoneNumber LIKE '415%'  
+ORDER by pp.LastName;
+
+
+
+--155. From the following tables write a query in SQL to identify all people with the first name 'Gail'
+--with area codes other than 415. Return first name, last name, telephone number. Sort the result set in ascending order on lastname.
+
+SELECT pp.FirstName, pp.LastName, ppp.PhoneNumber  
+FROM Person.PersonPhone AS ppp  
+JOIN Person.Person AS pp  
+ON ppp.BusinessEntityID = pp.BusinessEntityID 
+WHERE ppp.PhoneNumber NOT LIKE '415%' AND pp.FirstName = 'Gail'  
+ORDER BY pp.LastName;
+
+---156. From the following tables write a query in SQL to find all Silver colored bicycles with a standard price under $400. 
+--Return ProductID, Name, Color, StandardCost.
+SELECT ProductID, Name, Color, StandardCost  
+FROM Production.Product  
+WHERE ProductNumber LIKE 'BK-%' AND  StandardCost <= 400 AND Color = 'Silver' 
+
+
+
+
+--157. From the following table write a query in SQL to retrieve the names of Quality Assurance personnel working the evening or 
+--night shifts. Return first name, last name, shift.
+
+SELECT FirstName, LastName, Shift   
+FROM HumanResources.vEmployeeDepartmentHistory  
+WHERE Department = 'Quality Assurance'  
+   AND Shift in( 'Evening' ,'Night');
+
+
+--158. From the following table write a query in SQL to list all people with three-letter first names ending in 'an'. 
+--Sort the result set in ascending order on first name. Return first name and last name.
+
+SELECT FirstName, LastName  
+FROM Person.Person  
+WHERE FirstName LIKE '_an'  
+ORDER BY FirstName;
+
+--159. From the following table write a query in SQL to convert the order date in the 'America/Denver' time zone. 
+--Return salesorderid, order date, and orderdate_timezoneade.
+
+
+SELECT SalesOrderID, OrderDate,
+       SWITCHOFFSET(OrderDate, '-07:00') AS OrderDate_TimeZoneDenver
+FROM Sales.SalesOrderHeader;
+
+
+--160. From the following table write a query in SQL to convert order date in the 'America/Denver' time zone 
+--and also convert from 'America/Denver' time zone to 'America/Chicago' time zone
+SELECT SalesOrderID, OrderDate,
+    OrderDate ::timestamp AT TIME ZONE 'America/Denver' AS OrderDate_TimeZoneAMDEN,
+    OrderDate ::timestamp AT TIME ZONE 'America/Denver' AT TIME ZONE 'America/Chicago' AS OrderDate_TimeZoneAMCHI
+FROM Sales.SalesOrderHeader;
+
+
+SELECT SalesOrderID, OrderDate,
+       TODATETIMEOFFSET(OrderDate, '-06:00') AS OrderDate_Denver,
+       TODATETIMEOFFSET(OrderDate, '-05:00') AS OrderDate_Chicago
+FROM Sales.SalesOrderHeader;
+
+--161. From the following table wirte a query in SQL to search for rows with the 'green_' character in the LargePhotoFileName column.
+--Return all columns.
+
+SELECT *
+FROM Production.ProductPhoto
+WHERE LargePhotoFileName LIKE '%greena_%' ESCAPE 'a' ;
+
+SELECT *
+FROM Production.ProductPhoto
+WHERE SUBSTRING(LargePhotoFileName, 1, LEN('greena')) = 'greena';
+
+--162. From the following tables write a query in SQL to obtain mailing addresses for companies in cities that begin with PA,
+--outside the United States (US). Return AddressLine1, AddressLine2, City, PostalCode, CountryRegionCode.
+
+SELECT isnull(AddressLine1,'') AddressLine1, 
+		isnull(AddressLine2,'') AddressLine2, 
+		City, PostalCode, 
+		CountryRegionCode    
+FROM Person.Address AS a  
+JOIN Person.StateProvince AS s ON a.StateProvinceID = s.StateProvinceID  
+WHERE CountryRegionCode NOT IN ('US')  
+AND City LIKE 'Pa%' ;
+
+
+--163. From the following table write a query in SQL to specify that a JOIN clause can join multiple values.
+--Return ProductID, product Name, and Color.
+SELECT a.ProductID, a.Name, a.Color
+FROM Production.Product AS a
+ JOIN (
+  SELECT 'Blade' AS Name
+  UNION ALL
+  SELECT 'Crown Race'
+  UNION ALL
+  SELECT 'AWC Logo Cap'
+) AS b
+ON a.Name = b.Name;
+
+
+
+SELECT ProductID, a.Name, Color  
+FROM Production.Product AS a  
+INNER JOIN (VALUES ('Blade'), ('Crown Race'), ('AWC Logo Cap')) AS b(Name)   
+ON a.Name = b.Name;
+
+
+
+--164. From the following table write a query in SQL to find the SalesPersonID, salesyear, totalsales,salesquotayear, salesquota, 
+--and amt_above_or_below_quota columns. Sort the result set in ascending order on SalesPersonID, and SalesYear columns.
+
+SELECT
+    Sales_CTE.SalesPersonID,
+    Sales_CTE.SalesYear,
+    CAST(Sales_CTE.TotalSales AS VARCHAR(10)) AS TotalSales,
+    Sales_Quota_CTE.SalesQuotaYear,
+    CAST(Sales_Quota_CTE.SalesQuota AS VARCHAR(10)) AS SalesQuota,
+    CAST(Sales_CTE.TotalSales - Sales_Quota_CTE.SalesQuota AS VARCHAR(10)) AS Amt_Above_or_Below_Quota
+FROM
+    (
+        SELECT
+            SalesPersonID,
+            SUM(TotalDue) AS TotalSales,
+            year( OrderDate) AS SalesYear
+        FROM
+            Sales.SalesOrderHeader
+        WHERE
+            SalesPersonID IS NOT NULL
+        GROUP BY
+            SalesPersonID,
+            year(OrderDate)
+    ) AS Sales_CTE
+JOIN
+    (
+        SELECT
+            BusinessEntityID,
+            SUM(SalesQuota) AS SalesQuota,
+            year( QuotaDate) AS SalesQuotaYear
+        FROM
+            Sales.SalesPersonQuotaHistory
+        GROUP BY
+            BusinessEntityID,
+            year( QuotaDate)
+    ) AS Sales_Quota_CTE ON Sales_Quota_CTE.BusinessEntityID = Sales_CTE.SalesPersonID
+                        AND Sales_CTE.SalesYear = Sales_Quota_CTE.SalesQuotaYear
+ORDER BY
+    Sales_CTE.SalesPersonID,
+    Sales_CTE.SalesYear;
+
+
+	-----------
+
+WITH Sales_CTE (SalesPersonID, TotalSales, SalesYear)
+AS
+(
+    SELECT SalesPersonID, SUM(TotalDue) AS TotalSales, DATE_PART('year',OrderDate) AS SalesYear
+    FROM Sales.SalesOrderHeader
+    WHERE SalesPersonID IS NOT NULL
+       GROUP BY SalesPersonID, DATE_PART('year',OrderDate)
+),
+Sales_Quota_CTE (BusinessEntityID, SalesQuota, SalesQuotaYear)
+AS
+(
+       SELECT BusinessEntityID, SUM(SalesQuota)AS SalesQuota, DATE_PART('year',QuotaDate) AS SalesQuotaYear
+       FROM Sales.SalesPersonQuotaHistory
+       GROUP BY BusinessEntityID, DATE_PART('year',QuotaDate)
+)
+SELECT SalesPersonID
+  , SalesYear
+  , CAST(TotalSales as VARCHAR(10)) AS TotalSales
+  , SalesQuotaYear
+  , CAST(TotalSales as VARCHAR(10)) AS SalesQuota
+  , CAST (TotalSales -SalesQuota as VARCHAR(10)) AS Amt_Above_or_Below_Quota
+FROM Sales_CTE
+JOIN Sales_Quota_CTE ON Sales_Quota_CTE.BusinessEntityID = Sales_CTE.SalesPersonID
+                    AND Sales_CTE.SalesYear = Sales_Quota_CTE.SalesQuotaYear
+ORDER BY SalesPersonID, SalesYear;
+
+
+
+--165. From the following tables write a query in SQL to return the cross product of BusinessEntityID and Department columns.
+--The following example returns the cross product of the two tables Employee and Department in the AdventureWorks2019 database.
+--A list of all possible combinations of BusinessEntityID rows and all Department name rows are returned.
+
+SELECT HRE.BusinessEntityID, HRD.Name AS Department  
+FROM HumanResources.Employee AS HRE  
+CROSS JOIN HumanResources.Department AS HRD
+ORDER BY HRE.BusinessEntityID, HRD.Name ;
+
+
+--166. From the following tables write a query in SQL to return the SalesOrderNumber, ProductKey, and EnglishProductName columns.
+SELECT SS.SalesOrderid, PP.Productid, PP.Name  
+FROM sales.salesorderdetail  AS SS 
+JOIN production.product  AS PP  
+ON PP.Productid = SS.Productid
+order by SS.SalesOrderid,PP.Name 
+
+--167. From the following tables write a query in SQL to return all orders with IDs greater than 60000.
+SELECT SS.SalesOrderid, PP.Productid, PP.Name  
+FROM sales.salesorderdetail  AS SS 
+JOIN production.product  AS PP  
+ON PP.Productid = SS.Productid
+WHERE SS.SalesOrderid > 60000  
+order by SS.SalesOrderid
+
+
+
+--168. From the following tables write a query in SQL to retrieve the SalesOrderid. 
+--A NULL is returned if no orders exist for a particular Territoryid. Return territoryid, countryregioncode, and salesorderid. 
+--Results are sorted by SalesOrderid, so that NULLs appear at the top.
+SELECT
+    SST.Territoryid,
+    SST.countryregioncode,
+    SSO.SalesOrderid
+FROM
+    sales.salesorderheader AS SSO
+RIGHT OUTER JOIN
+    sales.salesterritory AS SST
+ON
+    SSO.Territoryid = SST.Territoryid
+ORDER BY
+    SSO.SalesOrderid;
+
+
+
+--169. From the following table write a query in SQL to return all rows from both joined tables but 
+--returns NULL for values that do not match from the other table. Return territoryid, countryregioncode,
+ --and salesorderid. Results are sorted by SalesOrderid.
+
+SELECT SST.Territoryid, SST.countryregioncode, SSO.SalesOrderid  
+FROM sales.salesterritory  AS SST 
+FULL JOIN sales.salesorderheader  AS SSO  
+ON SST.Territoryid = SSO.Territoryid  
+ORDER BY SSO.SalesOrderid;
+
+
+--170. From the following tables write a query in SQL to return a cross-product. Order the result set by SalesOrderid.
+SELECT SST.Territoryid, SSO.SalesOrderid  
+FROM sales.salesterritory  AS SST 
+CROSS JOIN sales.salesorderheader  AS SSO  
+ORDER BY SSO.SalesOrderid;
+
+--171. From the following table write a query in SQL to return all customers with BirthDate values after January 1, 1970 and
+-- the last name 'Smith'. Return businessentityid, jobtitle, and birthdate. Sort the result set in ascending order on birthday.
+SELECT businessentityid, jobtitle, birthdate 
+FROM  
+   (SELECT * FROM humanresources.employee  
+    WHERE BirthDate > '1988-09-01') AS EmployeeDerivedTable  
+WHERE jobtitle = 'Production Technician - WC40'  
+ORDER BY birthdate;
+
+select * from Person.Person
+WHERE  LastName like 'Smith'
+
+SELECT HE.businessentityid, jobtitle, birthdate
+FROM humanresources.employee HE
+join Person.Person PP
+on PP.BusinessEntityID=HE.BusinessEntityID
+WHERE BirthDate > '1970-01-01'  and LastName like 'Smith'
+ORDER BY birthdate;
+
+
+--172. From the following table write a query in SQL to return the rows with different firstname values from Adam. 
+--Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+SELECT businessentityid, persontype, firstname, middlename,lastname
+from person.person
+WHERE firstname  IS DISTINCT FROM 'Adam'
+order by firstname;
+
+
+SELECT businessentityid, persontype, firstname, middlename, lastname
+FROM person.person
+WHERE firstname <> 'Adam'
+ORDER BY firstname;
+
+--173. From the following table write a query in SQL to find the rows where firstname doesn't differ from Adam's firstname. 
+--Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+SELECT businessentityid, persontype, firstname, middlename, lastname
+FROM person.person
+WHERE firstname = 'Adam'
+ORDER BY firstname ASC;
+
+--174. From the following table write a query in SQL to find the rows where middlename differs from NULL.
+-- Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+SELECT businessentityid, persontype, firstname, middlename,lastname
+from person.person
+WHERE middlename  IS DISTINCT FROM NULL
+order by firstname;
+
+SELECT businessentityid, persontype, firstname, middlename,lastname
+from person.person
+WHERE middlename  IS not NULL
+order by firstname;
+
+
+--175. From the following table write a query in SQL to identify the rows with a middlename that is not NULL. 
+--Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+SELECT businessentityid, persontype, firstname, isnull(middlename,'') middlename,lastname
+from person.person
+WHERE middlename  IS  NULL
+order by firstname;
+
+--176. From the following table write a query in SQL to fetch all products with a weight of less than 10 pounds or unknown color. 
+--Return the name, weight, and color for the product. Sort the result set in ascending order on name.
+SELECT Name,  Weight, isnull(Color,'') Color  
+FROM Production.Product  
+WHERE Weight < 10 OR Color IS NULL  
+ORDER BY Name;
+
+
+--177. From the following table write a query in SQL to list the salesperson whose salesytd begins with 1. 
+--Convert SalesYTD and current date in text format.
+
+
+
+SELECT BusinessEntityID,
+   SalesYTD,
+   CONVERT(varchar, SalesYTD) AS MoneyDisplayStyle1,
+   GETDATE() AS CurrentDate,
+   CONVERT(varchar, GETDATE(), 103) AS DateDisplayStyle3
+FROM Sales.SalesPerson
+WHERE CONVERT(varchar, SalesYTD) LIKE '1%';
+
+
+--178. From the following table write a query in SQL to return the count of employees by Name and Title, Name, and company total.
+--Filter the results by department ID 12 or 14. For each row, identify its aggregation level in the Title column.
+SELECT D.Name,  GROUPING(D.Name) from HumanResources.Department D  
+GROUP BY ROLLUP(D.Name);
+
+SELECT HRD.Name,  
+	   isnull(HRE.JobTitle,'') JobTitle ,
+	   COUNT(*) AS [Employee Count]  
+FROM HumanResources.Employee HRE  
+JOIN HumanResources.EmployeeDepartmentHistory HREDH  
+	ON HRE.BusinessEntityID = HREDH.BusinessEntityID  
+JOIN HumanResources.Department HRD  
+	ON HRD.DepartmentID = HREDH.DepartmentID       
+WHERE HREDH.EndDate IS NULL  
+	AND HRD.DepartmentID IN (12,14)  
+GROUP BY ROLLUP(HRD.Name, HRE.JobTitle);
+
+
+
+--179. From the following tables write a query in SQL to return only rows with a count of employees by department. 
+--Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
+
+SELECT HRD.Name,  
+	   isnull(HRE.JobTitle,'') JobTitle ,
+	   GROUPING(HRE.JobTitle) AS "Grouping Level"  ,
+	   COUNT(*) AS [Employee Count]  
+FROM HumanResources.Employee HRE  
+JOIN HumanResources.EmployeeDepartmentHistory HREDH  
+	ON HRE.BusinessEntityID = HREDH.BusinessEntityID  
+JOIN HumanResources.Department HRD  
+	ON HRD.DepartmentID = HREDH.DepartmentID       
+WHERE HREDH.EndDate IS NULL  
+	AND HRD.DepartmentID IN (12,14)  
+GROUP BY ROLLUP(HRD.Name, HRE.JobTitle)
+HAVING GROUPING(HRE.JobTitle) = 1;
+
+
+--180. From the following tables write a query in SQL to return only the rows that have a count of employees by title. 
+--Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
+SELECT HRD.Name,  
+	   isnull(HRE.JobTitle,'') JobTitle ,
+	   GROUPING(HRE.JobTitle) AS "Grouping Level"  ,
+	   COUNT(*) AS [Employee Count]  
+FROM HumanResources.Employee HRE  
+JOIN HumanResources.EmployeeDepartmentHistory HREDH  
+	ON HRE.BusinessEntityID = HREDH.BusinessEntityID  
+JOIN HumanResources.Department HRD  
+	ON HRD.DepartmentID = HREDH.DepartmentID       
+WHERE HREDH.EndDate IS NULL  
+	AND HRD.DepartmentID IN (12,14)  
+GROUP BY ROLLUP(HRD.Name, HRE.JobTitle)
+HAVING GROUPING(HRE.JobTitle) = 1;
+
+
+
+
+SELECT D.Name  
+    ,E.JobTitle  
+    ,GROUPING(D.Name) AS "Grouping Level"  
+    ,COUNT(E.BusinessEntityID) AS "Employee Count"  
+FROM HumanResources.Employee AS E  
+    INNER JOIN HumanResources.EmployeeDepartmentHistory AS DH  
+        ON E.BusinessEntityID = DH.BusinessEntityID  
+    INNER JOIN HumanResources.Department AS D  
+        ON D.DepartmentID = DH.DepartmentID       
+WHERE DH.EndDate IS NULL  
+    AND D.DepartmentID IN (12,14)  
+GROUP BY ROLLUP(E.JobTitle,D.Name)
+HAVING GROUPING(D.Name) = 0;
+
+
+--181. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over previous calendar quarters. 
+--Sort the results by salesperson with businessentity id 277 and quotadate year 2012 or 2013.
+alter proc newProc
+as 
+begin
+declare @Year   varchar(20)
+declare @quarter varchar(20)
+   set @Year= 'DATEPART(YEAR,quotadate)', 
+   set @quarter='DATEPART(QUARTER, quotadate)'
+SELECT
+    @Year AS Year,
+    @quarter AS Quarter,
+    SalesQuota,
+    LAG(SalesQuota) OVER (ORDER BY @Year, @quarter) AS PrevQuota, 
+	SalesQuota - LAG(SalesQuota) OVER (ORDER BY @Year,@quarter) AS Diff
+FROM
+    sales.salespersonquotahistory
+WHERE
+    businessentityid = 277
+    AND @Year IN (2012, 2013)
+ORDER BY
+    DATEPART(YEAR, quotadate),
+    DATEPART(QUARTER, quotadate);
+
+end
+
+exec newProc
+
+SELECT
+    DATEPART(YEAR, quotadate) AS Year,
+    DATEPART(QUARTER, quotadate) AS Quarter,
+    SalesQuota,
+    LAG(SalesQuota) OVER (ORDER BY DATEPART(YEAR, quotadate), DATEPART(QUARTER, quotadate)) AS PrevQuota,
+    SalesQuota - LAG(SalesQuota) OVER (ORDER BY DATEPART(YEAR, quotadate), DATEPART(QUARTER, quotadate)) AS Diff
+FROM
+    sales.salespersonquotahistory
+WHERE
+    businessentityid = 277
+    AND DATEPART(YEAR, quotadate) IN (2012, 2013)
+ORDER BY
+    DATEPART(YEAR, quotadate),
+    DATEPART(QUARTER, quotadate);
+
+
+--182. From the following table write a query in SQL to return a truncated date with 4 months added to the orderdate.
+SELECT 
+    orderdate,
+    DATEADD(MONTH, 4, orderdate) AS NewDate
+FROM 
+    Sales.salesorderheader;
+
+--183. From the following table write a query in SQL to return the orders that have sales on or after December 2011. 
+--Return salesorderid, MonthOrderOccurred, salespersonid, customerid, subtotal, Running Total, and actual order date.
+
+
+SELECT
+	salesorderid,
+	DATEADD(MONTH, DATEDIFF(MONTH, 0, orderdate), 0) AS MonthOrderOccurred,
+	salespersonid,
+	customerid,
+	subtotal,
+	SUM(subtotal) OVER ( PARTITION BY customerid ORDER BY orderdate, salesorderid
+		ROWS UNBOUNDED PRECEDING
+	) AS RunningTotal,
+	orderdate AS ActualOrderDate
+FROM
+    Sales.salesorderheader
+WHERE
+	salespersonid IS NOT NULL
+	AND DATEADD(MONTH, DATEDIFF(MONTH, 0, orderdate), 0) >= '2011-12-01';
+
+
+
+--184. From the following table write a query in SQL to repeat the 0 character four times before productnumber. 
+--Return name, productnumber and newly created productnumber.
+
+SELECT
+    Name,
+    productnumber,
+    CONCAT('0000', productnumber) AS fullProductNumber
+FROM
+    Production.Product;
+
+
+
+--185. From the following table write a query in SQL to find all special offers. 
+--When the maximum quantity for a special offer is NULL, return MaxQty as zero.
+
+select Description, DiscountPct, MinQty,isnull(MaxQty, 0.00) as [Max Quantity] from Sales.SpecialOffer
+
+
+
+
+--186. From the following table write a query in SQL to find all products that have NULL in the weight column. Return name and weight.
+SELECT Name, Weight  
+FROM Production.Product  
+WHERE Weight is null;
+
+
+--187. From the following table write a query in SQL to find the data from the first column that has a non-null value. 
+--Return name, color, productnumber, and firstnotnull column.
+SELECT Name, Color, ProductNumber, COALESCE(Color, ProductNumber) AS FirstNotNull   
+FROM production.Product ;
+
+
+SELECT
+    Name,
+    Color,
+    ProductNumber,
+    CONCAT_WS('', Color, ProductNumber) AS FirstNotNull
+FROM
+    Production.Product;
+
+
+--188. From the following tables write a query in SQL to return rows only when both the productid and 
+--startdate values in the two tables matches.
+
+select * from Production.workorder
+
+
+select * from Production.workorderrouting 
+
+
+SELECT a.productid, a.startdate 
+FROM production.workorder AS a  
+WHERE EXISTS  
+(SELECT *   
+    FROM production.workorderrouting  AS b  
+    WHERE (a.productid = b.productid and a.startdate=b.actualstartdate)) ;
+
+
+
+SELECT  a.productid, a.startdate
+FROM production.workorder AS a
+JOIN production.workorderrouting AS b
+ON a.productid = b.productid AND a.startdate = b.actualstartdate;
+
+--189. From the following tables write a query in SQL to return rows except both the productid and startdate
+--values in the two tables matches.
+
+
+SELECT  a.productid, a.startdate
+FROM production.workorder AS a
+JOIN production.workorderrouting AS b
+ON a.productid = b.productid AND a.startdate = b.actualstartdate;
+
+
+--190. From the following table write a query in SQL to find all creditcardapprovalcodes starting with 1 and the third digit is 6. 
+--Sort the result set in ascending order on orderdate.
+create proc modif
+as
+begin
+
+SELECT salesorderid, orderdate, creditcardapprovalcode  
+FROM sales.salesorderheader 
+WHERE creditcardapprovalcode LIKE '1_6%'  
+ORDER by orderdate;
+end
+
+exec modif
+
+
+
+--191. From the following table write a query in SQL to concatenate character and date data types for the order ID 50001.
+
+SELECT concat('The order is due on ' , cast(DueDate as VARCHAR(12)))  
+FROM Sales.SalesOrderHeader  
+WHERE SalesOrderID = 50001;
+
+
+SELECT ('The order is due on ' + cast(DueDate as VARCHAR(20)))  
+FROM Sales.SalesOrderHeader  
+WHERE SalesOrderID = 50001;
+
+
+
+--192. From the following table write a query in SQL to form one long string to display the last name and the first initial of the vice presidents. 
+--Sort the result set in ascending order on lastname.
+
+SELECT (LastName +', ' + SUBSTRING(FirstName, 1, 1)+ '.')  AS Name, HRE.JobTitle  
+FROM Person.Person AS PP  
+    JOIN HumanResources.Employee AS HRE  
+    ON PP.BusinessEntityID = HRE.BusinessEntityID  
+WHERE HRE.JobTitle LIKE 'Vice President%'  
+ORDER BY LastName ;
+
+
+--193. From the following table write a query in SQL to return only the rows for Product that have 
+--a product line of R and that have days to manufacture that is less than 4. Sort the result set in ascending order on name.
+select name ,productnumber,ListPrice 
+from Production.Product
+where ProductLine like 'R%' and DaysToManufacture<4
+order by Name
+
+
+
+--194. From the following tables write a query in SQL to return total sales and the discounts for each product. 
+--Sort the result set in descending order on productname.
+select * from Production.Product
+
+select name productname ,StandardCost nondiscountsales,ListPrice discounts
+from Production.Product
+
+
+SELECT PP.Name AS ProductName, 
+(OrderQty * UnitPrice) as NonDiscountSales,
+((OrderQty * UnitPrice) * UnitPriceDiscount) as Discounts
+FROM Production.Product AS PP 
+INNER JOIN Sales.SalesOrderDetail AS SSOD
+ON PP.ProductID = SSOD.ProductID 
+ORDER BY ProductName DESC;
+
+
+
+SELECT
+    ProductName,
+    (OrderQty * UnitPrice) AS NonDiscountSales,
+    ((OrderQty * UnitPrice) * UnitPriceDiscount) AS Discounts
+FROM
+    (
+        SELECT
+            PP.Name AS ProductName,
+            SSOD.OrderQty,
+            SSOD.UnitPrice,
+            SSOD.UnitPriceDiscount
+        FROM
+            Production.Product AS PP
+        INNER JOIN
+            Sales.SalesOrderDetail AS SSOD ON PP.ProductID = SSOD.ProductID
+    ) AS SubQuery
+ORDER BY
+    ProductName DESC;
+
+
+--195. From the following tables write a query in SQL to calculate the revenue for each product in each sales order. 
+--Sort the result set in ascending order on productname.
+select * from Production.Product
+select * from Sales.SalesOrderDetail
+
+SELECT 'Total income is', ((OrderQty * UnitPrice) * (1.0 - UnitPriceDiscount)), ' for ',
+p.Name AS ProductName 
+FROM Production.Product AS p 
+INNER JOIN Sales.SalesOrderDetail AS sod
+ON p.ProductID = sod.ProductID 
+ORDER BY ProductName ASC;
+
+SELECT 
+    'Total income is ' , 
+	((SSOD.OrderQty * SSOD.UnitPrice) - (SSOD.OrderQty * SSOD.UnitPrice* SSOD.UnitPriceDiscount)) , 
+	' for ' ,
+	PP.Name AS ProductName
+FROM 
+    (
+        SELECT ProductID,
+				OrderQty, 
+				UnitPrice, 
+				UnitPriceDiscount
+        FROM Sales.SalesOrderDetail
+    ) AS SSOD
+ JOIN 
+    Production.Product AS PP
+	ON PP.ProductID = SSOD.ProductID
+ORDER BY 
+    PP.Name ;
+
+--196. From the following tables write a query in SQL to retrieve one instance of each product name 
+--whose product model is a long sleeve logo jersey, and the ProductModelID numbers match between the tables.
+SELECT DISTINCT Name
+FROM Production.Product AS p 
+WHERE EXISTS
+    (SELECT *
+     FROM Production.ProductModel AS pm 
+     WHERE p.ProductModelID = pm.ProductModelID
+           AND pm.Name LIKE 'Long-Sleeve Logo Jersey%');
+
+SELECT  PP.Name
+FROM Production.Product AS PP
+JOIN Production.ProductModel AS PPM 
+ON PP.ProductModelID = PPM.ProductModelID
+WHERE PPM.Name LIKE 'Long-Sleeve Logo Jersey%';
+
+
+--197. From the following tables write a query in SQL to retrieve the first and
+--last name of each employee whose bonus in the SalesPerson table is 5000.
+SELECT  PP.LastName, PP.FirstName 
+FROM Person.Person AS PP 
+JOIN HumanResources.Employee AS HRE
+    ON HRE.BusinessEntityID = PP.BusinessEntityID 
+join Sales.SalesPerson AS SSP
+   ON HRE.BusinessEntityID = SSP.BusinessEntityID
+WHERE SSP.Bonus= 5000
+
+--198. From the following table write a query in SQL to find product models 
+--where the maximum list price is more than twice the average.
+
+
+SELECT ProductModelID
+FROM Production.Product
+GROUP BY ProductModelID
+HAVING MAX(ListPrice) <= 2 * AVG(ListPrice);
+
+
+--199. From the following table write a query in SQL to find the names of employees who have sold a particular product.
+
+alter proc newfunc
+@productame varchar(50)
+as
+begin
+
+SELECT DISTINCT pp.LastName, pp.FirstName,p.Name
+FROM Person.Person pp
+JOIN HumanResources.Employee e 
+	ON e.BusinessEntityID = pp.BusinessEntityID
+JOIN Sales.SalesOrderHeader soh
+	ON soh.SalesPersonID = pp.BusinessEntityID
+JOIN Sales.SalesOrderDetail sod 
+	ON sod.SalesOrderID = soh.SalesOrderID
+JOIN Production.Product p
+	ON p.ProductID = sod.ProductID
+WHERE p.Name = @productame;
+
+end
+
+ exec newfunc @productame = 'Mountain-200 Black, 42';
+
+--200. Create a table public.gloves from Production.ProductModel for the ProductModelID 3 and 4.
+--From the following table write a query in SQL to include the contents of the ProductModelID and Name columns of both the tables.
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Gloves' AND schema_id = SCHEMA_ID('public'))
+	BEGIN
+		SELECT ProductModelID, Name
+		INTO puplic.Gloves
+		FROM Production.ProductModel
+		WHERE ProductModelID IN (3, 4);
+	END;
+
+select * from  puplic.Gloves
+
+
+
+
+
+

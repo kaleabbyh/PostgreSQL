@@ -606,7 +606,9 @@ Shu      |Ito              |Southwest     |2458535.62|  2|
 Jae      |Pak              |United Kingdom|4116871.23|  1|
 Click me to see the solution
 
-124. From the following table write a query in SQL to order the result set by the column TerritoryName when the column CountryRegionName is equal to 'United States' and by CountryRegionName for all other rows. Return BusinessEntityID, LastName, TerritoryName, CountryRegionName.
+124. From the following table write a query in SQL to order the result set by the column TerritoryName
+ when the column CountryRegionName is equal to 'United States' and by CountryRegionName for all other rows.
+ Return BusinessEntityID, LastName, TerritoryName, CountryRegionName.
 
 Sample table: Sales.vSalesPerson
 
@@ -633,7 +635,8 @@ businessentityid|lastname         |territoryname |countryregionname|
              289|Pak              |United Kingdom|United Kingdom   |
 Click me to see the solution
 
-125. From the following tables write a query in SQL to return the highest hourly wage for each job title. Restricts the titles to those that are held by men with a maximum pay rate greater than 40 dollars or women with a maximum pay rate greater than 42 dollars.
+125. From the following tables write a query in SQL to return the highest hourly wage for each job title. 
+Restricts the titles to those that are held by men with a maximum pay rate greater than 40 dollars or women with a maximum pay rate greater than 42 dollars.
 
 Sample table: HumanResources.Employee
 
@@ -663,7 +666,8 @@ Engineering Manager             |    43.2692|
 Finance Manager                 |    43.2692|
 Click me to see the solution
 
-126. From the following table write a query in SQL to sort the BusinessEntityID in descending order for those employees that have the SalariedFlag set to 'true' and in ascending order that have the SalariedFlag set to 'false'. Return BusinessEntityID, and SalariedFlag.
+126. From the following table write a query in SQL to sort the BusinessEntityID in descending order for those employees that 
+have the SalariedFlag set to 'true' and in ascending order that have the SalariedFlag set to 'false'. Return BusinessEntityID, and SalariedFlag.
 
 Sample table: HumanResources.Employee
 
@@ -689,7 +693,8 @@ businessentityid|salariedflag|
 ...			  
 Click me to see the solution
 
-127. From the following table write a query in SQL to display the list price as a text comment based on the price range for a product. Return ProductNumber, Name, and listprice. Sort the result set on ProductNumber in ascending order.
+127. From the following table write a query in SQL to display the list price as a text comment based on the price range for a product.
+ Return ProductNumber, Name, and listprice. Sort the result set on ProductNumber in ascending order.
 
 Sample table: production.Product
 
@@ -717,7 +722,8 @@ BK-M18B-52   |Mountain-500 Black, 52          |   539.99|Under $1000            
 ...
 Click me to see the solution
 
-128. From the following table write a query in SQL to change the display of product line categories to make them more understandable. Return ProductNumber, category, and name of the product. Sort the result set in ascending order on ProductNumber.
+128. From the following table write a query in SQL to change the display of product line categories to make them more understandable. 
+Return ProductNumber, category, and name of the product. Sort the result set in ascending order on ProductNumber.
 
 Sample table: production.Product
 
@@ -761,7 +767,8 @@ productid|makeflag|finishedgoodsflag|makeflag|
         4|false   |false            |        |
 Click me to see the solution
 
-130. From the following table write a query in SQL to select the data from the first column that has a nonnull value. Retrun Name, Class, Color, ProductNumber, and FirstNotNull.
+130. From the following table write a query in SQL to select the data from the first column that has a nonnull value. 
+Retrun Name, Class, Color, ProductNumber, and FirstNotNull.
 
 Sample table: production.Product
 
@@ -789,7 +796,8 @@ Decal 1                         |     |            |DC-8732      |DC-8732     |
 ...
 Click me to see the solution
 
-131. From the following table write a query in SQL to check the values of MakeFlag and FinishedGoodsFlag columns and return whether they are same or not. Return ProductID, MakeFlag, FinishedGoodsFlag, and the column that are null or not null.
+131. From the following table write a query in SQL to check the values of MakeFlag and FinishedGoodsFlag columns and return whether they are same or not. 
+Return ProductID, MakeFlag, FinishedGoodsFlag, and the column that are null or not null.
 
 Sample table: production.Product
 
@@ -891,7 +899,8 @@ productid|
 N.B. : No result returns here
 Click me to see the solution
 
-135. From the following tables write a query in SQL to fetch distinct businessentityid that are returned by both the specified query. Sort the result set by ascending order on businessentityid.
+135. From the following tables write a query in SQL to fetch distinct businessentityid that are returned 
+by both the specified query. Sort the result set by ascending order on businessentityid.
 
 Sample table: Person.BusinessEntity
 
@@ -923,7 +932,9 @@ businessentityid|
 ...	
 Click me to see the solution
 
-136. From the following table write a query which is the combination of two queries. Return any distinct businessentityid from the 1st query that aren't also found in the 2nd query. Sort the result set in ascending order on businessentityid.
+136. From the following table write a query which is the combination of two queries.
+ Return any distinct businessentityid from the 1st query that aren't also found in the 2nd query. 
+ Sort the result set in ascending order on businessentityid.
 
 Sample table: Person.BusinessEntity
 
@@ -953,7 +964,8 @@ businessentityid|
 ...			
 Click me to see the solution
 
-137. From the following tables write a query in SQL to combine the ProductModelID and Name columns. A result set includes columns for productid 3 and 4. Sort the results by name ascending.
+137. From the following tables write a query in SQL to combine the ProductModelID and Name columns.
+ A result set includes columns for productid 3 and 4. Sort the results by name ascending.
 
 Sample table: Production.ProductModel
 
@@ -986,7 +998,8 @@ productid|name                            |
 ...	
 Click me to see the solution
 
-138. From the following table write a query in SQL to find a total number of hours away from work can be calculated by adding vacation time and sick leave. Sort results ascending by Total Hours Away.
+138. From the following table write a query in SQL to find a total number of hours away from work can be 
+calculated by adding vacation time and sick leave. Sort results ascending by Total Hours Away.
 
 Sample table: HumanResources.Employee
 
@@ -1071,7 +1084,8 @@ salespersonid|firstname|lastname         |salesquota|Sales Target Per Month|
           290|Ranjit   |Varkey Chudukatil|    250000|    20833.333333333333|
 Click me to see the solution
 
-141. From the following table write a query in SQL to return the ID number, unit price, and the modulus (remainder) of dividing product prices. Convert the modulo to an integer value.
+141. From the following table write a query in SQL to return the ID number, unit price, 
+and the modulus (remainder) of dividing product prices. Convert the modulo to an integer value.
 
 Sample table: Sales.SalesOrderDetail
 
@@ -1119,7 +1133,8 @@ businessentityid|loginid               |jobtitle           |vacationhours|
               19|adventure-works\mary2 |Marketing Assistant|           43|
 Click me to see the solution
 
-143. From the following tables write a query in SQL to find all rows outside a specified range of rate between 27 and 30. Sort the result in ascending order on rate.
+143. From the following tables write a query in SQL to find all rows outside a specified range of rate between 27 and 30. 
+Sort the result in ascending order on rate.
 
 Sample table: HumanResources.vEmployee
 
@@ -1164,7 +1179,8 @@ businessentityid|ratechangedate         |
              224|2012-01-01 00:00:00.000|
 Click me to see the solution
 
-145. From the following table write a query in SQL to return TRUE even if NULL is specified in the subquery. Return DepartmentID, Name and sort the result set in ascending order.
+145. From the following table write a query in SQL to return TRUE even if NULL is specified in the subquery. 
+Return DepartmentID, Name and sort the result set in ascending order.
 
 Sample table: HumanResources.Department
 
@@ -1233,7 +1249,8 @@ name|
 ----+
 Click me to see the solution
 
-148. From the following tables write a query in SQL to find employees of departments that start with P. Return first name, last name, job title.
+148. From the following tables write a query in SQL to find employees of departments that start with P. 
+Return first name, last name, job title.
 
 Sample table: Person.Person
 
@@ -1341,7 +1358,8 @@ Mary     |Dempsey  |Marketing Assistant|
 Wanida   |Benshoof |Marketing Assistant| 
 Click me to see the solution
 
-151. From the following tables write a query in SQL to identify all SalesPerson IDs for employees with sales quotas over $250,000. Return first name, last name of the sales persons.
+151. From the following tables write a query in SQL to identify all SalesPerson IDs for employees with sales quotas over $250,000. 
+Return first name, last name of the sales persons.
 
 Sample table: Person.Person
 
@@ -1362,7 +1380,8 @@ Tsvi     |Reiter     |
 Tete     |Mensa-Annan|
 Click me to see the solution
 
-152. From the following tables write a query in SQL to find the salespersons who do not have a quota greater than $250,000. Return first name and last name.
+152. From the following tables write a query in SQL to find the salespersons who do not have a quota greater than $250,000. 
+Return first name and last name.
 
 Sample table: Person.Person
 
@@ -1428,7 +1447,8 @@ salesorderid|salesreasonid|modifieddate           |
 ...	 
 Click me to see the solution
 
-154. From the following table write a query in SQL to find all telephone numbers that have area code 415. Returns the first name, last name, and phonenumber. Sort the result set in ascending order by lastname.
+154. From the following table write a query in SQL to find all telephone numbers that have area code 415. 
+Returns the first name, last name, and phonenumber. Sort the result set in ascending order by lastname.
 
 Sample table: Person.Person
 
@@ -1483,7 +1503,8 @@ Gail     |Russell  |334-555-0170       |
 Gail     |Westover |305-555-0100       |
 Click me to see the solution
 
-156. From the following tables write a query in SQL to find all Silver colored bicycles with a standard price under $400. Return ProductID, Name, Color, StandardCost.
+156. From the following tables write a query in SQL to find all Silver colored bicycles with a standard price under $400. 
+Return ProductID, Name, Color, StandardCost.
 
 Sample table: Production.Product
 
@@ -1501,7 +1522,8 @@ productid|name                   |color |standardcost|
       988|Mountain-500 Silver, 52|Silver|    308.2179|
 Click me to see the solution
 
-157. From the following table write a query in SQL to retrieve the names of Quality Assurance personnel working the evening or night shifts. Return first name, last name, shift.
+157. From the following table write a query in SQL to retrieve the names of Quality Assurance personnel working the evening or night shifts. 
+Return first name, last name, shift.
 
 Sample table: HumanResources.EmployeeDepartmentHistory
 
@@ -1565,7 +1587,8 @@ salesorderid|orderdate              |orderdate_timezoneade        |
 ...	   
 Click me to see the solution
 
-160. From the following table write a query in SQL to convert order date in the 'America/Denver' time zone and also convert from 'America/Denver' time zone to 'America/Chicago' time zone.
+160. From the following table write a query in SQL to convert order date in the 'America/Denver' time zone 
+and also convert from 'America/Denver' time zone to 'America/Chicago' time zone.
 
 Sample table: Sales.SalesOrderHeader
 
@@ -1656,7 +1679,8 @@ productid|name        |color|
       712|AWC Logo Cap|Multi|
 Click me to see the solution
 
-164. From the following table write a query in SQL to find the SalesPersonID, salesyear, totalsales, salesquotayear, salesquota, and amt_above_or_below_quota columns. Sort the result set in ascending order on SalesPersonID, and SalesYear columns.
+164. From the following table write a query in SQL to find the SalesPersonID, salesyear, totalsales,
+ salesquotayear, salesquota, and amt_above_or_below_quota columns. Sort the result set in ascending order on SalesPersonID, and SalesYear columns.
 
 Sample table: Sales.SalesOrderHeader
 
@@ -1691,7 +1715,8 @@ Click me to see the solution
 
 165. From the following tables write a query in SQL to return the cross product of BusinessEntityID and Department columns.
 
-The following example returns the cross product of the two tables Employee and Department in the AdventureWorks2019 database. A list of all possible combinations of BusinessEntityID rows and all Department name rows are returned.
+The following example returns the cross product of the two tables Employee and Department in the AdventureWorks2019 database.
+ A list of all possible combinations of BusinessEntityID rows and all Department name rows are returned.
 
 Sample table: HumanResources.Employee
 
@@ -1792,7 +1817,9 @@ salesorderid|productid|name                            |
 ...	   
 Click me to see the solution
 
-168. From the following tables write a query in SQL to retrieve the SalesOrderid. A NULL is returned if no orders exist for a particular Territoryid. Return territoryid, countryregioncode, and salesorderid. Results are sorted by SalesOrderid, so that NULLs appear at the top.
+168. From the following tables write a query in SQL to retrieve the SalesOrderid. 
+A NULL is returned if no orders exist for a particular Territoryid. Return territoryid, countryregioncode, and salesorderid. 
+Results are sorted by SalesOrderid, so that NULLs appear at the top.
 
 Sample table: sales.salesterritory
 
@@ -1823,7 +1850,9 @@ territoryid|countryregioncode|salesorderid|
 ...	
 Click me to see the solution
 
-169. From the following table write a query in SQL to return all rows from both joined tables but returns NULL for values that do not match from the other table. Return territoryid, countryregioncode, and salesorderid. Results are sorted by SalesOrderid.
+169. From the following table write a query in SQL to return all rows from both joined tables but 
+returns NULL for values that do not match from the other table. Return territoryid, countryregioncode,
+ and salesorderid. Results are sorted by SalesOrderid.
 
 Sample table: sales.salesterritory
 
@@ -1887,7 +1916,8 @@ territoryid|salesorderid|
 ...		
 Click me to see the solution
 
-171. From the following table write a query in SQL to return all customers with BirthDate values after January 1, 1970 and the last name 'Smith'. Return businessentityid, jobtitle, and birthdate. Sort the result set in ascending order on birthday.
+171. From the following table write a query in SQL to return all customers with BirthDate values after January 1, 1970 and
+ the last name 'Smith'. Return businessentityid, jobtitle, and birthdate. Sort the result set in ascending order on birthday.
 
 Sample table: HumanResources.Employee
 
@@ -1906,7 +1936,8 @@ businessentityid|jobtitle                    |birthdate |
              133|Production Technician - WC40|1991-01-04|
 Click me to see the solution
 
-172. From the following table write a query in SQL to return the rows with different firstname values from Adam. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+172. From the following table write a query in SQL to return the rows with different firstname values from Adam. 
+Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
 
 Sample table: Person.Person
 
@@ -1934,7 +1965,8 @@ businessentityid|persontype|firstname               |middlename      |lastname  
 ...	
 Click me to see the solution
 
-173. From the following table write a query in SQL to find the rows where firstname doesn't differ from Adam's firstname. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+173. From the following table write a query in SQL to find the rows where firstname doesn't differ from Adam's firstname. 
+Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
 
 Sample table: Person.Person
 
@@ -1962,7 +1994,8 @@ businessentityid|persontype|firstname|middlename|lastname  |
 ...	
 Click me to see the solution
 
-174. From the following table write a query in SQL to find the rows where middlename differs from NULL. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+174. From the following table write a query in SQL to find the rows where middlename differs from NULL.
+ Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
 
 Sample table: Person.Person
 
@@ -1989,7 +2022,8 @@ businessentityid|persontype|firstname      |middlename      |lastname         |
 ...	
 Click me to see the solution
 
-175. From the following table write a query in SQL to identify the rows with a middlename that is not NULL. Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
+175. From the following table write a query in SQL to identify the rows with a middlename that is not NULL. 
+Return businessentityid, persontype, firstname, middlename,and lastname. Sort the result set in ascending order on firstname.
 
 Sample table: Person.Person
 
@@ -2016,7 +2050,8 @@ businessentityid|persontype|firstname               |middlename|lastname        
 ...	
 Click me to see the solution
 
-176. From the following table write a query in SQL to fetch all products with a weight of less than 10 pounds or unknown color. Return the name, weight, and color for the product. Sort the result set in ascending order on name.
+176. From the following table write a query in SQL to fetch all products with a weight of less than 10 pounds or unknown color. 
+Return the name, weight, and color for the product. Sort the result set in ascending order on name.
 
 Sample table: Production.Product
 
@@ -2043,7 +2078,8 @@ Decal 2                         |      |      |
 ...
 Click me to see the solution
 
-177. From the following table write a query in SQL to list the salesperson whose salesytd begins with 1. Convert SalesYTD and current date in text format.
+177. From the following table write a query in SQL to list the salesperson whose salesytd begins with 1. 
+Convert SalesYTD and current date in text format.
 
 Sample table: Sales.SalesPerson
 
@@ -2063,7 +2099,8 @@ businessentityid|salesytd    |moneydisplaystyle1|currentdate                  |d
              288|1827066.7118|1827066.7118      |2022-12-01 14:35:09.855 +0530|2022-12-01 14:35:09.855204+05:30|
 Click me to see the solution
 
-178. From the following table write a query in SQL to return the count of employees by Name and Title, Name, and company total. Filter the results by department ID 12 or 14. For each row, identify its aggregation level in the Title column.
+178. From the following table write a query in SQL to return the count of employees by Name and Title, Name, and company total.
+ Filter the results by department ID 12 or 14. For each row, identify its aggregation level in the Title column.
 
 Sample table: HumanResources.Employee
 
@@ -2096,7 +2133,8 @@ Facilities and Maintenance|Total :Facilities and Maintenance  |             7|
 Document Control          |Total :Document Control            |             5|
 Click me to see the solution
 
-179. From the following tables write a query in SQL to return only rows with a count of employees by department. Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
+179. From the following tables write a query in SQL to return only rows with a count of employees by department. 
+Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
 
 Sample table: HumanResources.Employee
 
@@ -2121,7 +2159,8 @@ Facilities and Maintenance|        |             1|             7|
 Document Control          |        |             1|             5|
 Click me to see the solution
 
-180. From the following tables write a query in SQL to return only the rows that have a count of employees by title. Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
+180. From the following tables write a query in SQL to return only the rows that have a count of employees by title. 
+Filter the results by department ID 12 or 14. Return name, jobtitle, grouping level and employee count.
 
 Sample table: HumanResources.Employee
 
@@ -2151,7 +2190,8 @@ Facilities and Maintenance|Maintenance Supervisor             |             0|  
 Facilities and Maintenance|Facilities Administrative Assistant|             0|             1|
 Click me to see the solution
 
-181. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over previous calendar quarters. Sort the results by salesperson with businessentity id 277 and quotadate year 2012 or 2013.
+181. From the following table write a query in SQL to return the difference in sales quotas for a specific employee over previous calendar quarters. 
+Sort the results by salesperson with businessentity id 277 and quotadate year 2012 or 2013.
 
 Sample table: sales.salespersonquotahistory
 
@@ -2193,7 +2233,8 @@ year                   |quarter|salesquota|prevquota|diff   |
 2013-11-30 00:00:00.000|    4.0|    714000|   971000|-257000|
 Click me to see the solution
 
-183. From the following table write a query in SQL to return the orders that have sales on or after December 2011. Return salesorderid, MonthOrderOccurred, salespersonid, customerid, subtotal, Running Total, and actual order date.
+183. From the following table write a query in SQL to return the orders that have sales on or after December 2011. 
+Return salesorderid, MonthOrderOccurred, salespersonid, customerid, subtotal, Running Total, and actual order date.
 
 Sample table: sales.salesorderheader
 
@@ -2218,7 +2259,8 @@ salesorderid|monthorderoccurred     |salespersonid|customerid|subtotal   |runnin
 ...	
 Click me to see the solution
 
-184. From the following table write a query in SQL to repeat the 0 character four times before productnumber. Return name, productnumber and newly created productnumber.
+184. From the following table write a query in SQL to repeat the 0 character four times before productnumber. 
+Return name, productnumber and newly created productnumber.
 
 Sample table: Production.Product
 
@@ -2243,7 +2285,8 @@ Chainring                       |CR-7833      |0000CR-7833      |
 ...
 Click me to see the solution
 
-185. From the following table write a query in SQL to find all special offers. When the maximum quantity for a special offer is NULL, return MaxQty as zero.
+185. From the following table write a query in SQL to find all special offers. 
+When the maximum quantity for a special offer is NULL, return MaxQty as zero.
 
 Sample table: Sales.SpecialOffer
 
@@ -2301,7 +2344,8 @@ Decal 2                        |      |
 ...
 Click me to see the solution
 
-187. From the following table write a query in SQL to find the data from the first column that has a non-null value. Return name, color, productnumber, and firstnotnull column.
+187. From the following table write a query in SQL to find the data from the first column that has a non-null value. 
+Return name, color, productnumber, and firstnotnull column.
 
 Sample table: Production.Product
 
@@ -2388,7 +2432,8 @@ productid|startdate              |
 ...	  
 Click me to see the solution
 
-190. From the following table write a query in SQL to find all creditcardapprovalcodes starting with 1 and the third digit is 6. Sort the result set in ascending order on orderdate.
+190. From the following table write a query in SQL to find all creditcardapprovalcodes starting with 1 and the third digit is 6. 
+Sort the result set in ascending order on orderdate.
 
 Sample table: sales.salesorderheader
 
@@ -2426,7 +2471,8 @@ concat                          |
 The order is due on 2013-03-22 0|
 Click me to see the solution
 
-192. From the following table write a query in SQL to form one long string to display the last name and the first initial of the vice presidents. Sort the result set in ascending order on lastname.
+192. From the following table write a query in SQL to form one long string to display the last name and the first initial of the vice presidents. 
+Sort the result set in ascending order on lastname.
 
 Sample table: HumanResources.Employee
 
@@ -2443,7 +2489,8 @@ Welcker, B. |Vice President of Sales      |
 
 Click me to see the solution
 
-193. From the following table write a query in SQL to return only the rows for Product that have a product line of R and that have days to manufacture that is less than 4. Sort the result set in ascending order on name.
+193. From the following table write a query in SQL to return only the rows for Product that have 
+a product line of R and that have days to manufacture that is less than 4. Sort the result set in ascending order on name.
 
 Sample table: Production.Product
 
@@ -2472,7 +2519,8 @@ HL Road Handlebars          |HB-R956      | 120.27|
 ...
 Click me to see the solution
 
-194. From the following tables write a query in SQL to return total sales and the discounts for each product. Sort the result set in descending order on productname.
+194. From the following tables write a query in SQL to return total sales and the discounts for each product. 
+Sort the result set in descending order on productname.
 
 Sample table: Production.Product
 
@@ -2504,7 +2552,8 @@ Women's Tights, S              |         359.952|      0.000|
 ...
 Click me to see the solution
 
-195. From the following tables write a query in SQL to calculate the revenue for each product in each sales order. Sort the result set in ascending order on productname.
+195. From the following tables write a query in SQL to calculate the revenue for each product in each sales order. 
+Sort the result set in ascending order on productname.
 
 Sample table: Production.Product
 
@@ -2536,7 +2585,8 @@ Total income is|       159.0| for    |All-Purpose Bike Stand          |
 ...
 Click me to see the solution
 
-196. From the following tables write a query in SQL to retrieve one instance of each product name whose product model is a long sleeve logo jersey, and the ProductModelID numbers match between the tables.
+196. From the following tables write a query in SQL to retrieve one instance of each product name 
+whose product model is a long sleeve logo jersey, and the ProductModelID numbers match between the tables.
 
 Sample table: Production.Product
 
